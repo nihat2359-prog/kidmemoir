@@ -1,0 +1,457 @@
+{
+  "landing": {
+    "brand": {
+      "name": "KidMemoir"
+    },
+    "nav": {
+      "ariaLabel": "Ana navigasyon",
+      "homeAriaLabel": "KidMemoir ana sayfa",
+      "features": "Özellikler",
+      "ai": "KidMemoir AI",
+      "timeline": "Zaman Tüneli",
+      "pricing": "Fiyatlandırma",
+      "faq": "SSS",
+      "login": "Giriş yap",
+      "register": "Ücretsiz başla",
+      "openMenu": "Menüyü aç",
+      "closeMenu": "Menüyü kapat",
+      "mobileAriaLabel": "Mobil navigasyon"
+    },
+    "hero": {
+      "eyebrow": "Bir ömür, kaybolmayan anılar",
+      "titleBefore": "Çocuğunuzun hikâyesi,",
+      "titleAccent": "zamanın ötesinde",
+      "titleAfter": "yaşasın.",
+      "description": "İlk gülümsemeden en büyük hayallere… KidMemoir, çocuğunuzun hayat yolculuğunu güvenle saklar ve anlamlı bir hikâyeye dönüştürür.",
+      "primaryButton": "Ücretsiz başlayın",
+      "secondaryButton": "Nasıl çalışıyor?",
+      "trustBadge": "Kredi kartı gerekmez · Bir çocuk için ücretsiz",
+      "securityBadge": "Ailenize özel ve güvende",
+      "storesLabel": "Yakında",
+      "stores": "App Store & Google Play",
+      "visualAriaLabel": "KidMemoir çocuk profili, zaman çizelgesi, yapay zekâ sohbeti ve anı kartları önizlemesi",
+      "profileLabel": "Çocuk profili",
+      "profileName": "Ada’nın hikâyesi",
+      "profileAge": "2 yıl · 48 anı",
+      "timelineLabel": "Zaman çizelgesi",
+      "timelineTitle": "İlk adımlar",
+      "timelineMeta": "2 Haziran 2025",
+      "aiLabel": "KidMemoir AI",
+      "aiMessage": "Bu ay 6 yeni kelime kaydettiniz.",
+      "reminderLabel": "Hatırlatma",
+      "reminderTitle": "Doktor kontrolü",
+      "reminderMeta": "Yarın · 10.30",
+      "photoLabel": "Fotoğraf",
+      "photoTitle": "Parkta ilk bahar",
+      "videoLabel": "Video",
+      "videoDuration": "00:18",
+      "audioLabel": "Ses kaydı",
+      "audioTitle": "İlk şarkısı",
+      "memoryLabel": "Bugünün anısı",
+      "memoryQuote": "Bugün kendi başına bisiklete bindi."
+    },
+    "trust": {
+      "ariaLabel": "KidMemoir güven ilkeleri",
+      "ownership": "Verileriniz size aittir",
+      "supabase": "Supabase altyapısı",
+      "encrypted": "Şifrelenmiş depolama",
+      "privacy": "Gizlilik öncelikli tasarım",
+      "ai": "Güvenli AI analizleri"
+    },
+    "story": {
+      "eyebrow": "Hatırlamak sandığımızdan zor",
+      "title": "Bir hayat, binlerce küçük ayrıntıda saklıdır.",
+      "description": "Günler hızla geçer. En değerli anlar farklı cihazlara ve unutulan notlara dağılır.",
+      "problemPhotos": "Bugün çekilen binlerce fotoğraf…",
+      "problemVideos": "Telefon değişince kaybolan videolar…",
+      "problemMemories": "Tarihi unutulan ilkler ve küçük cümleler…",
+      "turningPoint": "Hiçbiri kaybolmak zorunda değil.",
+      "solutionTitle": "KidMemoir hepsini yaşayan tek bir hikâyede buluşturur.",
+      "solutionDescription": "Anılar, sesler, belgeler ve gelişim notları doğru zamanda, doğru bağlamla yeniden karşınıza çıkar."
+    },
+    "features": {
+      "eyebrow": "Her anın kendi biçimi var",
+      "title": "Bir arşivden fazlası. Çocuğunuza ait yaşayan bir dünya.",
+      "description": "Her kayıt, diğer anılarla birleşerek yıllar içinde anlamlı bir yaşam hikâyesine dönüşür.",
+      "timelineTitle": "Zaman çizelgesi",
+      "timelineDescription": "İlklerden günlük ayrıntılara kadar her şey doğru sırada.",
+      "timelinePreview1": "İlk adım",
+      "timelinePreview2": "İlk kelime",
+      "photosTitle": "Fotoğraflar",
+      "photosDescription": "Bir bakışta o güne geri dönün.",
+      "videosTitle": "Videolar",
+      "videosDescription": "Hareketi ve kahkahayı olduğu gibi saklayın.",
+      "audioTitle": "Ses kayıtları",
+      "audioDescription": "İlk kelimeler, şarkılar ve küçük sohbetler.",
+      "documentsTitle": "Belgeler",
+      "documentsDescription": "Raporlar ve önemli evraklar anının yanında.",
+      "remindersTitle": "Hatırlatmalar",
+      "remindersDescription": "Önemli günler ve kontroller zamanında karşınızda.",
+      "reminderPreview": "Doktor kontrolü · Yarın 10.30",
+      "aiTitle": "AI analizleri",
+      "aiDescription": "Kendi kayıtlarınıza dayanan, kaynaklı ve güvenli içgörüler.",
+      "aiPreview": "Bu ay 6 yeni kelime kaydettiniz.",
+      "searchTitle": "Akıllı arama",
+      "searchDescription": "Yıllar içindeki bir anı, kişi veya konuyu saniyeler içinde bulun.",
+      "searchPreview": "İlk bisiklet günü"
+    },
+    "howItWorks": {
+      "eyebrow": "Dört küçük adım",
+      "title": "Bugün kaydedin. Yıllar sonra yeniden yaşayın.",
+      "description": "KidMemoir günlük hayatınıza yük olmaz; hikâyeniz her yeni anıyla doğal biçimde büyür.",
+      "stepLabel": "Adım {number}",
+      "step1Title": "Çocuğunuzu oluşturun",
+      "step1Description": "Ona ait güvenli dijital alanı birkaç dakikada hazırlayın.",
+      "step2Title": "Anıları ekleyin",
+      "step2Description": "Fotoğraf, video, ses, belge veya yalnızca küçük bir not.",
+      "step3Title": "AI anlamlandırsın",
+      "step3Description": "Kayıtlar arasındaki değişimleri ve bağlantıları görünür kılsın.",
+      "step4Title": "Yeniden keşfedin",
+      "step4Description": "Yıllar sonra hayat hikâyesini bütün ayrıntılarıyla açın."
+    },
+    "aiSection": {
+      "eyebrow": "KidMemoir AI",
+      "productName": "KidMemoir AI",
+      "title": "Sadece hatırlamaz. Anılar arasındaki hikâyeyi görür.",
+      "description": "KidMemoir AI; timeline, fotoğraf, video, belge, ses ve hatırlatmalarınızı birlikte okuyarak yalnızca size ait, kaynaklı yanıtlar oluşturur.",
+      "secure": "Ailenize özel analiz",
+      "questionLabel": "Siz sordunuz",
+      "question": "Ayşe bu yıl neleri başardı?",
+      "answerLabel": "KidMemoir AI yanıtladı",
+      "answer": "Ayşe bu yıl kendi başına bisiklete binmeyi öğrendi, ilk madalyasını aldı ve okumaya başladı. Kaydettiğiniz videolarda özgüveninin giderek arttığı görülüyor.",
+      "sourcesLabel": "Bu yanıtta kullanılan anılar",
+      "timelineSource": "Timeline · 4 kayıt",
+      "photoSource": "Fotoğraf · 12 kare",
+      "videoSource": "Video · 3 kayıt",
+      "documentSource": "Belge · 2 rapor",
+      "audioSource": "Ses · 5 kayıt",
+      "reminderSource": "Hatırlatma · 3 tamamlanan",
+      "disclaimer": "Yanıt yalnızca kendi aile kayıtlarınıza dayanır. Tıbbi veya psikolojik değerlendirme içermez."
+    },
+    "timelineSection": {
+      "eyebrow": "Yaşayan zaman çizelgesi",
+      "title": "Bir çocuğun hayatı, tarihlerden çok daha fazlasıdır.",
+      "description": "Her ilk, yanında o güne ait fotoğrafı, sesi, videosu ve küçük notuyla yeniden canlanır.",
+      "profile": "Ayşe’nin yaşam hikâyesi",
+      "range": "2023 — Bugün",
+      "previewLabel": "Timeline önizlemesi",
+      "event1Title": "Doğum",
+      "event1Meta": "12 Mayıs 2023 · Belge",
+      "event2Title": "İlk adım",
+      "event2Meta": "2 Haziran 2024 · Video",
+      "event3Title": "İlk kelime",
+      "event3Meta": "18 Ağustos 2024 · Ses",
+      "event4Title": "3. yaş",
+      "event4Meta": "12 Mayıs 2026 · Fotoğraf",
+      "event5Title": "İlk okul günü",
+      "event5Meta": "8 Eylül 2026 · Fotoğraf",
+      "event6Title": "İlk madalya",
+      "event6Meta": "14 Kasım 2026 · Video",
+      "event7Title": "İlk tatil",
+      "event7Meta": "21 Temmuz 2027 · 18 fotoğraf"
+    },
+    "memoryShowcase": {
+      "eyebrow": "Dijital anı kitabı",
+      "title": "Her anı, ait olduğu biçimde yaşasın.",
+      "description": "Bir galeri değil; fotoğrafların, seslerin, çizimlerin ve belgelerin aynı hikâyede buluştuğu kişisel bir dünya.",
+      "photo": "İlk bisiklet günü",
+      "photoMeta": "6 fotoğraf · 1 not",
+      "video": "İlk sahne gösterisi",
+      "videoMeta": "Video · 00:42",
+      "audio": "Anne dediği an",
+      "audioMeta": "Ses kaydı · 00:08",
+      "drawing": "Hayalindeki ev",
+      "drawingMeta": "Çizim · 5 yaş",
+      "document": "Gelişim raporu",
+      "documentMeta": "Belge · PDF",
+      "certificate": "Doğum sertifikası",
+      "certificateMeta": "Güvenli belge",
+      "aiSummary": "Bu ay daha cesur, daha meraklı.",
+      "aiSummaryMeta": "AI aylık özeti",
+      "reminder": "Yarın diş kontrolü",
+      "reminderMeta": "Hatırlatma · 10.30"
+    },
+    "privacy": {
+      "eyebrow": "Size özel",
+      "title": "En değerli verileriniz, en güçlü sınırlarımızın içinde.",
+      "description": "KidMemoir güveni sonradan eklenen bir özellik değil, ürünün temeli olarak ele alır.",
+      "encrypted": {
+        "title": "Şifreli bağlantı",
+        "description": "Veriler aktarım sırasında endüstri standardı güvenlikle korunur."
+      },
+      "access": {
+        "title": "Kullanıcı bazlı erişim",
+        "description": "Her aile yalnızca kendi özel kayıtlarına erişebilir."
+      },
+      "backup": {
+        "title": "Güvenli yedekleme",
+        "description": "Anılarınız dayanıklı bulut altyapısında korunur."
+      },
+      "privacy": {
+        "title": "Gizlilik öncelikli",
+        "description": "Aile verileri reklam veya genel AI eğitimi için kullanılmaz."
+      },
+      "infrastructure": "Supabase tabanlı güvenli veri altyapısı · Satır seviyesinde erişim politikaları"
+    },
+    "pricing": {
+      "eyebrow": "Hikâyenizle birlikte büyür",
+      "title": "Bugün ücretsiz başlayın. Anılarınız için doğru alan her zaman hazır olsun.",
+      "description": "Karmaşık paketler veya gizli sınırlar yok. Önce hikâyenizi başlatın, ihtiyaç duyduğunuzda daha fazlasına geçin.",
+      "recommended": "En çok tercih edilen",
+      "free": {
+        "name": "Free",
+        "description": "Bir çocuğun en değerli anılarını güvenle kaydetmeye başlamak için.",
+        "price": "₺0",
+        "period": "sonsuza kadar",
+        "button": "Free ile başlayın"
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "Ailenizin büyüyen hikâyesini daha derin analizler ve daha geniş alanla yaşatmak için.",
+        "price": "Yakında",
+        "period": "erken erişim",
+        "button": "Ücretsiz başlayın"
+      },
+      "features": {
+        "oneChild": "Bir çocuk için özel yaşam alanı",
+        "multipleChildren": "Birden fazla çocuk için ayrı hikâyeler",
+        "memory": "Fotoğraf, video, ses ve belge anıları",
+        "timeline": "Yaşayan zaman çizelgesi",
+        "storage": "Güvenli bulut depolama",
+        "limitedAi": "Temel KidMemoir AI kullanımı",
+        "advancedAi": "Gelişmiş AI analizleri ve özetler"
+      },
+      "assurances": {
+        "privacy": "Verileriniz her zaman size ait",
+        "cancel": "Taahhüt veya gizli ücret yok",
+        "export": "Anılarınızı dışa aktarabilme özgürlüğü"
+      }
+    },
+    "faq": {
+      "eyebrow": "Aklınızda soru kalmasın",
+      "title": "Güvenle başlamak için bilmeniz gerekenler.",
+      "description": "Ailenizin en özel anılarını emanet etmeden önce her ayrıntıyı bilmeniz gerektiğine inanıyoruz.",
+      "support": "Başka bir sorunuz varsa yanınızdayız.",
+      "ariaLabel": "KidMemoir hakkında sık sorulan sorular",
+      "privacy": {
+        "question": "Anılarım ve aile verilerim güvende mi?",
+        "answer": "KidMemoir güvenli bağlantılar, kullanıcı bazlı erişim politikaları ve korumalı bulut altyapısıyla tasarlanır. Her aile yalnızca kendi özel kayıtlarına erişebilir."
+      },
+      "ai": {
+        "question": "KidMemoir AI çocuğuma teşhis koyar mı?",
+        "answer": "Hayır. KidMemoir AI tıbbi veya psikolojik teşhis üretmez. Yalnızca sizin eklediğiniz anıları özetler, aralarındaki bağlantıları görünür kılar ve kullandığı kaynakları gösterir."
+      },
+      "training": {
+        "question": "Verilerim yapay zekâ eğitiminde kullanılır mı?",
+        "answer": "Hayır. Özel aile kayıtlarınız genel amaçlı yapay zekâ modellerini eğitmek veya reklam profili oluşturmak için kullanılmaz."
+      },
+      "free": {
+        "question": "Ücretsiz planla neler yapabilirim?",
+        "answer": "Bir çocuk profili oluşturabilir; temel anıları, medya kayıtlarını ve zaman çizelgesini kullanabilir, sınırlı KidMemoir AI deneyiminden yararlanabilirsiniz."
+      },
+      "media": {
+        "question": "Hangi tür anıları kaydedebilirim?",
+        "answer": "Fotoğraf, video, ses kaydı, belge, gelişim notu, önemli ilkler ve hatırlatmalar aynı yaşam hikâyesinde saklanabilir."
+      },
+      "export": {
+        "question": "Anılarımı daha sonra dışa aktarabilir miyim?",
+        "answer": "Evet. Kayıtlarınız size aittir. Anılarınızı ve raporlarınızı taşınabilir biçimlerde dışa aktarabilmeniz ürünün temel ilkelerinden biridir."
+      }
+    },
+    "finalCta": {
+      "eyebrow": "Bir gün, bugünleri yeniden arayacaksınız",
+      "title": "Çocuğunuzun hikâyesini gelecekteki ona bırakın.",
+      "description": "Bugün küçük görünen bir kelime, bir kahkaha veya kısa bir video; yıllar sonra ailenizin en değerli hazinesine dönüşebilir.",
+      "primaryButton": "Ücretsiz başlayın",
+      "secondaryButton": "Giriş yap",
+      "assurance": "Kredi kartı gerekmez · Anılarınız yalnızca size ait",
+      "storesAriaLabel": "Yakında sunulacak mobil uygulamalar",
+      "comingSoon": "Yakında",
+      "appStore": "App Store",
+      "googlePlay": "Google Play"
+    },
+    "footer": {
+      "homeAriaLabel": "KidMemoir ana sayfa",
+      "navigationAriaLabel": "Alt bilgi navigasyonu",
+      "description": "Çocuğunuzun yaşam yolculuğunu güvenle saklayan, anlamlandıran ve geleceğe taşıyan dijital aile hafızası.",
+      "email": "hello@kidmemoir.com",
+      "product": {
+        "title": "Ürün",
+        "features": "Özellikler",
+        "ai": "KidMemoir AI",
+        "timeline": "Zaman Tüneli",
+        "pricing": "Fiyatlandırma"
+      },
+      "company": {
+        "title": "Şirket",
+        "howItWorks": "Nasıl çalışır?",
+        "privacy": "Güvenlik yaklaşımı",
+        "faq": "Sık sorulanlar"
+      },
+      "support": {
+        "title": "Destek",
+        "contact": "İletişim",
+        "help": "Yardım merkezi",
+        "status": "Sistem güveni"
+      },
+      "legal": {
+        "title": "Yasal",
+        "terms": "Kullanım koşulları",
+        "privacyPolicy": "Gizlilik politikası",
+        "cookies": "Çerez politikası"
+      },
+      "copyright": "© {year} KidMemoir. Tüm hakları saklıdır.",
+      "signature": "Bir ailenin en değerli hikâyesi için tasarlandı.",
+      "socialAriaLabel": "KidMemoir sosyal medya bağlantıları",
+      "instagram": "KidMemoir Instagram hesabı",
+      "linkedin": "KidMemoir LinkedIn hesabı",
+      "emailSocial": "KidMemoir ile e-posta üzerinden iletişime geçin"
+    },
+    "seo": {
+      "title": "Çocuğunuzun Hayat Hikâyesini Güvenle Saklayın",
+      "description": "KidMemoir, çocuğunuzun gelişimini ve önemli anlarını güvenle saklayan yapay zekâ destekli dijital aile hafızasıdır.",
+      "openGraphTitle": "KidMemoir — Bir ömür, kaybolmayan anılar",
+      "openGraphDescription": "Çocuğunuzun hayat hikâyesini güvenle saklayın, zaman içinde görün ve KidMemoir AI ile anlamlandırın.",
+      "twitterTitle": "KidMemoir — Çocuğunuzun dijital hafızası",
+      "twitterDescription": "Önemli anları güvenle saklayın ve geleceğe taşıyın."
+    }
+  },
+  "auth": {
+    "layout": {
+      "skipToContent": "Kimlik doğrulama içeriğine geç",
+      "homeAriaLabel": "KidMemoir ana sayfasına dön",
+      "brandName": "KidMemoir",
+      "eyebrow": "Ailenize özel, güvenli bir alan",
+      "brandTitle": "Bugünün küçük anları, yarının en değerli hikâyesi.",
+      "brandDescription": "Çocuğunuzun ilklerini, sesini ve büyürken değişen dünyasını güvenle saklayın; yıllar sonra aynı duyguyla yeniden keşfedin.",
+      "storyAriaLabel": "KidMemoir yaşam hikâyesi önizlemesi",
+      "cardAriaLabel": "Kimlik doğrulama alanı",
+      "illustration": {
+        "ariaLabel": "KidMemoir anı, zaman çizelgesi, yapay zekâ, fotoğraf ve hatırlatma önizlemesi",
+        "memoryLabel": "Bugünün anısı",
+        "memoryTitle": "Kendi başına ilk kez",
+        "memoryText": "Bugün bisikletine bindi, derin bir nefes aldı ve hiç yardım istemeden ilerledi.",
+        "timelineLabel": "Zaman çizelgesi",
+        "timelineTitle": "İlk adımlar",
+        "timelineMeta": "2 Haziran 2025 · Video",
+        "aiLabel": "KidMemoir AI",
+        "aiText": "Bu ay 6 yeni kelime kaydettiniz.",
+        "photoTitle": "Parkta ilk bahar",
+        "photoMeta": "6 fotoğraf · 1 anı",
+        "reminderTitle": "Doktor kontrolü",
+        "reminderMeta": "Yarın · 10.30"
+      }
+    },
+    "login": {
+      "eyebrow": "Güvenli giriş",
+      "title": "Tekrar hoş geldiniz.",
+      "description": "Çocuğunuzun dijital yaşam hafızasına güvenle giriş yapın.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "ornek@email.com",
+      "passwordLabel": "Şifre",
+      "passwordPlaceholder": "Şifrenizi girin",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle",
+      "rememberMe": "Beni hatırla",
+      "forgotPassword": "Şifremi unuttum",
+      "submit": "Giriş yap",
+      "submitting": "Giriş yapılıyor",
+      "divider": "veya şununla devam edin",
+      "googleLogin": "Google",
+      "appleLogin": "Apple",
+      "comingSoon": "Yakında",
+      "registerPrompt": "Henüz hesabınız yok mu?",
+      "registerLink": "Ücretsiz hesap oluşturun",
+      "validation": {
+        "emailRequired": "Email adresinizi girin.",
+        "emailInvalid": "Geçerli bir email adresi girin.",
+        "passwordRequired": "Şifrenizi girin.",
+        "passwordMinLength": "Şifre en az 8 karakter olmalıdır."
+      },
+      "errors": {
+        "title": "Giriş yapılamadı",
+        "invalidCredentials": "Email veya şifre hatalı.",
+        "emailNotVerified": "Lütfen e-posta adresinizi doğrulayın.",
+        "network": "Bağlantı hatası oluştu. Lütfen bağlantınızı kontrol edin.",
+        "rateLimited": "Çok fazla giriş denemesi yapıldı. Lütfen kısa bir süre sonra tekrar deneyin.",
+        "sessionExpired": "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.",
+        "unknown": "Giriş işlemi tamamlanamadı. Lütfen tekrar deneyin."
+      },
+      "metadata": {
+        "title": "Giriş Yap",
+        "description": "KidMemoir hesabınıza güvenle giriş yapın."
+      }
+    },
+    "register": {
+      "eyebrow": "Hikâyeniz burada başlıyor",
+      "title": "KidMemoir'a hoş geldiniz.",
+      "description": "Çocuğunuzun yaşam hikâyesini bugünden oluşturmaya başlayın.",
+      "firstNameLabel": "Ad",
+      "firstNamePlaceholder": "Adınız",
+      "lastNameLabel": "Soyad",
+      "lastNamePlaceholder": "Soyadınız",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "ornek@email.com",
+      "passwordLabel": "Şifre",
+      "passwordPlaceholder": "Güçlü bir şifre oluşturun",
+      "confirmPasswordLabel": "Şifre tekrar",
+      "confirmPasswordPlaceholder": "Şifrenizi tekrar girin",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle",
+      "showConfirmPassword": "Şifre tekrarını göster",
+      "hideConfirmPassword": "Şifre tekrarını gizle",
+      "passwordStrengthLabel": "Şifre gücü",
+      "passwordStrength": {
+        "pending": "Henüz değerlendirilmedi",
+        "weak": "Zayıf",
+        "fair": "Orta",
+        "good": "İyi",
+        "strong": "Güçlü"
+      },
+      "agreementsLegend": "Hesap sözleşmeleri",
+      "termsAgreement": "Kullanım Koşullarını kabul ediyorum.",
+      "privacyAgreement": "Gizlilik Politikasını kabul ediyorum.",
+      "submit": "Ücretsiz hesap oluştur",
+      "submitting": "Hesap hazırlanıyor",
+      "divider": "veya şununla devam edin",
+      "googleRegister": "Google",
+      "appleRegister": "Apple",
+      "googleRegisterAriaLabel": "Google ile kayıt yakında kullanıma sunulacak",
+      "appleRegisterAriaLabel": "Apple ile kayıt yakında kullanıma sunulacak",
+      "comingSoon": "Yakında",
+      "loginPrompt": "Zaten hesabınız var mı?",
+      "loginLink": "Giriş yapın",
+      "validation": {
+        "firstNameRequired": "Adınızı girin.",
+        "firstNameMinLength": "Ad en az 2 karakter olmalıdır.",
+        "firstNameMaxLength": "Ad en fazla 100 karakter olabilir.",
+        "lastNameRequired": "Soyadınızı girin.",
+        "lastNameMinLength": "Soyad en az 2 karakter olmalıdır.",
+        "lastNameMaxLength": "Soyad en fazla 100 karakter olabilir.",
+        "emailRequired": "E-posta adresinizi girin.",
+        "emailInvalid": "Geçerli bir e-posta adresi girin.",
+        "passwordRequired": "Şifrenizi girin.",
+        "passwordMinLength": "Şifre en az 8 karakter olmalıdır.",
+        "passwordUppercase": "Şifre en az 1 büyük harf içermelidir.",
+        "passwordLowercase": "Şifre en az 1 küçük harf içermelidir.",
+        "passwordNumber": "Şifre en az 1 rakam içermelidir.",
+        "confirmPasswordRequired": "Şifrenizi tekrar girin.",
+        "passwordsMismatch": "Şifreler eşleşmiyor.",
+        "termsRequired": "Devam etmek için Kullanım Koşullarını kabul edin.",
+        "privacyRequired": "Devam etmek için Gizlilik Politikasını kabul edin."
+      },
+      "errors": {
+        "title": "Hesap oluşturulamadı",
+        "alreadyRegistered": "Bu e-posta adresiyle daha önce hesap oluşturulmuş.",
+        "weakPassword": "Şifreniz güvenlik kriterlerini karşılamıyor.",
+        "rateLimited": "Çok fazla kayıt denemesi yapıldı. Lütfen biraz sonra tekrar deneyin.",
+        "network": "Bağlantı hatası oluştu. Lütfen bağlantınızı kontrol edin.",
+        "unknown": "Hesap oluşturma işlemi tamamlanamadı. Lütfen tekrar deneyin."
+      },
+      "metadata": {
+        "title": "Ücretsiz Hesap Oluştur",
+        "description": "KidMemoir ile çocuğunuzun yaşam hikâyesini güvenle oluşturmaya başlayın."
+      }
+    }
+  }
+}

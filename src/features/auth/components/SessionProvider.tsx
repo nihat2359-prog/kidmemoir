@@ -8,10 +8,13 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Session } from "@supabase/supabase-js";
+import type { Session, User } from "@supabase/supabase-js";
 import { normalizeAuthError } from "@/features/auth/errors/normalizeAuthError";
 import { createAuthService } from "@/features/auth/services/authService";
-import type { SignInCredentials } from "@/features/auth/types/auth.types";
+import type {
+  SignInCredentials,
+  SignUpCredentials,
+} from "@/features/auth/types/auth.types";
 import { createClient } from "@/lib/supabase/client";
 
 export type SessionContextValue = Readonly<{
@@ -20,6 +23,7 @@ export type SessionContextValue = Readonly<{
   refreshSession: () => Promise<Session | null>;
   session: Session | null;
   signIn: (credentials: SignInCredentials) => Promise<Session | null>;
+  signUp: (credentials: SignUpCredentials) => Promise<User | null>;
   signOut: () => Promise<void>;
 }>;
 
@@ -63,6 +67,26 @@ export function SessionProvider({ children }: SessionProviderProps) {
         return result.session;
       } catch (signInError) {
         const normalizedError = normalizeAuthError(signInError);
+        setError(normalizedError);
+        setSession(null);
+        throw normalizedError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [authService],
+  );
+
+  const signUp = useCallback(
+    async (credentials: SignUpCredentials) => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const result = await authService.signUp(credentials);
+        setSession(result.session);
+        return result.user;
+      } catch (signUpError) {
+        const normalizedError = normalizeAuthError(signUpError);
         setError(normalizedError);
         setSession(null);
         throw normalizedError;
@@ -134,9 +158,10 @@ export function SessionProvider({ children }: SessionProviderProps) {
       refreshSession,
       session,
       signIn,
+      signUp,
       signOut,
     }),
-    [error, isLoading, refreshSession, session, signIn, signOut],
+    [error, isLoading, refreshSession, session, signIn, signOut, signUp],
   );
 
   return (

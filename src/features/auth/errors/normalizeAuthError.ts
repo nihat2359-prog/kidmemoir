@@ -4,6 +4,8 @@ import { AuthError } from "@/features/auth/errors/AuthError";
 const ERROR_MESSAGES = {
   emailNotVerified: "Email address must be verified.",
   invalidCredentials: "Email or password is incorrect.",
+  userAlreadyRegistered: "An account already exists for this email address.",
+  weakPassword: "Password does not meet the security requirements.",
   network: "Authentication service is unavailable.",
   rateLimited: "Too many authentication attempts.",
   sessionExpired: "Your session has expired.",
@@ -38,6 +40,23 @@ export function normalizeAuthError(error: unknown): AuthError {
       );
     }
 
+    if (
+      error.code === "user_already_exists" ||
+      error.code === "user_already_registered"
+    ) {
+      return new AuthError(
+        "USER_ALREADY_REGISTERED",
+        ERROR_MESSAGES.userAlreadyRegistered,
+        { cause: error },
+      );
+    }
+
+    if (error.code === "weak_password") {
+      return new AuthError("WEAK_PASSWORD", ERROR_MESSAGES.weakPassword, {
+        cause: error,
+      });
+    }
+
     if (error.code === "refresh_token_not_found") {
       return new AuthError("SESSION_EXPIRED", ERROR_MESSAGES.sessionExpired, {
         cause: error,
@@ -45,7 +64,10 @@ export function normalizeAuthError(error: unknown): AuthError {
     }
   }
 
-  if (error instanceof TypeError) {
+  if (
+    error instanceof TypeError ||
+    (error instanceof Error && error.name === "AuthRetryableFetchError")
+  ) {
     return new AuthError("NETWORK_ERROR", ERROR_MESSAGES.network, {
       cause: error,
     });

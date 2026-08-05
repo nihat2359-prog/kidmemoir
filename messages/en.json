@@ -1,0 +1,455 @@
+{
+  "landing": {
+    "brand": { "name": "KidMemoir" },
+    "nav": {
+      "ariaLabel": "Main navigation",
+      "homeAriaLabel": "KidMemoir home page",
+      "features": "Features",
+      "ai": "KidMemoir AI",
+      "timeline": "Timeline",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "login": "Log in",
+      "register": "Start for free",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "mobileAriaLabel": "Mobile navigation"
+    },
+    "hero": {
+      "eyebrow": "A lifetime of memories that never fade",
+      "titleBefore": "Your child's story,",
+      "titleAccent": "beyond time",
+      "titleAfter": "lives on.",
+      "description": "From the first smile to the biggest dreams, KidMemoir safely preserves your child's journey and turns it into a meaningful story.",
+      "primaryButton": "Start for free",
+      "secondaryButton": "How does it work?",
+      "trustBadge": "No credit card required · Free for one child",
+      "securityBadge": "Private and secure for your family",
+      "storesLabel": "Coming soon",
+      "stores": "App Store & Google Play",
+      "visualAriaLabel": "Preview of KidMemoir child profile, timeline, AI conversation and memory cards",
+      "profileLabel": "Child profile",
+      "profileName": "Ada's story",
+      "profileAge": "2 years · 48 memories",
+      "timelineLabel": "Timeline",
+      "timelineTitle": "First steps",
+      "timelineMeta": "June 2, 2025",
+      "aiLabel": "KidMemoir AI",
+      "aiMessage": "You recorded 6 new words this month.",
+      "reminderLabel": "Reminder",
+      "reminderTitle": "Doctor's appointment",
+      "reminderMeta": "Tomorrow · 10:30 AM",
+      "photoLabel": "Photo",
+      "photoTitle": "First spring in the park",
+      "videoLabel": "Video",
+      "videoDuration": "00:18",
+      "audioLabel": "Audio recording",
+      "audioTitle": "Her first song",
+      "memoryLabel": "Today's memory",
+      "memoryQuote": "Today she rode her bike all by herself."
+    },
+    "trust": {
+      "ariaLabel": "KidMemoir trust principles",
+      "ownership": "Your data belongs to you",
+      "supabase": "Supabase infrastructure",
+      "encrypted": "Encrypted storage",
+      "privacy": "Privacy-first design",
+      "ai": "Secure AI insights"
+    },
+    "story": {
+      "eyebrow": "Remembering is harder than we think",
+      "title": "A life is held in thousands of little details.",
+      "description": "Days move quickly. The most precious moments scatter across devices and forgotten notes.",
+      "problemPhotos": "Thousands of photos taken today…",
+      "problemVideos": "Videos lost when phones are replaced…",
+      "problemMemories": "Firsts and little phrases with forgotten dates…",
+      "turningPoint": "None of them have to disappear.",
+      "solutionTitle": "KidMemoir brings them together in one living story.",
+      "solutionDescription": "Memories, voices, documents and development notes return at the right time and in the right context."
+    },
+    "features": {
+      "eyebrow": "Every memory has its own form",
+      "title": "More than an archive. A living world that belongs to your child.",
+      "description": "Every record connects with other memories and grows into a meaningful life story over the years.",
+      "timelineTitle": "Timeline",
+      "timelineDescription": "Everything in the right order, from firsts to everyday details.",
+      "timelinePreview1": "First step",
+      "timelinePreview2": "First word",
+      "photosTitle": "Photos",
+      "photosDescription": "Return to that day at a glance.",
+      "videosTitle": "Videos",
+      "videosDescription": "Preserve every movement and laugh just as it happened.",
+      "audioTitle": "Audio recordings",
+      "audioDescription": "First words, songs and little conversations.",
+      "documentsTitle": "Documents",
+      "documentsDescription": "Reports and important documents beside each memory.",
+      "remindersTitle": "Reminders",
+      "remindersDescription": "Important dates and appointments, right when you need them.",
+      "reminderPreview": "Doctor's appointment · Tomorrow at 10:30 AM",
+      "aiTitle": "AI insights",
+      "aiDescription": "Secure, sourced insights based only on your own records.",
+      "aiPreview": "You recorded 6 new words this month.",
+      "searchTitle": "Smart search",
+      "searchDescription": "Find a memory, person or topic from years ago in seconds.",
+      "searchPreview": "First bike ride"
+    },
+    "howItWorks": {
+      "eyebrow": "Four simple steps",
+      "title": "Save it today. Relive it years from now.",
+      "description": "KidMemoir fits naturally into everyday life; your story grows with every new memory.",
+      "stepLabel": "Step {number}",
+      "step1Title": "Create your child",
+      "step1Description": "Set up their private digital space in just a few minutes.",
+      "step2Title": "Add memories",
+      "step2Description": "A photo, video, voice, document or simply a small note.",
+      "step3Title": "Let AI make sense of it",
+      "step3Description": "Reveal changes and connections across your records.",
+      "step4Title": "Rediscover it",
+      "step4Description": "Open their life story years later, with every detail intact."
+    },
+    "aiSection": {
+      "eyebrow": "KidMemoir AI",
+      "productName": "KidMemoir AI",
+      "title": "It does more than remember. It sees the story between memories.",
+      "description": "KidMemoir AI reads your timeline, photos, videos, documents, audio and reminders together to create sourced answers unique to your family.",
+      "secure": "Private family insight",
+      "questionLabel": "You asked",
+      "question": "What did Ayşe accomplish this year?",
+      "answerLabel": "KidMemoir AI answered",
+      "answer": "Ayşe learned to ride a bike on her own, earned her first medal and started reading this year. The videos you saved show her confidence growing over time.",
+      "sourcesLabel": "Memories used in this answer",
+      "timelineSource": "Timeline · 4 records",
+      "photoSource": "Photos · 12 frames",
+      "videoSource": "Videos · 3 records",
+      "documentSource": "Documents · 2 reports",
+      "audioSource": "Audio · 5 records",
+      "reminderSource": "Reminders · 3 completed",
+      "disclaimer": "This answer is based only on your family's records. It does not contain medical or psychological assessment."
+    },
+    "timelineSection": {
+      "eyebrow": "A living timeline",
+      "title": "A child's life is so much more than a series of dates.",
+      "description": "Every first comes alive again with its photo, voice, video and little note from that day.",
+      "profile": "Ayşe's life story",
+      "range": "2023 — Today",
+      "previewLabel": "Timeline preview",
+      "event1Title": "Birth",
+      "event1Meta": "May 12, 2023 · Document",
+      "event2Title": "First step",
+      "event2Meta": "June 2, 2024 · Video",
+      "event3Title": "First word",
+      "event3Meta": "August 18, 2024 · Audio",
+      "event4Title": "Third birthday",
+      "event4Meta": "May 12, 2026 · Photo",
+      "event5Title": "First day of school",
+      "event5Meta": "September 8, 2026 · Photo",
+      "event6Title": "First medal",
+      "event6Meta": "November 14, 2026 · Video",
+      "event7Title": "First vacation",
+      "event7Meta": "July 21, 2027 · 18 photos"
+    },
+    "memoryShowcase": {
+      "eyebrow": "A digital memory book",
+      "title": "Let every memory live in the form it belongs.",
+      "description": "Not a gallery, but a personal world where photos, voices, drawings and documents meet in the same story.",
+      "photo": "First bike ride",
+      "photoMeta": "6 photos · 1 note",
+      "video": "First stage performance",
+      "videoMeta": "Video · 00:42",
+      "audio": "The moment she said mom",
+      "audioMeta": "Audio recording · 00:08",
+      "drawing": "The house of her dreams",
+      "drawingMeta": "Drawing · Age 5",
+      "document": "Development report",
+      "documentMeta": "Document · PDF",
+      "certificate": "Birth certificate",
+      "certificateMeta": "Secure document",
+      "aiSummary": "Braver and more curious this month.",
+      "aiSummaryMeta": "Monthly AI summary",
+      "reminder": "Dentist tomorrow",
+      "reminderMeta": "Reminder · 10:30 AM"
+    },
+    "privacy": {
+      "eyebrow": "Private by design",
+      "title": "Your most precious data, inside our strongest boundaries.",
+      "description": "At KidMemoir, trust is not an added feature. It is the foundation of the product.",
+      "encrypted": {
+        "title": "Encrypted connection",
+        "description": "Your data is protected by industry-standard security while in transit."
+      },
+      "access": {
+        "title": "User-level access",
+        "description": "Every family can access only its own private records."
+      },
+      "backup": {
+        "title": "Secure backup",
+        "description": "Your memories are protected on resilient cloud infrastructure."
+      },
+      "privacy": {
+        "title": "Privacy first",
+        "description": "Family data is never used for advertising or general AI training."
+      },
+      "infrastructure": "Secure Supabase infrastructure · Row-level access policies"
+    },
+    "pricing": {
+      "eyebrow": "Grows with your story",
+      "title": "Start free today. The right space for your memories is always ready.",
+      "description": "No complicated packages or hidden limits. Start your story first, then move to more when you need it.",
+      "recommended": "Most popular",
+      "free": {
+        "name": "Free",
+        "description": "Everything you need to begin preserving one child's most precious memories.",
+        "price": "$0",
+        "period": "forever",
+        "button": "Start with Free"
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "More space and deeper insights for your family's growing story.",
+        "price": "Coming soon",
+        "period": "early access",
+        "button": "Start for free"
+      },
+      "features": {
+        "oneChild": "A private life space for one child",
+        "multipleChildren": "Separate stories for multiple children",
+        "memory": "Photo, video, audio and document memories",
+        "timeline": "A living timeline",
+        "storage": "Secure cloud storage",
+        "limitedAi": "Essential KidMemoir AI access",
+        "advancedAi": "Advanced AI insights and summaries"
+      },
+      "assurances": {
+        "privacy": "Your data always belongs to you",
+        "cancel": "No commitment or hidden fees",
+        "export": "Freedom to export your memories"
+      }
+    },
+    "faq": {
+      "eyebrow": "Everything you need to know",
+      "title": "Know the details. Start with confidence.",
+      "description": "We believe you should understand every detail before trusting us with your family's most private memories.",
+      "support": "We are here if you have another question.",
+      "ariaLabel": "Frequently asked questions about KidMemoir",
+      "privacy": {
+        "question": "Are my memories and family data secure?",
+        "answer": "KidMemoir is designed with secure connections, user-level access policies and protected cloud infrastructure. Every family can access only its own private records."
+      },
+      "ai": {
+        "question": "Does KidMemoir AI diagnose my child?",
+        "answer": "No. KidMemoir AI does not provide medical or psychological diagnoses. It only summarizes memories you add, reveals connections and shows the sources it used."
+      },
+      "training": {
+        "question": "Is my data used to train AI?",
+        "answer": "No. Your private family records are not used to train general-purpose AI models or build advertising profiles."
+      },
+      "free": {
+        "question": "What can I do with the free plan?",
+        "answer": "You can create one child profile, use essential memories, media and timeline features, and access a limited KidMemoir AI experience."
+      },
+      "media": {
+        "question": "What kinds of memories can I save?",
+        "answer": "Photos, videos, audio recordings, documents, development notes, important firsts and reminders can all live in the same life story."
+      },
+      "export": {
+        "question": "Can I export my memories later?",
+        "answer": "Yes. Your records belong to you. The freedom to export memories and reports in portable formats is one of our core principles."
+      }
+    },
+    "finalCta": {
+      "eyebrow": "One day, you will look for these moments again",
+      "title": "Give your child's story to their future self.",
+      "description": "A word, a laugh or a short video that feels small today may become your family's greatest treasure years from now.",
+      "primaryButton": "Start for free",
+      "secondaryButton": "Log in",
+      "assurance": "No credit card required · Your memories belong only to you",
+      "storesAriaLabel": "Mobile applications coming soon",
+      "comingSoon": "Coming soon",
+      "appStore": "App Store",
+      "googlePlay": "Google Play"
+    },
+    "footer": {
+      "homeAriaLabel": "KidMemoir home page",
+      "navigationAriaLabel": "Footer navigation",
+      "description": "A digital family memory that safely preserves, understands and carries your child's life journey into the future.",
+      "email": "hello@kidmemoir.com",
+      "product": {
+        "title": "Product",
+        "features": "Features",
+        "ai": "KidMemoir AI",
+        "timeline": "Timeline",
+        "pricing": "Pricing"
+      },
+      "company": {
+        "title": "Company",
+        "howItWorks": "How it works",
+        "privacy": "Security approach",
+        "faq": "Frequently asked questions"
+      },
+      "support": {
+        "title": "Support",
+        "contact": "Contact",
+        "help": "Help center",
+        "status": "System trust"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "Terms of use",
+        "privacyPolicy": "Privacy policy",
+        "cookies": "Cookie policy"
+      },
+      "copyright": "© {year} KidMemoir. All rights reserved.",
+      "signature": "Designed for a family's most precious story.",
+      "socialAriaLabel": "KidMemoir social media links",
+      "instagram": "KidMemoir on Instagram",
+      "linkedin": "KidMemoir on LinkedIn",
+      "emailSocial": "Contact KidMemoir by email"
+    },
+    "seo": {
+      "title": "Preserve Your Child's Life Story Safely",
+      "description": "KidMemoir is an AI-powered digital family memory that safely preserves your child's development and most important moments.",
+      "openGraphTitle": "KidMemoir — A lifetime of memories that never fade",
+      "openGraphDescription": "Safely preserve your child's life story, see it unfold over time and understand it with KidMemoir AI.",
+      "twitterTitle": "KidMemoir — Your child's digital memory",
+      "twitterDescription": "Preserve important moments safely and carry them into the future."
+    }
+  },
+  "auth": {
+    "layout": {
+      "skipToContent": "Skip to authentication content",
+      "homeAriaLabel": "Return to the KidMemoir home page",
+      "brandName": "KidMemoir",
+      "eyebrow": "A private, secure space for your family",
+      "brandTitle": "Today's little moments become tomorrow's most precious story.",
+      "brandDescription": "Safely preserve your child's firsts, their voice and their changing world, then rediscover it years later with the same feeling.",
+      "storyAriaLabel": "KidMemoir life story preview",
+      "cardAriaLabel": "Authentication area",
+      "illustration": {
+        "ariaLabel": "Preview of KidMemoir memory, timeline, AI, photo and reminder cards",
+        "memoryLabel": "Today's memory",
+        "memoryTitle": "All by herself for the first time",
+        "memoryText": "Today she got on her bike, took a deep breath and rode away without asking for any help.",
+        "timelineLabel": "Timeline",
+        "timelineTitle": "First steps",
+        "timelineMeta": "June 2, 2025 · Video",
+        "aiLabel": "KidMemoir AI",
+        "aiText": "You recorded 6 new words this month.",
+        "photoTitle": "First spring in the park",
+        "photoMeta": "6 photos · 1 memory",
+        "reminderTitle": "Doctor's appointment",
+        "reminderMeta": "Tomorrow · 10:30 AM"
+      }
+    },
+    "login": {
+      "eyebrow": "Secure sign in",
+      "title": "Welcome back.",
+      "description": "Sign in securely to your child's digital life memory.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password",
+      "submit": "Log in",
+      "submitting": "Logging in",
+      "divider": "or continue with",
+      "googleLogin": "Google",
+      "appleLogin": "Apple",
+      "comingSoon": "Coming soon",
+      "registerPrompt": "Don't have an account yet?",
+      "registerLink": "Create a free account",
+      "validation": {
+        "emailRequired": "Enter your email address.",
+        "emailInvalid": "Enter a valid email address.",
+        "passwordRequired": "Enter your password.",
+        "passwordMinLength": "Password must be at least 8 characters."
+      },
+      "errors": {
+        "title": "Unable to log in",
+        "invalidCredentials": "The email or password is incorrect.",
+        "emailNotVerified": "Please verify your email address.",
+        "network": "A connection error occurred. Please check your connection.",
+        "rateLimited": "Too many login attempts. Please try again shortly.",
+        "sessionExpired": "Your session has expired. Please log in again.",
+        "unknown": "The login could not be completed. Please try again."
+      },
+      "metadata": {
+        "title": "Log In",
+        "description": "Sign in securely to your KidMemoir account."
+      }
+    },
+    "register": {
+      "eyebrow": "Your story begins here",
+      "title": "Welcome to KidMemoir.",
+      "description": "Start creating your child's life story today.",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Your first name",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Your last name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a strong password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Enter your password again",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "showConfirmPassword": "Show password confirmation",
+      "hideConfirmPassword": "Hide password confirmation",
+      "passwordStrengthLabel": "Password strength",
+      "passwordStrength": {
+        "pending": "Not evaluated yet",
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "agreementsLegend": "Account agreements",
+      "termsAgreement": "I accept the Terms of Use.",
+      "privacyAgreement": "I accept the Privacy Policy.",
+      "submit": "Create a free account",
+      "submitting": "Preparing your account",
+      "divider": "or continue with",
+      "googleRegister": "Google",
+      "appleRegister": "Apple",
+      "googleRegisterAriaLabel": "Registration with Google is coming soon",
+      "appleRegisterAriaLabel": "Registration with Apple is coming soon",
+      "comingSoon": "Coming soon",
+      "loginPrompt": "Already have an account?",
+      "loginLink": "Log in",
+      "validation": {
+        "firstNameRequired": "Enter your first name.",
+        "firstNameMinLength": "First name must be at least 2 characters.",
+        "firstNameMaxLength": "First name cannot exceed 100 characters.",
+        "lastNameRequired": "Enter your last name.",
+        "lastNameMinLength": "Last name must be at least 2 characters.",
+        "lastNameMaxLength": "Last name cannot exceed 100 characters.",
+        "emailRequired": "Enter your email address.",
+        "emailInvalid": "Enter a valid email address.",
+        "passwordRequired": "Enter your password.",
+        "passwordMinLength": "Password must be at least 8 characters.",
+        "passwordUppercase": "Password must include at least 1 uppercase letter.",
+        "passwordLowercase": "Password must include at least 1 lowercase letter.",
+        "passwordNumber": "Password must include at least 1 number.",
+        "confirmPasswordRequired": "Enter your password again.",
+        "passwordsMismatch": "Passwords do not match.",
+        "termsRequired": "Accept the Terms of Use to continue.",
+        "privacyRequired": "Accept the Privacy Policy to continue."
+      },
+      "errors": {
+        "title": "Unable to create account",
+        "alreadyRegistered": "An account has already been created with this email address.",
+        "weakPassword": "Your password does not meet the security requirements.",
+        "rateLimited": "Too many registration attempts. Please try again shortly.",
+        "network": "A connection error occurred. Please check your connection.",
+        "unknown": "The account could not be created. Please try again."
+      },
+      "metadata": {
+        "title": "Create a Free Account",
+        "description": "Start creating your child's life story securely with KidMemoir."
+      }
+    }
+  }
+}

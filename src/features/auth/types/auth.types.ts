@@ -16,4 +16,13 @@ export type AuthState = Readonly<{
 export type SignInCredentials = Readonly<{
   email: string;
   password: string;
+  rememberMe?: boolean;
+}>;
+
+export type SignUpCredentials = Readonly<{
+  email: string;
+  emailRedirectTo: string;
+  firstName: string;
+  lastName: string;
+  password: string;
 }>;

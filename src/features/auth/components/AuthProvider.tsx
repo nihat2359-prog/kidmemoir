@@ -7,6 +7,7 @@ import type {
   AuthRole,
   AuthState,
   SignInCredentials,
+  SignUpCredentials,
 } from "@/features/auth/types/auth.types";
 import {
   userHasPermission,
@@ -20,6 +21,7 @@ export type AuthContextValue = AuthState &
     hasRole: (role: AuthRole) => boolean;
     refreshSession: () => Promise<Session | null>;
     signIn: (credentials: SignInCredentials) => Promise<Session | null>;
+    signUp: (credentials: SignUpCredentials) => Promise<User | null>;
     signOut: () => Promise<void>;
   }>;
 
@@ -30,7 +32,7 @@ type AuthProviderProps = Readonly<{
 }>;
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const { error, isLoading, refreshSession, session, signIn, signOut } =
+  const { error, isLoading, refreshSession, session, signIn, signOut, signUp } =
     useSession();
   const user: User | null = session?.user ?? null;
   const hasPermission = useCallback(
@@ -52,6 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       refreshSession,
       session,
       signIn,
+      signUp,
       signOut,
       user,
     }),
@@ -63,6 +66,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       refreshSession,
       session,
       signIn,
+      signUp,
       signOut,
       user,
     ],

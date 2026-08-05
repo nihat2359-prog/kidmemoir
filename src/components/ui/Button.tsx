@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -70,7 +70,7 @@ export function Button({
       {...props}
     >
       {iconPosition === "start" && leadingIcon}
-      {children}
+      <Slottable>{children}</Slottable>
       {iconPosition === "end" && leadingIcon}
     </Component>
   );
