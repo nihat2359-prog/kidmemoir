@@ -1,8 +1,14 @@
+"use client";
+
 import { createBrowserClient } from "@supabase/ssr";
-import { getSupabaseConfig } from "@/lib/supabase/config";
+import { getClientEnvironment } from "@/lib/env/client";
+import type { Database } from "@/types/database.types";
 
-export const createClient = () => {
-  const { url, anonKey } = getSupabaseConfig();
+export function createClient() {
+  const environment = getClientEnvironment();
 
-  return createBrowserClient(url, anonKey);
-};
+  return createBrowserClient<Database>(
+    environment.NEXT_PUBLIC_SUPABASE_URL,
+    environment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  );
+}

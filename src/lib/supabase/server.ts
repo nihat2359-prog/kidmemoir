@@ -1,24 +1,18 @@
+import "server-only";
+
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { getSupabaseConfig } from "@/lib/supabase/config";
+import { getClientEnvironment } from "@/lib/env/client";
+import { createServerCookieAdapter } from "@/lib/supabase/cookies";
+import type { Database } from "@/types/database.types";
 
-export const createClient = async () => {
+export async function createClient() {
   const cookieStore = await cookies();
-  const { url, anonKey } = getSupabaseConfig();
+  const environment = getClientEnvironment();
 
-  return createServerClient(url, anonKey, {
-    cookies: {
-      getAll: () => cookieStore.getAll(),
-      setAll: (cookiesToSet) => {
-        try {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-          });
-        } catch {
-          // Cookie writes can be requested from a Server Component.
-          // Session refresh is handled by middleware when authentication is added.
-        }
-      },
-    },
-  });
-};
+  return createServerClient<Database>(
+    environment.NEXT_PUBLIC_SUPABASE_URL,
+    environment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+    { cookies: createServerCookieAdapter(cookieStore) },
+  );
+}

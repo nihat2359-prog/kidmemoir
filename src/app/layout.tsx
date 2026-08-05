@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/Toast";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -18,8 +20,11 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className={GeistSans.variable}>
+        <ThemeProvider>
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
