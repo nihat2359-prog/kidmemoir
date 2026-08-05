@@ -2,6 +2,7 @@ import "server-only";
 
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { getRouteRedirect } from "@/features/auth/utils/routeGuard";
 import { getClientEnvironment, hasSupabaseEnvironment } from "@/lib/env/client";
 import {
   applyCookiesToRequest,
@@ -36,7 +37,23 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  await supabase.auth.getClaims();
+  const { data } = await supabase.auth.getClaims();
+  const redirectPath = getRouteRedirect(
+    request.nextUrl.pathname,
+    typeof data?.claims?.sub === "string",
+  );
+
+  if (redirectPath) {
+    const redirectResponse = NextResponse.redirect(
+      new URL(redirectPath, request.url),
+    );
+
+    response.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+
+    return redirectResponse;
+  }
 
   return response;
 }

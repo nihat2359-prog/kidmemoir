@@ -1,0 +1,55 @@
+import { AuthApiError } from "@supabase/supabase-js";
+import { AuthError } from "@/features/auth/errors/AuthError";
+
+const ERROR_MESSAGES = {
+  emailNotVerified: "Email address must be verified.",
+  invalidCredentials: "Email or password is incorrect.",
+  network: "Authentication service is unavailable.",
+  rateLimited: "Too many authentication attempts.",
+  sessionExpired: "Your session has expired.",
+  unknown: "Authentication could not be completed.",
+} as const;
+
+export function normalizeAuthError(error: unknown): AuthError {
+  if (error instanceof AuthError) {
+    return error;
+  }
+
+  if (error instanceof AuthApiError) {
+    if (error.status === 429) {
+      return new AuthError("RATE_LIMITED", ERROR_MESSAGES.rateLimited, {
+        cause: error,
+      });
+    }
+
+    if (error.code === "email_not_confirmed") {
+      return new AuthError(
+        "EMAIL_NOT_VERIFIED",
+        ERROR_MESSAGES.emailNotVerified,
+        { cause: error },
+      );
+    }
+
+    if (error.code === "invalid_credentials") {
+      return new AuthError(
+        "INVALID_CREDENTIALS",
+        ERROR_MESSAGES.invalidCredentials,
+        { cause: error },
+      );
+    }
+
+    if (error.code === "refresh_token_not_found") {
+      return new AuthError("SESSION_EXPIRED", ERROR_MESSAGES.sessionExpired, {
+        cause: error,
+      });
+    }
+  }
+
+  if (error instanceof TypeError) {
+    return new AuthError("NETWORK_ERROR", ERROR_MESSAGES.network, {
+      cause: error,
+    });
+  }
+
+  return new AuthError("UNKNOWN", ERROR_MESSAGES.unknown, { cause: error });
+}
