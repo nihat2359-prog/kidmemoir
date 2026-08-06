@@ -6,6 +6,7 @@ import type {
   AuthPermission,
   AuthRole,
   AuthState,
+  PasswordResetRequest,
   SignInCredentials,
   SignUpCredentials,
 } from "@/features/auth/types/auth.types";
@@ -20,9 +21,11 @@ export type AuthContextValue = AuthState &
     hasPermission: (permission: AuthPermission) => boolean;
     hasRole: (role: AuthRole) => boolean;
     refreshSession: () => Promise<Session | null>;
+    requestPasswordReset: (request: PasswordResetRequest) => Promise<void>;
     signIn: (credentials: SignInCredentials) => Promise<Session | null>;
     signUp: (credentials: SignUpCredentials) => Promise<User | null>;
     signOut: () => Promise<void>;
+    updatePassword: (password: string) => Promise<User>;
   }>;
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -32,8 +35,17 @@ type AuthProviderProps = Readonly<{
 }>;
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const { error, isLoading, refreshSession, session, signIn, signOut, signUp } =
-    useSession();
+  const {
+    error,
+    isLoading,
+    refreshSession,
+    requestPasswordReset,
+    session,
+    signIn,
+    signOut,
+    signUp,
+    updatePassword,
+  } = useSession();
   const user: User | null = session?.user ?? null;
   const hasPermission = useCallback(
     (permission: AuthPermission) => userHasPermission(user, permission),
@@ -52,11 +64,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isAuthenticated: Boolean(user),
       isLoading,
       refreshSession,
+      requestPasswordReset,
       session,
       signIn,
       signUp,
       signOut,
       user,
+      updatePassword,
     }),
     [
       error,
@@ -64,11 +78,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       hasRole,
       isLoading,
       refreshSession,
+      requestPasswordReset,
       session,
       signIn,
       signUp,
       signOut,
       user,
+      updatePassword,
     ],
   );
 

@@ -13,6 +13,8 @@ const LOGIN_ERROR_MESSAGE_KEYS: Record<AuthErrorCode, LoginErrorMessageKey> = {
   INVALID_CREDENTIALS: "errors.invalidCredentials",
   NETWORK_ERROR: "errors.network",
   RATE_LIMITED: "errors.rateLimited",
+  SAME_PASSWORD: "errors.unknown",
+  RESET_LINK_INVALID: "errors.unknown",
   SESSION_EXPIRED: "errors.sessionExpired",
   UNKNOWN: "errors.unknown",
   USER_ALREADY_REGISTERED: "errors.unknown",

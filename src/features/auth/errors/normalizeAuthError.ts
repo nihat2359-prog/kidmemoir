@@ -6,8 +6,10 @@ const ERROR_MESSAGES = {
   invalidCredentials: "Email or password is incorrect.",
   userAlreadyRegistered: "An account already exists for this email address.",
   weakPassword: "Password does not meet the security requirements.",
+  samePassword: "New password must be different from the current password.",
   network: "Authentication service is unavailable.",
   rateLimited: "Too many authentication attempts.",
+  resetLinkInvalid: "The password reset link is invalid or has expired.",
   sessionExpired: "Your session has expired.",
   unknown: "Authentication could not be completed.",
 } as const;
@@ -57,10 +59,30 @@ export function normalizeAuthError(error: unknown): AuthError {
       });
     }
 
+    if (error.code === "same_password") {
+      return new AuthError("SAME_PASSWORD", ERROR_MESSAGES.samePassword, {
+        cause: error,
+      });
+    }
+
     if (error.code === "refresh_token_not_found") {
       return new AuthError("SESSION_EXPIRED", ERROR_MESSAGES.sessionExpired, {
         cause: error,
       });
+    }
+
+    if (
+      error.code === "bad_code_verifier" ||
+      error.code === "flow_state_expired" ||
+      error.code === "flow_state_not_found" ||
+      error.code === "otp_expired" ||
+      error.code === "session_not_found"
+    ) {
+      return new AuthError(
+        "RESET_LINK_INVALID",
+        ERROR_MESSAGES.resetLinkInvalid,
+        { cause: error },
+      );
     }
   }
 

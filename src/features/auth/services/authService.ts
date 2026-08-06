@@ -1,9 +1,15 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import {
+  AuthError,
+  type AuthErrorCode,
+} from "@/features/auth/errors/AuthError";
 import { normalizeAuthError } from "@/features/auth/errors/normalizeAuthError";
 import type {
   SignInCredentials,
+  PasswordResetRequest,
   SignUpCredentials,
 } from "@/features/auth/types/auth.types";
+import { getClientEnvironment } from "@/lib/env/client";
 import type { Database } from "@/types/database.types";
 
 export function createAuthService(supabase: SupabaseClient<Database>) {
@@ -29,16 +35,33 @@ export function createAuthService(supabase: SupabaseClient<Database>) {
     },
 
     async signInWithPassword({ email, password }: SignInCredentials) {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const response = await fetch("/auth/login", {
+        body: JSON.stringify({ email, password }),
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
       });
 
-      if (error) {
-        throw normalizeAuthError(error);
+      if (!response.ok) {
+        const body = (await response.json().catch(() => null)) as {
+          code?: AuthErrorCode;
+        } | null;
+        throw new AuthError(
+          body?.code ?? "UNKNOWN",
+          "Authentication could not be completed.",
+        );
       }
 
-      return data;
+      const { data, error } = await supabase.auth.getSession();
+      if (error) throw normalizeAuthError(error);
+      if (!data.session) {
+        throw new AuthError(
+          "SESSION_EXPIRED",
+          "Authentication session was not persisted.",
+        );
+      }
+
+      return data.session;
     },
 
     async signUp({
@@ -65,6 +88,49 @@ export function createAuthService(supabase: SupabaseClient<Database>) {
       }
 
       return data;
+    },
+
+    async requestPasswordReset({ email, redirectTo }: PasswordResetRequest) {
+      const environment = getClientEnvironment();
+      const recoveryUrl = new URL(
+        "/auth/v1/recover",
+        environment.NEXT_PUBLIC_SUPABASE_URL,
+      );
+      recoveryUrl.searchParams.set("redirect_to", redirectTo);
+      const response = await fetch(recoveryUrl, {
+        body: JSON.stringify({
+          code_challenge: null,
+          code_challenge_method: null,
+          email,
+          gotrue_meta_security: {},
+        }),
+        headers: {
+          apikey: environment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+          Authorization: `Bearer ${environment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        const body = (await response.json().catch(() => null)) as {
+          code?: AuthErrorCode;
+        } | null;
+        throw new AuthError(
+          body?.code ?? "UNKNOWN",
+          "Password reset request failed.",
+        );
+      }
+    },
+
+    async updatePassword(password: string) {
+      const { data, error } = await supabase.auth.updateUser({ password });
+
+      if (error) {
+        throw normalizeAuthError(error);
+      }
+
+      return data.user;
     },
 
     async signOut() {

@@ -37,11 +37,16 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const { data } = await supabase.auth.getClaims();
-  const redirectPath = getRouteRedirect(
-    request.nextUrl.pathname,
-    typeof data?.claims?.sub === "string",
-  );
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isAuthSuccessLogin =
+    request.nextUrl.pathname === "/login" &&
+    (request.nextUrl.searchParams.get("verified") === "true" ||
+      request.nextUrl.searchParams.get("reset") === "success");
+  const redirectPath = isAuthSuccessLogin
+    ? null
+    : getRouteRedirect(request.nextUrl.pathname, Boolean(user));
 
   if (redirectPath) {
     const redirectResponse = NextResponse.redirect(

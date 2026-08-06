@@ -92,13 +92,11 @@ export function RegisterForm({ isLoading = false }: RegisterFormProps) {
     clearErrors("root");
 
     try {
-      const emailRedirectTo = new URL(
-        `/${locale}${AUTH_ROUTES.verifyEmail}`,
-        window.location.origin,
-      ).toString();
+      const emailRedirectTo = new URL("/auth/callback", window.location.origin);
+      emailRedirectTo.searchParams.set("locale", locale);
       const user = await signUp({
         email: values.email,
-        emailRedirectTo,
+        emailRedirectTo: emailRedirectTo.toString(),
         firstName: values.firstName,
         lastName: values.lastName,
         password: values.password,
@@ -276,7 +274,18 @@ export function RegisterForm({ isLoading = false }: RegisterFormProps) {
           id="register-password-error"
           message={errors.password?.message}
         />
-        <PasswordStrength password={password} />
+        <PasswordStrength
+          id="register-password-strength"
+          label={t("passwordStrengthLabel")}
+          levelLabels={{
+            fair: t("passwordStrength.fair"),
+            good: t("passwordStrength.good"),
+            pending: t("passwordStrength.pending"),
+            strong: t("passwordStrength.strong"),
+            weak: t("passwordStrength.weak"),
+          }}
+          password={password}
+        />
       </div>
 
       <div className="space-y-2">

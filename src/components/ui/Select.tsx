@@ -12,12 +12,19 @@ export const SelectValue = SelectPrimitive.Value;
 export function SelectTrigger({
   className,
   children,
+  status = "default",
   ...props
-}: ComponentProps<typeof SelectPrimitive.Trigger>) {
+}: ComponentProps<typeof SelectPrimitive.Trigger> & {
+  status?: "default" | "error" | "success";
+}) {
   return (
     <SelectPrimitive.Trigger
       className={cn(
         "border-input bg-background focus-visible:border-ring focus-visible:ring-ring/30 flex min-h-11 w-full items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm shadow-sm transition-[border-color,box-shadow] outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:truncate",
+        status === "error" &&
+          "border-danger focus-visible:border-danger focus-visible:ring-danger/20",
+        status === "success" &&
+          "border-success focus-visible:border-success focus-visible:ring-success/20",
         className,
       )}
       {...props}

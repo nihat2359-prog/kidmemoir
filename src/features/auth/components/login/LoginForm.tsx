@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, LockKeyhole, Mail, ShieldAlert } from "lucide-react";
+import {
+  CircleCheckBig,
+  Eye,
+  EyeOff,
+  LockKeyhole,
+  Mail,
+  ShieldAlert,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/Button";
@@ -22,10 +29,16 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 type LoginFormProps = Readonly<{
+  emailVerified?: boolean;
   isLoading?: boolean;
+  passwordReset?: boolean;
 }>;
 
-export function LoginForm({ isLoading = false }: LoginFormProps) {
+export function LoginForm({
+  emailVerified = false,
+  isLoading = false,
+  passwordReset = false,
+}: LoginFormProps) {
   const t = useTranslations("auth.login");
   const router = useRouter();
   const { isLoading: isAuthLoading, signIn } = useAuth();
@@ -68,7 +81,6 @@ export function LoginForm({ isLoading = false }: LoginFormProps) {
       }
 
       router.replace(AUTH_REDIRECTS.authenticated);
-      router.refresh();
     } catch (error) {
       const normalizedError = normalizeAuthError(error);
       setError("root", {
@@ -85,6 +97,24 @@ export function LoginForm({ isLoading = false }: LoginFormProps) {
       noValidate
       onSubmit={handleSubmit(handleValidSubmit)}
     >
+      {emailVerified ? (
+        <Alert variant="success">
+          <CircleCheckBig aria-hidden />
+          <AlertTitle>{t("verificationSuccess.title")}</AlertTitle>
+          <AlertDescription>
+            {t("verificationSuccess.description")}
+          </AlertDescription>
+        </Alert>
+      ) : null}
+      {passwordReset ? (
+        <Alert variant="success">
+          <CircleCheckBig aria-hidden />
+          <AlertTitle>{t("passwordResetSuccess.title")}</AlertTitle>
+          <AlertDescription>
+            {t("passwordResetSuccess.description")}
+          </AlertDescription>
+        </Alert>
+      ) : null}
       {errors.root?.message ? (
         <Alert variant="danger">
           <ShieldAlert aria-hidden />

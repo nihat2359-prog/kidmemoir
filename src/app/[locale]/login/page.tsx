@@ -13,6 +13,10 @@ import { routing } from "@/i18n/routing";
 
 type LoginPageProps = Readonly<{
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{
+    reset?: string | string[];
+    verified?: string | string[];
+  }>;
 }>;
 
 export async function generateMetadata({
@@ -29,12 +33,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function LoginPage({ params }: LoginPageProps) {
+export default async function LoginPage({
+  params,
+  searchParams,
+}: LoginPageProps) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "auth.login" });
+  const { reset, verified } = await searchParams;
 
   return (
     <AuthLayout
@@ -43,7 +51,10 @@ export default async function LoginPage({ params }: LoginPageProps) {
       footer={<LoginFooter />}
       title={t("title")}
     >
-      <LoginForm />
+      <LoginForm
+        emailVerified={verified === "true"}
+        passwordReset={reset === "success"}
+      />
       <LoginDivider />
       <SocialLoginPlaceholders />
     </AuthLayout>

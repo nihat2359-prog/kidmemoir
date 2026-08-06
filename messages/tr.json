@@ -362,6 +362,14 @@
       "comingSoon": "Yakında",
       "registerPrompt": "Henüz hesabınız yok mu?",
       "registerLink": "Ücretsiz hesap oluşturun",
+      "verificationSuccess": {
+        "title": "E-posta adresiniz doğrulandı",
+        "description": "E-posta adresiniz başarıyla doğrulandı. Artık giriş yapabilirsiniz."
+      },
+      "passwordResetSuccess": {
+        "title": "Şifreniz güncellendi",
+        "description": "Şifreniz başarıyla güncellendi. Giriş yapabilirsiniz."
+      },
       "validation": {
         "emailRequired": "Email adresinizi girin.",
         "emailInvalid": "Geçerli bir email adresi girin.",
@@ -452,6 +460,720 @@
         "title": "Ücretsiz Hesap Oluştur",
         "description": "KidMemoir ile çocuğunuzun yaşam hikâyesini güvenle oluşturmaya başlayın."
       }
+    },
+    "verifyEmail": {
+      "eyebrow": "E-posta doğrulama",
+      "title": "Gelen kutunuzu kontrol edin.",
+      "description": "Hesabınızı güvenle etkinleştirmek için e-posta adresinize gönderdiğimiz doğrulama bağlantısına dokunun.",
+      "emailLabel": "Doğrulama bağlantısının gönderildiği adres",
+      "emailAriaLabel": "Doğrulama e-posta adresi",
+      "resendButton": "E-postayı tekrar gönder",
+      "resendPlaceholder": "Tekrar gönderme özelliği yakında kullanılabilir olacak.",
+      "differentAccountLink": "Başka bir hesapla giriş yap",
+      "spamAriaLabel": "E-posta teslim bilgisi",
+      "spamNotice": "E-postayı göremiyorsanız spam veya gereksiz klasörünü kontrol edin. Mesajın ulaşması birkaç dakika sürebilir.",
+      "metadata": {
+        "title": "E-posta Adresinizi Doğrulayın",
+        "description": "KidMemoir hesabınızı etkinleştirmek için e-posta doğrulama bağlantınızı kontrol edin."
+      }
+    },
+    "forgotPassword": {
+      "eyebrow": "Hesap kurtarma",
+      "title": "Şifrenizi mi unuttunuz?",
+      "description": "Hesabınıza ait e-posta adresini girin. Size güvenli bir şifre sıfırlama bağlantısı göndereceğiz.",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "ornek@email.com",
+      "submit": "Şifre sıfırlama bağlantısı gönder",
+      "submitting": "Bağlantı gönderiliyor",
+      "backToLogin": "Giriş sayfasına dön",
+      "success": {
+        "title": "E-posta gönderildi",
+        "description": "E-posta adresiniz kayıtlıysa birkaç dakika içinde şifre sıfırlama bağlantısı alacaksınız."
+      },
+      "validation": {
+        "emailRequired": "E-posta adresinizi girin.",
+        "emailInvalid": "Geçerli bir e-posta adresi girin."
+      },
+      "errors": {
+        "title": "Bağlantı gönderilemedi",
+        "expiredLink": "Şifre sıfırlama bağlantısının süresi dolmuş. Lütfen yeniden şifre sıfırlama talebinde bulunun.",
+        "network": "Bağlantı hatası oluştu. Lütfen bağlantınızı kontrol edin.",
+        "rateLimited": "Çok fazla sıfırlama isteği gönderildi. Lütfen biraz sonra tekrar deneyin.",
+        "unknown": "Şifre sıfırlama isteği tamamlanamadı. Lütfen tekrar deneyin.",
+        "weakPassword": "Şifreniz güvenlik kriterlerini karşılamıyor."
+      },
+      "metadata": {
+        "title": "Şifrenizi Sıfırlayın",
+        "description": "KidMemoir hesabınız için güvenli bir şifre sıfırlama bağlantısı isteyin."
+      }
+    },
+    "recoveryConfirm": {
+      "eyebrow": "Güvenli hesap kurtarma",
+      "title": "Şifre sıfırlamayı onaylayın.",
+      "description": "Güvenliğiniz için sıfırlama bağlantısı yalnızca bu işlemi onayladığınızda kullanılacaktır.",
+      "emailLabel": "Hesabınızın e-posta adresi",
+      "emailPlaceholder": "ornek@email.com",
+      "securityNoteAriaLabel": "Şifre sıfırlama güvenlik bilgisi",
+      "securityNote": "Bu ek adım, e-posta tarayıcılarının ve bağlantı önizlemelerinin tek kullanımlık sıfırlama bağlantınızı tüketmesini engeller.",
+      "submit": "Güvenli şekilde devam et",
+      "requestNewLink": "Yeni sıfırlama bağlantısı iste",
+      "metadata": {
+        "title": "Şifre Sıfırlamayı Onaylayın",
+        "description": "KidMemoir şifre sıfırlama talebinizi güvenli biçimde onaylayın."
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Güvenli şifre yenileme",
+      "title": "Yeni şifrenizi oluşturun.",
+      "description": "Hesabınızı korumak için güçlü ve daha önce kullanmadığınız bir şifre belirleyin.",
+      "passwordLabel": "Yeni şifre",
+      "passwordPlaceholder": "Yeni şifrenizi girin",
+      "confirmPasswordLabel": "Yeni şifre tekrar",
+      "confirmPasswordPlaceholder": "Yeni şifrenizi tekrar girin",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle",
+      "showConfirmPassword": "Şifre tekrarını göster",
+      "hideConfirmPassword": "Şifre tekrarını gizle",
+      "passwordStrengthLabel": "Şifre gücü",
+      "passwordStrength": {
+        "pending": "Henüz değerlendirilmedi",
+        "weak": "Zayıf",
+        "fair": "Orta",
+        "good": "İyi",
+        "strong": "Güçlü"
+      },
+      "submit": "Şifreyi güncelle",
+      "submitting": "Şifre güncelleniyor",
+      "requestNewLink": "Yeni sıfırlama bağlantısı iste",
+      "validation": {
+        "passwordRequired": "Yeni şifrenizi girin.",
+        "passwordMinLength": "Şifre en az 8 karakter olmalıdır.",
+        "passwordUppercase": "Şifre en az 1 büyük harf içermelidir.",
+        "passwordLowercase": "Şifre en az 1 küçük harf içermelidir.",
+        "passwordNumber": "Şifre en az 1 rakam içermelidir.",
+        "confirmPasswordRequired": "Yeni şifrenizi tekrar girin.",
+        "passwordsMismatch": "Şifreler eşleşmiyor."
+      },
+      "errors": {
+        "title": "Şifre güncellenemedi",
+        "expiredLinkTitle": "Bağlantı geçersiz veya süresi dolmuş",
+        "expiredLink": "Şifre sıfırlama bağlantısının süresi dolmuş. Lütfen yeniden şifre sıfırlama talebinde bulunun.",
+        "network": "Bağlantı hatası oluştu. Lütfen bağlantınızı kontrol edin.",
+        "rateLimited": "Çok fazla deneme yapıldı. Lütfen biraz sonra tekrar deneyin.",
+        "samePassword": "Yeni şifreniz mevcut şifrenizden farklı olmalıdır.",
+        "unknown": "Şifreniz güncellenemedi. Lütfen tekrar deneyin.",
+        "weakPassword": "Şifreniz güvenlik kriterlerini karşılamıyor."
+      },
+      "metadata": {
+        "title": "Yeni Şifre Oluşturun",
+        "description": "KidMemoir hesabınız için güvenli bir yeni şifre oluşturun."
+      }
+    }
+  },
+  "bootstrap": {
+    "metadata": {
+      "title": "Hesabınız hazırlanıyor",
+      "description": "KidMemoir uygulama alanınız güvenli şekilde hazırlanıyor."
+    },
+    "loading": {
+      "message": "KidMemoir hesabınız hazırlanıyor…"
+    },
+    "error": {
+      "title": "Hesabınız hazırlanamadı",
+      "description": "Güvenli kurulum tamamlanamadı. Lütfen tekrar deneyin.",
+      "retry": "Tekrar dene"
+    },
+    "onboarding": {
+      "title": "Ailenizin hikâyesini başlatın.",
+      "description": "Çocuk profili oluşturma adımı sonraki geliştirme aşamasında burada başlayacak."
+    },
+    "dashboard": {
+      "title": "KidMemoir hazır.",
+      "description": "Uygulama alanınız hazırlandı. Dashboard sonraki geliştirme aşamasında burada yer alacak."
+    }
+  },
+  "onboarding": {
+    "metadata": {
+      "title": "KidMemoir'a Hoş Geldiniz",
+      "description": "Çocuğunuzun hayat hikâyesini güvenle saklamaya başlayın."
+    },
+    "progress": {
+      "ariaLabel": "Onboarding ilerlemesi",
+      "label": "1 / 2"
+    },
+    "eyebrow": "Hikâyeniz burada başlıyor",
+    "title": "Bugünün küçük anları, yarının en değerli hikâyesi.",
+    "description": "KidMemoir, çocuğunuzun büyürken bıraktığı izleri güvenle bir araya getirir; yıllar sonra aynı duyguyla yeniden hatırlamanıza yardımcı olur.",
+    "benefits": {
+      "secure": "Çocuğunuzun anılarını güvenle saklayın.",
+      "together": "Fotoğraf, video ve önemli anları tek yerde toplayın.",
+      "insights": "Yapay zekâ ile gelişimi anlamlandırın.",
+      "rediscover": "Yıllar sonra birlikte yeniden hatırlayın."
+    },
+    "primaryAction": "Başlayalım",
+    "illustration": {
+      "ariaLabel": "KidMemoir anı, fotoğraf ve yapay zekâ kartları önizlemesi",
+      "memoryTitle": "Ada'nın hikâyesi",
+      "memoryMeta": "İlk anı için hazır",
+      "photoTitle": "Birlikte büyüyen anılar",
+      "photoMeta": "Fotoğraf · Video · Ses",
+      "aiTitle": "KidMemoir AI",
+      "aiText": "Her dönemi anlamlı bir hikâyeye dönüştürür."
+    }
+  },
+  "children": {
+    "create": {
+      "metadata": {
+        "title": "İlk Çocuğunuzu Oluşturun",
+        "description": "Çocuğunuzun KidMemoir hayat hikâyesini güvenle başlatın."
+      },
+      "eyebrow": "İlk hikâye",
+      "title": "Çocuğunuzun hikâyesi için özel bir alan oluşturun.",
+      "description": "Bugün eklediğiniz birkaç temel bilgi, yıllar boyunca büyüyecek anlamlı bir yaşam hikâyesinin başlangıcı olacak.",
+      "privacy": {
+        "title": "Ailenize özel ve güvende",
+        "description": "Bu bilgiler yalnızca sizin hesabınızdan erişilebilen özel çocuk profilinde saklanır."
+      },
+      "formTitle": "Çocuk bilgileri",
+      "formDescription": "Zorunlu alanları doldurarak ilk profili oluşturun.",
+      "formLegend": "İlk çocuk bilgileri",
+      "optional": "Opsiyonel",
+      "avatar": {
+        "label": "Profil fotoğrafı",
+        "description": "Fotoğraf yükleme yakında kullanılabilir olacak.",
+        "action": "Fotoğraf ekle"
+      },
+      "firstName": {
+        "label": "Ad",
+        "placeholder": "Çocuğunuzun adı"
+      },
+      "lastName": {
+        "label": "Soyad",
+        "placeholder": "Çocuğunuzun soyadı"
+      },
+      "birthDate": {
+        "label": "Doğum tarihi"
+      },
+      "gender": {
+        "label": "Cinsiyet",
+        "placeholder": "Seçim yapın",
+        "female": "Kız",
+        "male": "Erkek",
+        "other": "Diğer",
+        "preferNotToSay": "Belirtmek istemiyorum"
+      },
+      "birthPlace": {
+        "label": "Doğum yeri",
+        "placeholder": "Şehir veya hastane"
+      },
+      "birthHeight": {
+        "label": "Boy (cm)",
+        "placeholder": "50"
+      },
+      "birthWeight": {
+        "label": "Kilo (kg)",
+        "placeholder": "3.25"
+      },
+      "notes": {
+        "label": "Notlar",
+        "placeholder": "Doğum veya ilk günlerle ilgili saklamak istediğiniz küçük bir not…",
+        "hint": "Bu alanı daha sonra düzenleyebilirsiniz."
+      },
+      "controls": {
+        "openCalendar": "Takvimi aç",
+        "calendarLabel": "Doğum tarihi takvimi",
+        "previousMonth": "Önceki ay",
+        "nextMonth": "Sonraki ay",
+        "decreaseHeight": "Doğum boyunu azalt",
+        "increaseHeight": "Doğum boyunu artır",
+        "decreaseWeight": "Doğum kilosunu azalt",
+        "increaseWeight": "Doğum kilosunu artır"
+      },
+      "submit": "İlk profili oluştur",
+      "submitting": "Profil oluşturuluyor",
+      "validation": {
+        "firstNameRequired": "Çocuğunuzun adını girin.",
+        "firstNameMaxLength": "Ad 100 karakterden uzun olamaz.",
+        "lastNameMaxLength": "Soyad 100 karakterden uzun olamaz.",
+        "birthDateRequired": "Doğum tarihini seçin.",
+        "birthDateInvalid": "Geçerli bir doğum tarihi seçin.",
+        "birthDateFuture": "Doğum tarihi gelecekte olamaz.",
+        "genderRequired": "Cinsiyet seçimini yapın.",
+        "birthPlaceMaxLength": "Doğum yeri 300 karakterden uzun olamaz.",
+        "birthHeightPositive": "Doğum boyu pozitif ve geçerli bir sayı olmalıdır.",
+        "birthWeightPositive": "Doğum kilosu pozitif ve geçerli bir sayı olmalıdır.",
+        "notesMaxLength": "Notlar 10.000 karakterden uzun olamaz."
+      },
+      "errors": {
+        "title": "Profil oluşturulamadı",
+        "validation": "Lütfen işaretlenen alanları kontrol edin.",
+        "unauthorized": "Oturumunuz sona ermiş. Lütfen yeniden giriş yapın.",
+        "database": "Çocuk profili kaydedilemedi. Lütfen tekrar deneyin."
+      }
+    }
+  },
+  "applicationShell": {
+    "header": {
+      "pageTitleLabel": "Geçerli sayfa"
+    },
+    "pageTitles": {
+      "dashboard": "Ana Sayfa",
+      "memories": "Anılar",
+      "timeline": "Zaman Tüneli",
+      "ai": "KidMemoir AI",
+      "reports": "Raporlar",
+      "settings": "Ayarlar",
+      "profile": "Profil",
+      "children": "Çocuklarım"
+    },
+    "account": {
+      "openLabel": "Hesap menüsünü aç",
+      "avatarLabel": "{name} profil fotoğrafı",
+      "activeChildren": "{count, plural, =0 {Çocuk profili yok} one {# aktif çocuk} other {# aktif çocuk}}",
+      "lastLogin": "Son giriş",
+      "plans": {
+        "free": "Ücretsiz",
+        "premium": "Premium"
+      }
+    },
+    "menu": {
+      "profile": "Profil",
+      "children": "Çocuklarım",
+      "subscription": "Abonelik",
+      "settings": "Ayarlar",
+      "language": "Dil",
+      "theme": "Tema",
+      "help": "Yardım Merkezi",
+      "privacy": "Gizlilik",
+      "terms": "Kullanım Koşulları",
+      "support": "Destek",
+      "logout": "Güvenli Çıkış",
+      "signingOut": "Çıkış yapılıyor"
+    },
+    "childSwitcher": {
+      "label": "Aktif çocuğu değiştir",
+      "avatarLabel": "{name} profil fotoğrafı"
+    },
+    "notifications": {
+      "openLabel": "Bildirimleri aç",
+      "title": "Bildirimler",
+      "emptyTitle": "Henüz bildirim yok",
+      "emptyDescription": "Ailenizle ilgili önemli gelişmeler burada görünecek."
+    },
+    "language": {
+      "openLabel": "Dili değiştir",
+      "tr": "Türkçe",
+      "en": "English"
+    },
+    "theme": {
+      "openLabel": "Temayı değiştir",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem"
+    },
+    "bottomNavigation": {
+      "ariaLabel": "Uygulama ana navigasyonu",
+      "dashboard": "Ana Sayfa",
+      "memories": "Anılar",
+      "newMemory": "Yeni Anı",
+      "timeline": "Timeline",
+      "ai": "AI",
+      "profile": "Profil"
+    }
+  },
+  "memories": {
+    "edit": {
+      "metadata": {
+        "title": "Anıyı Düzenle",
+        "description": "Kaydettiğiniz anının ayrıntılarını güncelleyin."
+      },
+      "eyebrow": "Anı düzenleme",
+      "title": "Anınızı Güncelleyin",
+      "description": "Bu anının başlığını, açıklamasını, tarihini ve diğer ayrıntılarını güvenle değiştirebilirsiniz.",
+      "delete": {
+        "sectionTitle": "Anıyı sil",
+        "sectionDescription": "Bu anıyı artık saklamak istemiyorsanız silebilirsiniz.",
+        "trigger": "Anıyı Sil",
+        "title": "Bu anıyı silmek istediğinize emin misiniz?",
+        "description": "Anı, bağlı medya kayıtları ve planlanan hatırlatmalar uygulamadan kaldırılacaktır.",
+        "cancel": "Vazgeç",
+        "confirm": "Evet, Anıyı Sil",
+        "deleting": "Anı siliniyor",
+        "error": "Anı silinemedi. Lütfen tekrar deneyin."
+      }
+    },
+    "create": {
+      "metadata": {
+        "title": "Yeni Anı Oluştur",
+        "description": "Çocuğunuzun özel bir anını güvenle kaydedin."
+      },
+      "eyebrow": "Yeni bir hikâye sayfası",
+      "title": "Yeni Bir Anı",
+      "description": "Bugün {name} ile yaşadığınız özel bir anıyı geleceğe bırakın.",
+      "optional": "Opsiyonel",
+      "formLegend": "Yeni anı bilgileri",
+      "cancel": "Vazgeç ve Ana Sayfaya Dön",
+      "typeEyebrow": "Başlangıç",
+      "typeTitle": "Bugün ne eklemek istiyorsunuz?",
+      "types": {
+        "memory": "Bir Anı",
+        "photo": "Fotoğraf",
+        "video": "Video",
+        "audio": "Ses Kaydı"
+      },
+      "media": {
+        "photo": {
+          "title": "Fotoğraf alanı hazır",
+          "description": "Bu anıya ait fotoğrafları ileride burada güvenle ekleyebileceksiniz."
+        },
+        "video": {
+          "title": "Video alanı hazır",
+          "description": "Bu anıya ait videoları ileride burada güvenle ekleyebileceksiniz."
+        },
+        "audio": {
+          "title": "Ses kaydı alanı hazır",
+          "description": "Bu ana ait sesleri ileride burada güvenle saklayabileceksiniz."
+        },
+        "selectFile": "Dosya seç",
+        "previewAlt": "Seçilen medya önizlemesi",
+        "remove": "Medyayı kaldır",
+        "uploading": "Medya yükleniyor: {progress}%",
+        "cancel": "Yüklemeyi iptal et",
+        "cancelled": "Yükleme iptal edildi. Yeniden kaydetmek için tekrar deneyebilirsiniz.",
+        "retry": "Tekrar dene",
+        "record": {
+          "start": "Ses kaydet",
+          "fileName": "ses-kaydi.wav",
+          "pause": "Duraklat",
+          "resume": "Devam et",
+          "stop": "Kaydı bitir"
+        },
+        "errors": {
+          "mediaRequired": "Seçtiğiniz anı türü için bir medya dosyası ekleyin.",
+          "unsupportedPhoto": "Yalnızca JPG, JPEG, PNG veya WebP fotoğraflar desteklenir.",
+          "photoTooLarge": "Fotoğraf en fazla 10 MB olabilir.",
+          "heicUnsupported": "HEIC bu tarayıcıda dönüştürülemiyor. Lütfen JPG, PNG veya WebP kullanın.",
+          "imageProcessingFailed": "Fotoğraf hazırlanamadı. Lütfen başka bir dosya deneyin.",
+          "unsupportedVideo": "Yalnızca MP4, MOV veya WebM videolar desteklenir.",
+          "videoTooLarge": "Video en fazla 100 MB olabilir.",
+          "unsupportedAudio": "Yalnızca MP3, M4A, OGG veya WAV ses dosyaları desteklenir.",
+          "audioTooLarge": "Ses dosyası en fazla 25 MB olabilir.",
+          "unsupportedRecorder": "Bu tarayıcı ses kaydını desteklemiyor.",
+          "recordingFailed": "Ses kaydı hazırlanamadı. Mikrofon iznini kontrol edip tekrar deneyin.",
+          "uploadFailed": "Medya yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin."
+        }
+      },
+      "details": {
+        "eyebrow": "Anının ayrıntıları",
+        "title": "Bu anı nasıl hatırlansın?"
+      },
+      "fields": {
+        "title": {
+          "label": "Başlık",
+          "placeholder": "Bu anıya kısa bir isim verin"
+        },
+        "description": {
+          "label": "Açıklama",
+          "placeholder": "O anı özel yapan küçük ayrıntıları yazın…"
+        },
+        "category": { "label": "Kategori", "placeholder": "Kategori seçin" },
+        "subCategory": {
+          "label": "Alt Kategori",
+          "placeholder": "Alt kategori seçin"
+        },
+        "date": { "label": "Tarih" },
+        "location": { "label": "Konum", "placeholder": "Nerede gerçekleşti?" },
+        "mood": { "label": "Duygu" },
+        "importance": { "label": "Önem Derecesi" },
+        "tags": {
+          "label": "Etiketler",
+          "placeholder": "aile, ilkler, tatil",
+          "hint": "Etiketleri virgülle ayırın."
+        }
+      },
+      "moods": {
+        "happy": "Mutlu",
+        "sad": "Üzgün",
+        "fear": "Korku",
+        "excitement": "Heyecanlı",
+        "proud": "Gururlu",
+        "disappointed": "Hayal kırıklığı",
+        "neutral": "Sakin"
+      },
+      "importance": {
+        "low": "Düşük",
+        "normal": "Normal",
+        "high": "Yüksek",
+        "critical": "Çok önemli"
+      },
+      "options": {
+        "title": "Bu anı için seçenekler",
+        "ai": {
+          "label": "Bu anıyı AI analiz etsin",
+          "description": "AI analizi hazır olduğunda bu anı gelişim içgörülerine dahil edilecektir."
+        },
+        "reminder": {
+          "label": "Bu anı için gelecekte bana hatırlatma oluştur",
+          "description": "Bu özel anı seçtiğiniz bir tarihte yeniden hatırlayın."
+        }
+      },
+      "reminder": {
+        "date": { "label": "Hatırlatma Tarihi" },
+        "repeat": {
+          "label": "Tekrar Türü",
+          "none": "Tekrar etme",
+          "daily": "Her gün",
+          "weekly": "Her hafta",
+          "monthly": "Her ay",
+          "yearly": "Her yıl"
+        },
+        "note": {
+          "label": "Hatırlatma Notu",
+          "placeholder": "Bu anıyı neden yeniden hatırlamak istediğinizi yazın…"
+        }
+      },
+      "controls": {
+        "calendarLabel": "Anı tarihi takvimi",
+        "reminderCalendarLabel": "Hatırlatma tarihi takvimi",
+        "openCalendar": "Takvimi aç",
+        "previousMonth": "Önceki ay",
+        "nextMonth": "Sonraki ay"
+      },
+      "save": {
+        "label": "Anıyı Kaydet",
+        "saving": "Anı kaydediliyor",
+        "saved": "Anı Kaydedildi"
+      },
+      "feedback": {
+        "successTitle": "Anınız güvenle kaydedildi",
+        "successDescription": "Bu özel an artık çocuğunuzun hikâyesinin bir parçası.",
+        "errorTitle": "Anı kaydedilemedi",
+        "errorDescription": "Bilgiler kaydedilirken bir sorun oluştu. Lütfen tekrar deneyin."
+      },
+      "catalog": {
+        "health": "Sağlık",
+        "education": "Eğitim",
+        "development": "Gelişim",
+        "behavior": "Davranış",
+        "emotion": "Duygu",
+        "sleep": "Uyku",
+        "nutrition": "Beslenme",
+        "social": "Sosyal",
+        "achievement": "Başarı",
+        "hobby": "Hobi",
+        "general": "Genel",
+        "doctor_visit": "Doktor Ziyareti",
+        "vaccination": "Aşı",
+        "medication": "İlaç",
+        "fever": "Ateş",
+        "allergy": "Alerji",
+        "teacher_meeting": "Öğretmen Görüşmesi",
+        "homework": "Ödev",
+        "exam": "Sınav",
+        "report_card": "Karne",
+        "first_word": "İlk Kelime",
+        "first_step": "İlk Adım",
+        "toilet_training": "Tuvalet Eğitimi",
+        "swimming": "Yüzme",
+        "bicycle": "Bisiklet",
+        "tantrum": "Öfke Nöbeti",
+        "aggression": "Saldırganlık",
+        "anxiety": "Kaygı",
+        "sharing": "Paylaşma",
+        "responsibility": "Sorumluluk",
+        "social_interaction": "Sosyal Etkileşim",
+        "happy": "Mutlu",
+        "sad": "Üzgün",
+        "fear": "Korku",
+        "excitement": "Heyecan",
+        "proud": "Gururlu",
+        "disappointed": "Hayal Kırıklığı",
+        "night_sleep": "Gece Uykusu",
+        "nap": "Gündüz Uykusu",
+        "nightmare": "Kâbus",
+        "sleep_problem": "Uyku Problemi",
+        "new_food": "Yeni Yiyecek",
+        "poor_appetite": "İştahsızlık",
+        "vitamin": "Vitamin",
+        "water_intake": "Su Tüketimi",
+        "birthday": "Doğum Günü",
+        "vacation": "Tatil",
+        "new_friend": "Yeni Arkadaş",
+        "family_event": "Aile Etkinliği",
+        "play_date": "Oyun Buluşması",
+        "competition": "Yarışma",
+        "medal": "Madalya",
+        "certificate": "Sertifika",
+        "award": "Ödül",
+        "first_success": "İlk Başarı",
+        "music": "Müzik",
+        "painting": "Resim",
+        "dance": "Dans",
+        "football": "Futbol",
+        "chess": "Satranç",
+        "reading": "Okuma"
+      },
+      "validation": {
+        "typeRequired": "Eklemek istediğiniz anı türünü seçin.",
+        "titleRequired": "Anı için bir başlık yazın.",
+        "titleMax": "Başlık 200 karakterden uzun olamaz.",
+        "descriptionMax": "Açıklama 20.000 karakterden uzun olamaz.",
+        "categoryRequired": "Bir kategori seçin.",
+        "occurredAtRequired": "Anının tarihini seçin.",
+        "occurredAtFuture": "Anı tarihi gelecekte olamaz.",
+        "locationMax": "Konum 300 karakterden uzun olamaz.",
+        "moodInvalid": "Geçerli bir duygu seçin.",
+        "importanceInvalid": "Geçerli bir önem derecesi seçin.",
+        "tagsInvalid": "Her etiket en fazla 50 karakter olabilir.",
+        "reminderDateRequired": "Hatırlatma tarihini seçin.",
+        "reminderFuture": "Hatırlatma tarihi gelecekte olmalıdır.",
+        "repeatTypeInvalid": "Geçerli bir tekrar türü seçin.",
+        "reminderNoteMax": "Hatırlatma notu 5.000 karakterden uzun olamaz."
+      }
+    }
+  },
+  "onThisDay": {
+    "eyebrow": "Geçmişten bugüne",
+    "title": "Bugün Hatırla",
+    "description": "Yıllar önce bugün yaşadığınız güzel anlara yeniden dönün.",
+    "yearsAgo": "Bugün {count} yıl önce",
+    "action": "Anıyı Aç",
+    "mediaLabel": "{title} anısının medya önizlemesi"
+  },
+  "timeline": {
+    "metadata": {
+      "title": "Zaman Tüneli",
+      "description": "Çocuğunuzun bütün hikâyesini kronolojik olarak keşfedin."
+    },
+    "hero": {
+      "eyebrow": "Yaşayan hayat hikâyesi",
+      "title": "Zaman Tüneli",
+      "description": "Çocuğunuzun bütün hikâyesi tek bir yerde.",
+      "backDashboard": "Ana Sayfaya Dön",
+      "avatarLabel": "{name} profil fotoğrafı"
+    },
+    "filters": {
+      "ariaLabel": "Zaman tüneli filtreleri",
+      "searchLabel": "Anılarda ara",
+      "searchPlaceholder": "Bir anı, yer veya kelime arayın",
+      "searchAction": "Ara",
+      "categoryLabel": "Kategori",
+      "allCategories": "Tüm kategoriler",
+      "fromLabel": "Başlangıç tarihi",
+      "toLabel": "Bitiş tarihi",
+      "typeLabel": "Anı türü",
+      "favorites": "Favoriler",
+      "calendarLabel": "Tarih seçin",
+      "openCalendar": "Takvimi aç",
+      "previousMonth": "Önceki ay",
+      "nextMonth": "Sonraki ay",
+      "types": {
+        "all": "Tüm Anılar",
+        "photo": "Fotoğraf",
+        "video": "Video",
+        "audio": "Ses",
+        "written": "Yazılı Anı"
+      }
+    },
+    "feed": {
+      "ariaLabel": "Kronolojik anı akışı",
+      "loading": "Daha fazla anı yükleniyor",
+      "retry": "Tekrar dene",
+      "end": "Hikâyenin şimdilik başındasınız."
+    },
+    "card": {
+      "uncategorized": "Anı",
+      "mediaLabel": "{title} anısının medya önizlemesi",
+      "openLabel": "{title} anısını aç ve düzenle"
+    },
+    "empty": {
+      "title": "Zaman tüneliniz başlamaya hazır",
+      "description": "İlk anınızı oluşturarak çocuğunuzun hayat hikâyesini zaman içinde biriktirmeye başlayın.",
+      "action": "İlk Anıyı Oluştur"
+    },
+    "error": {
+      "title": "Zaman tüneli yüklenemedi",
+      "description": "Anılarınız şu anda alınamadı. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+      "action": "Tekrar dene"
+    }
+  },
+  "dashboard": {
+    "metadata": {
+      "title": "Ana Sayfa",
+      "description": "Çocuğunuzun anıları, yaklaşan günleri ve gelişim özeti."
+    },
+    "navigationLabel": "KidMemoir ana navigasyonu",
+    "greeting": {
+      "morning": "Günaydın",
+      "afternoon": "İyi günler",
+      "evening": "İyi akşamlar",
+      "night": "İyi geceler",
+      "title": "Hoş geldin, {name}.",
+      "description": "Bugünün küçük anları, yarının en değerli hikâyesine dönüşüyor.",
+      "prompt": "Bugün {name} ile yeni bir anı oluşturmaya ne dersiniz?"
+    },
+    "child": {
+      "ariaLabel": "Varsayılan çocuk özeti",
+      "avatarLabel": "{name} profil fotoğrafı",
+      "eyebrow": "Bugünün hikâyesi",
+      "ageYears": "{count, plural, one {# yaşında} other {# yaşında}}",
+      "ageMonths": "{count, plural, one {# aylık} other {# aylık}}",
+      "ageDays": "{count, plural, one {# günlük} other {# günlük}}",
+      "birthdayToday": "Doğum günü bugün",
+      "birthdayCountdown": "Doğum gününe {count} gün"
+    },
+    "quickActions": {
+      "ariaLabel": "Yeni anı oluşturma",
+      "eyebrow": "Bugünden geleceğe",
+      "title": "Yeni Bir Anı Oluştur",
+      "description": "Bugün yaşadığınız güzel bir anıyı geleceğe bırakın.",
+      "cta": "Yeni Anı Oluştur"
+    },
+    "recent": {
+      "open": "{title} anısını aç ve düzenle",
+      "ariaLabel": "Son eklenen anılar",
+      "title": "Son Anılar",
+      "viewAll": "Tümünü gör",
+      "emptyTitle": "Henüz anı eklenmedi",
+      "emptyDescription": "İlk anınızı eklediğinizde burada güvenle saklanacak."
+    },
+    "upcoming": {
+      "ariaLabel": "Yaklaşan günler ve hatırlatmalar",
+      "title": "Yaklaşan",
+      "viewAll": "Takvimi gör",
+      "birthday": "{name} için yaklaşan doğum günü",
+      "today": "Bugün",
+      "inDays": "{count} gün sonra",
+      "noReminders": "Yaklaşan başka bir hatırlatma bulunmuyor."
+    },
+    "ai": {
+      "ariaLabel": "KidMemoir AI gelişim içgörüsü",
+      "eyebrow": "KidMemoir AI",
+      "title": "Gelişim İçgörüsü",
+      "emptyTitle": "İçgörüler anılarla büyür",
+      "emptyDescription": "İlk anılar eklendiğinde AI burada gelişim analizleri sunacak."
+    },
+    "summary": {
+      "ariaLabel": "Bu ayın anı özeti",
+      "eyebrow": "Bu Ay",
+      "title": "Aylık Özet",
+      "memories": "Toplam Anı",
+      "photos": "Fotoğraf",
+      "videos": "Video",
+      "audio": "Ses"
+    },
+    "timeline": {
+      "open": "{title} anısını aç ve düzenle",
+      "ariaLabel": "Zaman tüneli önizlemesi",
+      "title": "Zaman Tünelinden",
+      "viewTimeline": "Tümünü Gör",
+      "emptyTitle": "Hikâye başlamaya hazır",
+      "emptyDescription": "Eklediğiniz anılar zaman içinde burada anlamlı bir akış oluşturacak."
+    },
+    "error": {
+      "title": "Dashboard yüklenemedi",
+      "description": "Verileriniz şu anda alınamadı. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+      "retry": "Tekrar dene"
     }
   }
 }

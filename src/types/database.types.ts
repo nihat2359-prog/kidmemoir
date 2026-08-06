@@ -14,6 +14,7 @@ type TableDefinition<Row, RequiredInsert extends keyof Row> = {
 };
 
 type ProfileRow = {
+  archived_at: string | null;
   avatar: string | null;
   created_at: string;
   first_name: string;
@@ -31,6 +32,9 @@ type ChildRow = {
   archived_at: string | null;
   avatar: string | null;
   birth_date: string;
+  birth_height: number | null;
+  birth_place: string | null;
+  birth_weight: number | null;
   blood_type: string | null;
   created_at: string;
   first_name: string;
@@ -39,6 +43,37 @@ type ChildRow = {
   is_default: boolean;
   last_name: string | null;
   notes: string | null;
+  updated_at: string;
+  user_id: string;
+};
+
+type UserSettingsRow = {
+  ai_enabled: boolean;
+  created_at: string;
+  date_format: string;
+  email_notifications: boolean;
+  id: string;
+  language: string;
+  push_notifications: boolean;
+  reminder_notifications: boolean;
+  theme: string;
+  time_format: string;
+  timezone: string;
+  updated_at: string;
+  user_id: string;
+};
+
+type UserDeviceRow = {
+  app_version: string | null;
+  created_at: string;
+  device_id: string;
+  device_name: string | null;
+  id: string;
+  is_current: boolean;
+  last_seen_at: string;
+  operating_system: string | null;
+  platform: string;
+  push_token: string | null;
   updated_at: string;
   user_id: string;
 };
@@ -256,6 +291,11 @@ export type Database = {
         SubscriptionRow,
         "plan" | "provider" | "start_date" | "status" | "user_id"
       >;
+      user_devices: TableDefinition<
+        UserDeviceRow,
+        "device_id" | "platform" | "user_id"
+      >;
+      user_settings: TableDefinition<UserSettingsRow, "user_id">;
     };
     Views: Record<string, never>;
   };

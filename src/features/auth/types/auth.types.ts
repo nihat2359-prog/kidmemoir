@@ -26,3 +26,8 @@ export type SignUpCredentials = Readonly<{
   lastName: string;
   password: string;
 }>;
+
+export type PasswordResetRequest = Readonly<{
+  email: string;
+  redirectTo: string;
+}>;

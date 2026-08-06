@@ -360,6 +360,14 @@
       "comingSoon": "Coming soon",
       "registerPrompt": "Don't have an account yet?",
       "registerLink": "Create a free account",
+      "verificationSuccess": {
+        "title": "Your email address is verified",
+        "description": "Your email address has been verified successfully. You can now log in."
+      },
+      "passwordResetSuccess": {
+        "title": "Your password has been updated",
+        "description": "Your password has been updated successfully. You can now log in."
+      },
       "validation": {
         "emailRequired": "Enter your email address.",
         "emailInvalid": "Enter a valid email address.",
@@ -450,6 +458,723 @@
         "title": "Create a Free Account",
         "description": "Start creating your child's life story securely with KidMemoir."
       }
+    },
+    "verifyEmail": {
+      "eyebrow": "Email verification",
+      "title": "Check your inbox.",
+      "description": "Use the verification link we sent to your email address to activate your account securely.",
+      "emailLabel": "Verification link sent to",
+      "emailAriaLabel": "Verification email address",
+      "resendButton": "Resend email",
+      "resendPlaceholder": "Resending will be available soon.",
+      "differentAccountLink": "Sign in with another account",
+      "spamAriaLabel": "Email delivery information",
+      "spamNotice": "If you cannot see the email, check your spam or junk folder. Delivery may take a few minutes.",
+      "metadata": {
+        "title": "Verify Your Email Address",
+        "description": "Check your email verification link to activate your KidMemoir account."
+      }
+    },
+    "forgotPassword": {
+      "eyebrow": "Account recovery",
+      "title": "Forgot your password?",
+      "description": "Enter the email address for your account and we will send you a secure password reset link.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "submit": "Send password reset link",
+      "submitting": "Sending link",
+      "backToLogin": "Return to login",
+      "success": {
+        "title": "Email sent",
+        "description": "If your email address is registered, you will receive a password reset link within a few minutes."
+      },
+      "validation": {
+        "emailRequired": "Enter your email address.",
+        "emailInvalid": "Enter a valid email address."
+      },
+      "errors": {
+        "title": "Unable to send link",
+        "expiredLink": "The password reset link has expired. Please request a new password reset link.",
+        "network": "A connection error occurred. Please check your connection.",
+        "rateLimited": "Too many reset requests were sent. Please try again shortly.",
+        "unknown": "The password reset request could not be completed. Please try again.",
+        "weakPassword": "Your password does not meet the security requirements."
+      },
+      "metadata": {
+        "title": "Reset Your Password",
+        "description": "Request a secure password reset link for your KidMemoir account."
+      }
+    },
+    "recoveryConfirm": {
+      "eyebrow": "Secure account recovery",
+      "title": "Confirm your password reset.",
+      "description": "For your security, the reset link is used only after you confirm this action.",
+      "emailLabel": "Your account email address",
+      "emailPlaceholder": "example@email.com",
+      "securityNoteAriaLabel": "Password reset security information",
+      "securityNote": "This extra step prevents email scanners and link previews from consuming your one-time reset link.",
+      "submit": "Continue securely",
+      "requestNewLink": "Request a new reset link",
+      "metadata": {
+        "title": "Confirm Password Reset",
+        "description": "Securely confirm your KidMemoir password reset request."
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Secure password renewal",
+      "title": "Create your new password.",
+      "description": "Protect your account with a strong password you have not used before.",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm new password",
+      "confirmPasswordPlaceholder": "Enter your new password again",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "showConfirmPassword": "Show password confirmation",
+      "hideConfirmPassword": "Hide password confirmation",
+      "passwordStrengthLabel": "Password strength",
+      "passwordStrength": {
+        "pending": "Not evaluated yet",
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "submit": "Update password",
+      "submitting": "Updating password",
+      "requestNewLink": "Request a new reset link",
+      "validation": {
+        "passwordRequired": "Enter your new password.",
+        "passwordMinLength": "Password must be at least 8 characters.",
+        "passwordUppercase": "Password must include at least 1 uppercase letter.",
+        "passwordLowercase": "Password must include at least 1 lowercase letter.",
+        "passwordNumber": "Password must include at least 1 number.",
+        "confirmPasswordRequired": "Enter your new password again.",
+        "passwordsMismatch": "Passwords do not match."
+      },
+      "errors": {
+        "title": "Unable to update password",
+        "expiredLinkTitle": "Link is invalid or has expired",
+        "expiredLink": "The password reset link has expired. Please request a new password reset link.",
+        "network": "A connection error occurred. Please check your connection.",
+        "rateLimited": "Too many attempts were made. Please try again shortly.",
+        "samePassword": "Your new password must be different from your current password.",
+        "unknown": "Your password could not be updated. Please try again.",
+        "weakPassword": "Your password does not meet the security requirements."
+      },
+      "metadata": {
+        "title": "Create a New Password",
+        "description": "Create a secure new password for your KidMemoir account."
+      }
+    }
+  },
+  "bootstrap": {
+    "metadata": {
+      "title": "Preparing your account",
+      "description": "Your KidMemoir application space is being prepared securely."
+    },
+    "loading": {
+      "message": "Preparing your KidMemoir account…"
+    },
+    "error": {
+      "title": "We could not prepare your account",
+      "description": "The secure setup could not be completed. Please try again.",
+      "retry": "Try again"
+    },
+    "onboarding": {
+      "title": "Begin your family's story.",
+      "description": "Child profile setup will begin here in the next development phase."
+    },
+    "dashboard": {
+      "title": "KidMemoir is ready.",
+      "description": "Your application space is ready. The dashboard will be added here in the next development phase."
+    }
+  },
+  "onboarding": {
+    "metadata": {
+      "title": "Welcome to KidMemoir",
+      "description": "Begin preserving your child's life story securely."
+    },
+    "progress": {
+      "ariaLabel": "Onboarding progress",
+      "label": "1 / 2"
+    },
+    "eyebrow": "Your story begins here",
+    "title": "Today's little moments become tomorrow's most precious story.",
+    "description": "KidMemoir safely brings together the traces your child leaves as they grow, helping you rediscover them years later with the same feeling.",
+    "benefits": {
+      "secure": "Preserve your child's memories securely.",
+      "together": "Keep photos, videos and important moments together.",
+      "insights": "Make sense of development with AI.",
+      "rediscover": "Rediscover and remember together years later."
+    },
+    "primaryAction": "Let's begin",
+    "illustration": {
+      "ariaLabel": "Preview of KidMemoir memory, photo and AI cards",
+      "memoryTitle": "Ada's story",
+      "memoryMeta": "Ready for the first memory",
+      "photoTitle": "Memories that grow together",
+      "photoMeta": "Photo · Video · Audio",
+      "aiTitle": "KidMemoir AI",
+      "aiText": "Turns every stage into a meaningful story."
+    }
+  },
+  "children": {
+    "create": {
+      "metadata": {
+        "title": "Create Your First Child Profile",
+        "description": "Begin your child's KidMemoir life story securely."
+      },
+      "eyebrow": "The first story",
+      "title": "Create a private space for your child's story.",
+      "description": "A few essential details you add today will become the beginning of a meaningful life story that grows for years.",
+      "privacy": {
+        "title": "Private and secure for your family",
+        "description": "These details are stored in a private child profile that only your account can access."
+      },
+      "formTitle": "Child information",
+      "formDescription": "Complete the required fields to create the first profile.",
+      "formLegend": "First child information",
+      "optional": "Optional",
+      "avatar": {
+        "label": "Profile photo",
+        "description": "Photo upload will be available soon.",
+        "action": "Add photo"
+      },
+      "firstName": {
+        "label": "First name",
+        "placeholder": "Your child's first name"
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Your child's last name"
+      },
+      "birthDate": {
+        "label": "Date of birth"
+      },
+      "gender": {
+        "label": "Gender",
+        "placeholder": "Select an option",
+        "female": "Female",
+        "male": "Male",
+        "other": "Other",
+        "preferNotToSay": "Prefer not to say"
+      },
+      "birthPlace": {
+        "label": "Place of birth",
+        "placeholder": "City or hospital"
+      },
+      "birthHeight": {
+        "label": "Height (cm)",
+        "placeholder": "50"
+      },
+      "birthWeight": {
+        "label": "Weight (kg)",
+        "placeholder": "3.25"
+      },
+      "notes": {
+        "label": "Notes",
+        "placeholder": "A small note about the birth or first days that you would like to preserve…",
+        "hint": "You can edit this field later."
+      },
+      "controls": {
+        "openCalendar": "Open calendar",
+        "calendarLabel": "Date of birth calendar",
+        "previousMonth": "Previous month",
+        "nextMonth": "Next month",
+        "decreaseHeight": "Decrease birth height",
+        "increaseHeight": "Increase birth height",
+        "decreaseWeight": "Decrease birth weight",
+        "increaseWeight": "Increase birth weight"
+      },
+      "submit": "Create the first profile",
+      "submitting": "Creating profile",
+      "validation": {
+        "firstNameRequired": "Enter your child's first name.",
+        "firstNameMaxLength": "First name cannot exceed 100 characters.",
+        "lastNameMaxLength": "Last name cannot exceed 100 characters.",
+        "birthDateRequired": "Select the date of birth.",
+        "birthDateInvalid": "Select a valid date of birth.",
+        "birthDateFuture": "The date of birth cannot be in the future.",
+        "genderRequired": "Select a gender option.",
+        "birthPlaceMaxLength": "Place of birth cannot exceed 300 characters.",
+        "birthHeightPositive": "Birth height must be a positive, valid number.",
+        "birthWeightPositive": "Birth weight must be a positive, valid number.",
+        "notesMaxLength": "Notes cannot exceed 10,000 characters."
+      },
+      "errors": {
+        "title": "Unable to create profile",
+        "validation": "Check the highlighted fields.",
+        "unauthorized": "Your session has expired. Please log in again.",
+        "database": "The child profile could not be saved. Please try again."
+      }
+    }
+  },
+  "applicationShell": {
+    "header": {
+      "pageTitleLabel": "Current page"
+    },
+    "pageTitles": {
+      "dashboard": "Home",
+      "memories": "Memories",
+      "timeline": "Timeline",
+      "ai": "KidMemoir AI",
+      "reports": "Reports",
+      "settings": "Settings",
+      "profile": "Profile",
+      "children": "My Children"
+    },
+    "account": {
+      "openLabel": "Open account menu",
+      "avatarLabel": "Profile photo for {name}",
+      "activeChildren": "{count, plural, =0 {No child profiles} one {# active child} other {# active children}}",
+      "lastLogin": "Last sign-in",
+      "plans": {
+        "free": "Free",
+        "premium": "Premium"
+      }
+    },
+    "menu": {
+      "profile": "Profile",
+      "children": "My Children",
+      "subscription": "Subscription",
+      "settings": "Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "help": "Help Center",
+      "privacy": "Privacy",
+      "terms": "Terms of Use",
+      "support": "Support",
+      "logout": "Secure Sign Out",
+      "signingOut": "Signing out"
+    },
+    "childSwitcher": {
+      "label": "Switch active child",
+      "avatarLabel": "Profile photo for {name}"
+    },
+    "notifications": {
+      "openLabel": "Open notifications",
+      "title": "Notifications",
+      "emptyTitle": "No notifications yet",
+      "emptyDescription": "Important updates about your family will appear here."
+    },
+    "language": {
+      "openLabel": "Change language",
+      "tr": "Türkçe",
+      "en": "English"
+    },
+    "theme": {
+      "openLabel": "Change theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "bottomNavigation": {
+      "ariaLabel": "Application main navigation",
+      "dashboard": "Home",
+      "memories": "Memories",
+      "newMemory": "New",
+      "timeline": "Timeline",
+      "ai": "AI",
+      "profile": "Profile"
+    }
+  },
+  "memories": {
+    "edit": {
+      "metadata": {
+        "title": "Edit Memory",
+        "description": "Update the details of a memory you preserved."
+      },
+      "eyebrow": "Edit memory",
+      "title": "Update Your Memory",
+      "description": "Safely change this memory's title, description, date and other details.",
+      "delete": {
+        "sectionTitle": "Delete memory",
+        "sectionDescription": "You can delete this memory if you no longer want to keep it.",
+        "trigger": "Delete Memory",
+        "title": "Are you sure you want to delete this memory?",
+        "description": "The memory, linked media records and scheduled reminders will be removed from the app.",
+        "cancel": "Cancel",
+        "confirm": "Yes, Delete Memory",
+        "deleting": "Deleting memory",
+        "error": "The memory could not be deleted. Please try again."
+      }
+    },
+    "create": {
+      "metadata": {
+        "title": "Create a New Memory",
+        "description": "Securely preserve a special moment in your child's story."
+      },
+      "eyebrow": "A new page in the story",
+      "title": "A New Memory",
+      "description": "Preserve a special moment you shared with {name} today for the future.",
+      "optional": "Optional",
+      "formLegend": "New memory details",
+      "cancel": "Cancel and Return Home",
+      "typeEyebrow": "Start here",
+      "typeTitle": "What would you like to add today?",
+      "types": {
+        "memory": "A Memory",
+        "photo": "Photo",
+        "video": "Video",
+        "audio": "Audio Recording"
+      },
+      "media": {
+        "photo": {
+          "title": "Photo area is ready",
+          "description": "You will be able to securely add photos for this memory here."
+        },
+        "video": {
+          "title": "Video area is ready",
+          "description": "You will be able to securely add videos for this memory here."
+        },
+        "audio": {
+          "title": "Audio area is ready",
+          "description": "You will be able to securely preserve sounds from this moment here."
+        },
+        "selectFile": "Choose file",
+        "previewAlt": "Selected media preview",
+        "remove": "Remove media",
+        "uploading": "Uploading media: {progress}%",
+        "cancel": "Cancel upload",
+        "cancelled": "Upload was cancelled. You can try saving again.",
+        "retry": "Retry",
+        "record": {
+          "start": "Record audio",
+          "fileName": "voice-recording.wav",
+          "pause": "Pause",
+          "resume": "Resume",
+          "stop": "Finish recording"
+        },
+        "errors": {
+          "mediaRequired": "Add a media file for the memory type you selected.",
+          "unsupportedPhoto": "Only JPG, JPEG, PNG or WebP photos are supported.",
+          "photoTooLarge": "A photo can be up to 10 MB.",
+          "heicUnsupported": "HEIC cannot be converted in this browser. Please use JPG, PNG or WebP.",
+          "imageProcessingFailed": "The photo could not be prepared. Please try another file.",
+          "unsupportedVideo": "Only MP4, MOV or WebM videos are supported.",
+          "videoTooLarge": "A video can be up to 100 MB.",
+          "unsupportedAudio": "Only MP3, M4A, OGG or WAV audio files are supported.",
+          "audioTooLarge": "An audio file can be up to 25 MB.",
+          "unsupportedRecorder": "This browser does not support audio recording.",
+          "recordingFailed": "The recording could not be prepared. Check microphone access and try again.",
+          "uploadFailed": "The media could not be uploaded. Check your connection and try again."
+        }
+      },
+      "details": {
+        "eyebrow": "Memory details",
+        "title": "How should this moment be remembered?"
+      },
+      "fields": {
+        "title": {
+          "label": "Title",
+          "placeholder": "Give this memory a short name"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Write down the little details that made it special…"
+        },
+        "category": { "label": "Category", "placeholder": "Select a category" },
+        "subCategory": {
+          "label": "Subcategory",
+          "placeholder": "Select a subcategory"
+        },
+        "date": { "label": "Date" },
+        "location": {
+          "label": "Location",
+          "placeholder": "Where did it happen?"
+        },
+        "mood": { "label": "Mood" },
+        "importance": { "label": "Importance" },
+        "tags": {
+          "label": "Tags",
+          "placeholder": "family, firsts, holiday",
+          "hint": "Separate tags with commas."
+        }
+      },
+      "moods": {
+        "happy": "Happy",
+        "sad": "Sad",
+        "fear": "Fear",
+        "excitement": "Excited",
+        "proud": "Proud",
+        "disappointed": "Disappointed",
+        "neutral": "Calm"
+      },
+      "importance": {
+        "low": "Low",
+        "normal": "Normal",
+        "high": "High",
+        "critical": "Very important"
+      },
+      "options": {
+        "title": "Options for this memory",
+        "ai": {
+          "label": "Let AI analyze this memory",
+          "description": "When AI analysis is available, this memory will be included in development insights."
+        },
+        "reminder": {
+          "label": "Create a future reminder for this memory",
+          "description": "Rediscover this special memory on a date you choose."
+        }
+      },
+      "reminder": {
+        "date": { "label": "Reminder Date" },
+        "repeat": {
+          "label": "Repeat",
+          "none": "Do not repeat",
+          "daily": "Every day",
+          "weekly": "Every week",
+          "monthly": "Every month",
+          "yearly": "Every year"
+        },
+        "note": {
+          "label": "Reminder Note",
+          "placeholder": "Write why you would like to rediscover this memory…"
+        }
+      },
+      "controls": {
+        "calendarLabel": "Memory date calendar",
+        "reminderCalendarLabel": "Reminder date calendar",
+        "openCalendar": "Open calendar",
+        "previousMonth": "Previous month",
+        "nextMonth": "Next month"
+      },
+      "save": {
+        "label": "Save Memory",
+        "saving": "Saving memory",
+        "saved": "Memory Saved"
+      },
+      "feedback": {
+        "successTitle": "Your memory was saved securely",
+        "successDescription": "This special moment is now part of your child's story.",
+        "errorTitle": "Unable to save memory",
+        "errorDescription": "A problem occurred while saving the details. Please try again."
+      },
+      "catalog": {
+        "health": "Health",
+        "education": "Education",
+        "development": "Development",
+        "behavior": "Behavior",
+        "emotion": "Emotion",
+        "sleep": "Sleep",
+        "nutrition": "Nutrition",
+        "social": "Social",
+        "achievement": "Achievement",
+        "hobby": "Hobby",
+        "general": "General",
+        "doctor_visit": "Doctor Visit",
+        "vaccination": "Vaccination",
+        "medication": "Medication",
+        "fever": "Fever",
+        "allergy": "Allergy",
+        "teacher_meeting": "Teacher Meeting",
+        "homework": "Homework",
+        "exam": "Exam",
+        "report_card": "Report Card",
+        "first_word": "First Word",
+        "first_step": "First Step",
+        "toilet_training": "Toilet Training",
+        "swimming": "Swimming",
+        "bicycle": "Bicycle",
+        "tantrum": "Tantrum",
+        "aggression": "Aggression",
+        "anxiety": "Anxiety",
+        "sharing": "Sharing",
+        "responsibility": "Responsibility",
+        "social_interaction": "Social Interaction",
+        "happy": "Happy",
+        "sad": "Sad",
+        "fear": "Fear",
+        "excitement": "Excitement",
+        "proud": "Proud",
+        "disappointed": "Disappointed",
+        "night_sleep": "Night Sleep",
+        "nap": "Nap",
+        "nightmare": "Nightmare",
+        "sleep_problem": "Sleep Problem",
+        "new_food": "New Food",
+        "poor_appetite": "Poor Appetite",
+        "vitamin": "Vitamin",
+        "water_intake": "Water Intake",
+        "birthday": "Birthday",
+        "vacation": "Vacation",
+        "new_friend": "New Friend",
+        "family_event": "Family Event",
+        "play_date": "Play Date",
+        "competition": "Competition",
+        "medal": "Medal",
+        "certificate": "Certificate",
+        "award": "Award",
+        "first_success": "First Success",
+        "music": "Music",
+        "painting": "Painting",
+        "dance": "Dance",
+        "football": "Football",
+        "chess": "Chess",
+        "reading": "Reading"
+      },
+      "validation": {
+        "typeRequired": "Select the type of memory you want to add.",
+        "titleRequired": "Enter a title for the memory.",
+        "titleMax": "The title cannot exceed 200 characters.",
+        "descriptionMax": "The description cannot exceed 20,000 characters.",
+        "categoryRequired": "Select a category.",
+        "occurredAtRequired": "Select the date of the memory.",
+        "occurredAtFuture": "The memory date cannot be in the future.",
+        "locationMax": "The location cannot exceed 300 characters.",
+        "moodInvalid": "Select a valid mood.",
+        "importanceInvalid": "Select a valid importance level.",
+        "tagsInvalid": "Each tag can contain at most 50 characters.",
+        "reminderDateRequired": "Select a reminder date.",
+        "reminderFuture": "The reminder date must be in the future.",
+        "repeatTypeInvalid": "Select a valid repeat option.",
+        "reminderNoteMax": "The reminder note cannot exceed 5,000 characters."
+      }
+    }
+  },
+  "onThisDay": {
+    "eyebrow": "From then to today",
+    "title": "Remember Today",
+    "description": "Return to the beautiful moments you shared on this day in years past.",
+    "yearsAgo": "{count, plural, one {One year ago today} other {# years ago today}}",
+    "action": "Open Memory",
+    "mediaLabel": "Media preview for {title}"
+  },
+  "timeline": {
+    "metadata": {
+      "title": "Timeline",
+      "description": "Explore your child's complete story in chronological order."
+    },
+    "hero": {
+      "eyebrow": "A living life story",
+      "title": "Timeline",
+      "description": "Your child's whole story, all in one place.",
+      "backDashboard": "Return Home",
+      "avatarLabel": "Profile photo of {name}"
+    },
+    "filters": {
+      "ariaLabel": "Timeline filters",
+      "searchLabel": "Search memories",
+      "searchPlaceholder": "Search for a memory, place or word",
+      "searchAction": "Search",
+      "categoryLabel": "Category",
+      "allCategories": "All categories",
+      "fromLabel": "Start date",
+      "toLabel": "End date",
+      "typeLabel": "Memory type",
+      "favorites": "Favorites",
+      "calendarLabel": "Choose a date",
+      "openCalendar": "Open calendar",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "types": {
+        "all": "All Memories",
+        "photo": "Photos",
+        "video": "Videos",
+        "audio": "Audio",
+        "written": "Written Memory"
+      }
+    },
+    "feed": {
+      "ariaLabel": "Chronological memory feed",
+      "loading": "Loading more memories",
+      "retry": "Try again",
+      "end": "You have reached the beginning of the story for now."
+    },
+    "card": {
+      "uncategorized": "Memory",
+      "mediaLabel": "Media preview for {title}",
+      "openLabel": "Open and edit the memory {title}"
+    },
+    "empty": {
+      "title": "Your timeline is ready to begin",
+      "description": "Create the first memory and begin building your child's life story over time.",
+      "action": "Create the First Memory"
+    },
+    "error": {
+      "title": "Unable to load the timeline",
+      "description": "Your memories could not be loaded right now. Check your connection and try again.",
+      "action": "Try again"
+    }
+  },
+  "dashboard": {
+    "metadata": {
+      "title": "Home",
+      "description": "Your child's memories, upcoming days and development summary."
+    },
+    "navigationLabel": "KidMemoir main navigation",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night",
+      "title": "Welcome, {name}.",
+      "description": "Today's little moments are becoming tomorrow's most precious story.",
+      "prompt": "How about creating a new memory with {name} today?"
+    },
+    "child": {
+      "ariaLabel": "Default child summary",
+      "avatarLabel": "Profile photo for {name}",
+      "eyebrow": "Today's story",
+      "ageYears": "{count, plural, one {# year old} other {# years old}}",
+      "ageMonths": "{count, plural, one {# month old} other {# months old}}",
+      "ageDays": "{count, plural, one {# day old} other {# days old}}",
+      "birthdayToday": "Birthday is today",
+      "birthdayCountdown": "{count} days until the birthday"
+    },
+    "quickActions": {
+      "ariaLabel": "Create a new memory",
+      "eyebrow": "From today to the future",
+      "title": "Create a New Memory",
+      "description": "Preserve a beautiful moment you shared today for the future.",
+      "cta": "Create Memory"
+    },
+    "recent": {
+      "open": "Open and edit the memory {title}",
+      "ariaLabel": "Recently added memories",
+      "title": "Recent Memories",
+      "viewAll": "View all",
+      "emptyTitle": "No memories yet",
+      "emptyDescription": "Your first memory will be preserved here when you add it."
+    },
+    "upcoming": {
+      "ariaLabel": "Upcoming dates and reminders",
+      "title": "Upcoming",
+      "viewAll": "View calendar",
+      "birthday": "Upcoming birthday for {name}",
+      "today": "Today",
+      "inDays": "In {count} days",
+      "noReminders": "There are no other upcoming reminders."
+    },
+    "ai": {
+      "ariaLabel": "KidMemoir AI development insight",
+      "eyebrow": "KidMemoir AI",
+      "title": "Development Insight",
+      "emptyTitle": "Insights grow with memories",
+      "emptyDescription": "When the first memories are added, AI will provide development insights here."
+    },
+    "summary": {
+      "ariaLabel": "This month's memory summary",
+      "eyebrow": "This Month",
+      "title": "Monthly Summary",
+      "memories": "Total Memories",
+      "photos": "Photos",
+      "videos": "Videos",
+      "audio": "Audio"
+    },
+    "timeline": {
+      "open": "Open and edit the memory {title}",
+      "ariaLabel": "Timeline preview",
+      "title": "From the Timeline",
+      "viewTimeline": "View All",
+      "emptyTitle": "The story is ready to begin",
+      "emptyDescription": "The memories you add will form a meaningful flow here over time."
+    },
+    "error": {
+      "title": "Unable to load dashboard",
+      "description": "Your data could not be loaded right now. Check your connection and try again.",
+      "retry": "Try again"
     }
   }
 }
