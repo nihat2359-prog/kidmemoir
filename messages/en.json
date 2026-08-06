@@ -706,7 +706,8 @@
         "title": "Unable to create profile",
         "validation": "Check the highlighted fields.",
         "unauthorized": "Your session has expired. Please log in again.",
-        "database": "The child profile could not be saved. Please try again."
+        "database": "The child profile could not be saved. Please try again.",
+        "premiumRequired": "A Premium plan is required for a second child profile."
       }
     }
   },
@@ -1031,6 +1032,674 @@
         "repeatTypeInvalid": "Select a valid repeat option.",
         "reminderNoteMax": "The reminder note cannot exceed 5,000 characters."
       }
+    }
+  },
+  "billing": {
+    "upgradeBanner": {
+      "general": {
+        "title": "Preserve more with KidMemoir Premium",
+        "description": "Grow your family archive with more media capacity, unlimited child profiles and advanced features."
+      },
+      "dashboard": {
+        "title": "Make room for your family's whole story",
+        "description": "Preserve more children's memories and media in one place with Premium."
+      },
+      "timeline": {
+        "title": "Your timeline is ready to grow",
+        "description": "Add more photos, videos and audio with Premium storage capacity."
+      },
+      "memory": {
+        "title": "Preserve every memory completely",
+        "description": "Add more photos, videos and audio to each memory with Premium media capacity."
+      },
+      "action": "View Plans"
+    },
+    "pricing": {
+      "metadata": {
+        "title": "Pricing",
+        "description": "Compare KidMemoir Free and Premium plans and choose the right plan for your family's digital memory archive.",
+        "imageAlt": "KidMemoir Free and Premium pricing plans"
+      },
+      "back": "Return to KidMemoir",
+      "eyebrow": "Simple, transparent plans",
+      "title": "Choose the plan that fits your family's story.",
+      "description": "Start with Free, then move to Premium when you need more children, media capacity and advanced features.",
+      "plansTitle": "KidMemoir plans",
+      "recommended": "Recommended",
+      "free": {
+        "eyebrow": "Start",
+        "name": "Free",
+        "price": "$0",
+        "period": "forever",
+        "description": "The essential experience for safely beginning your first child's story.",
+        "action": "Start Free"
+      },
+      "premium": {
+        "eyebrow": "Grows with your family",
+        "name": "Premium",
+        "priceLabel": "Subscription price shown when payments launch",
+        "description": "The complete KidMemoir experience for multiple children and a growing media archive.",
+        "action": "Buy Premium",
+        "checkoutNote": "The secure Lemon Checkout link will be enabled during integration."
+      },
+      "comparison": {
+        "eyebrow": "Plan comparison",
+        "title": "See what you need at a glance",
+        "caption": "KidMemoir Free and Premium feature comparison",
+        "feature": "Feature"
+      },
+      "features": {
+        "children": {
+          "label": "Child profiles",
+          "free": "1 child",
+          "freeAvailable": true,
+          "premium": "Unlimited children",
+          "premiumAvailable": true
+        },
+        "storage": {
+          "label": "Media storage",
+          "free": "1 GB",
+          "freeAvailable": true,
+          "premium": "Higher storage quota",
+          "premiumAvailable": true
+        },
+        "memories": {
+          "label": "Memories",
+          "free": "Core memory experience",
+          "freeAvailable": true,
+          "premium": "Advanced memory experience",
+          "premiumAvailable": true
+        },
+        "media": {
+          "label": "Photo, video and audio",
+          "free": "Supported",
+          "freeAvailable": true,
+          "premium": "Expanded capacity",
+          "premiumAvailable": true
+        },
+        "timeline": {
+          "label": "Timeline",
+          "free": "Included",
+          "freeAvailable": true,
+          "premium": "Included",
+          "premiumAvailable": true
+        },
+        "ai": {
+          "label": "AI usage",
+          "free": "Monthly limit",
+          "freeAvailable": true,
+          "premium": "Unlimited, configurable",
+          "premiumAvailable": true
+        },
+        "reports": {
+          "label": "Development reports",
+          "free": "Not included",
+          "freeAvailable": false,
+          "premium": "Included",
+          "premiumAvailable": true
+        }
+      }
+    },
+    "results": {
+      "success": {
+        "title": "Payment return received",
+        "description": "You reached the payment provider return page securely.",
+        "note": "Payment verification is not enabled yet; this page does not change your subscription.",
+        "action": "Return to Plans"
+      },
+      "cancel": {
+        "title": "Payment not completed",
+        "description": "No plan change was made. You can review the plans again at any time.",
+        "note": "This page is prepared for a canceled checkout return and does not modify your account.",
+        "action": "View Plans"
+      },
+      "welcome": {
+        "title": "Welcome to the Premium experience",
+        "description": "The foundation is ready for activating your Premium benefits after subscription verification.",
+        "note": "This page alone does not grant Premium access; webhook verification will be enabled during integration.",
+        "action": "View Plans"
+      }
+    }
+  },
+  "information": {
+    "help": {
+      "metadata": {
+        "title": "Help Center | KidMemoir",
+        "description": "Find answers about using KidMemoir, accounts, memories, media and Premium."
+      },
+      "back": "Return to App",
+      "eyebrow": "Information and guidance",
+      "title": "How can we help?",
+      "description": "Quickly find reliable answers about your KidMemoir experience.",
+      "search": {
+        "label": "Search the help center",
+        "placeholder": "Search for a topic or question",
+        "empty": "No answers matched your search."
+      },
+      "categories": {
+        "title": "Categories",
+        "soon": "Coming soon",
+        "items": {
+          "usage": {
+            "title": "Using the app",
+            "description": "Getting started with KidMemoir and essential workflows."
+          },
+          "account": {
+            "title": "Account management",
+            "description": "Profile, security, child accounts and preferences."
+          },
+          "memories": {
+            "title": "Memories",
+            "description": "Creating, editing, deleting and viewing your timeline."
+          },
+          "media": {
+            "title": "Media",
+            "description": "Managing photos, videos and audio recordings."
+          },
+          "premium": {
+            "title": "Premium",
+            "description": "Plan coverage, usage areas and account limits."
+          },
+          "ai": {
+            "title": "KidMemoir AI",
+            "description": "Upcoming AI features and our privacy approach."
+          }
+        }
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "items": {
+          "createMemory": {
+            "category": "memories",
+            "question": "How do I create a new memory?",
+            "answer": "Use the Create New Memory area on the Dashboard. After choosing a memory type, complete the title, date and other details in the same editor."
+          },
+          "addChild": {
+            "category": "account",
+            "question": "Can I add another child profile?",
+            "answer": "The Free plan includes one child profile. Premium lets you create a separate profile and life story for each child."
+          },
+          "changePassword": {
+            "category": "account",
+            "question": "How do I change my password?",
+            "answer": "Use the Change Password link on your Profile page to begin the secure password recovery flow."
+          },
+          "mediaLimits": {
+            "category": "media",
+            "question": "Which media types are supported?",
+            "answer": "KidMemoir supports photos, videos and audio recordings. The editor checks file format and size before upload."
+          },
+          "privacy": {
+            "category": "account",
+            "question": "Who can see my child's data?",
+            "answer": "Child profiles and related memories are private to your account. Access is limited through your session and database row-level security policies."
+          },
+          "premium": {
+            "category": "premium",
+            "question": "What will Premium include?",
+            "answer": "Premium is designed for multiple child profiles, expanded usage and advanced future capabilities. Payments are not enabled yet."
+          },
+          "ai": {
+            "category": "ai",
+            "question": "When will KidMemoir AI be available?",
+            "answer": "The AI experience is still in development. Clear disclosure, preference controls and data safeguards will be provided before launch."
+          }
+        }
+      },
+      "unresolved": {
+        "title": "Still need help?",
+        "description": "Contact our support team using a structured area that helps you provide the right context.",
+        "action": "Get Support"
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "Privacy Policy | KidMemoir",
+        "description": "Learn how KidMemoir handles and protects personal and child data, and understand your rights."
+      },
+      "back": "Return to App",
+      "eyebrow": "Privacy comes first",
+      "title": "Privacy Policy",
+      "description": "A clear explanation of why we process data and how we keep you in control.",
+      "contents": "Contents",
+      "lastUpdated": "Last updated",
+      "lastUpdatedValue": "August 7, 2026",
+      "contactAction": "Contact us about privacy",
+      "sections": {
+        "scope": {
+          "title": "Scope and data responsibility",
+          "body1": "This policy covers personal data processed through KidMemoir and content parents add on behalf of their children.",
+          "body2": "KidMemoir follows applicable data protection principles, including lawfulness, transparency, purpose limitation and data minimization, under the GDPR and relevant local requirements."
+        },
+        "data": {
+          "title": "Data we use",
+          "body1": "We may process account, profile, child profile, memory and technical usage information to provide the service.",
+          "points": [
+            "Name, email address and account preferences",
+            "Basic child profile details supplied by a parent",
+            "Memories, dates, notes, photos, videos and audio recordings",
+            "Security, session, device and error records",
+            "Plan and feature usage information"
+          ]
+        },
+        "purposes": {
+          "title": "Purposes of processing",
+          "body1": "Data is used to operate accounts, preserve memories securely, apply preferences, maintain security and provide requested support.",
+          "body2": "We do not use data to create unrelated advertising profiles without an appropriate legal basis or user choice."
+        },
+        "children": {
+          "title": "Special protection for children's data",
+          "body1": "We recognize the sensitivity of children's information. It should only be added by a parent or authorized user with the child's best interests in mind.",
+          "points": [
+            "Child profiles are private by default",
+            "Access is restricted through account sessions and row-level security",
+            "Parents should avoid unnecessary data and assess sharing carefully",
+            "A child's views should be considered when appropriate for their age and maturity"
+          ]
+        },
+        "retention": {
+          "title": "Retention",
+          "body1": "Data is retained while an account is active and as needed to provide the service. Legal obligations, security records or disputes may require longer retention.",
+          "body2": "After a deletion request, data is removed from active systems; secure backup deletion may take additional time through normal retention cycles."
+        },
+        "security": {
+          "title": "Security measures",
+          "body1": "We use technical and organizational measures including access controls, session security, encrypted transfer, private storage and database row-level security.",
+          "body2": "No digital system can guarantee absolute security. Contact us promptly if you identify suspicious activity."
+        },
+        "rights": {
+          "title": "Your rights",
+          "body1": "Depending on applicable law, you may have rights to access, correct, delete, restrict, object to processing and receive a portable copy of your data.",
+          "points": [
+            "Request information about processed data",
+            "Correct inaccurate or incomplete information",
+            "Request deletion or restriction where applicable",
+            "Object depending on the legal basis for processing",
+            "Complain to a competent data protection authority"
+          ]
+        },
+        "transfers": {
+          "title": "Service providers and transfers",
+          "body1": "Infrastructure providers may be used for hosting, authentication, storage and email. They receive data only as needed to provide those services.",
+          "body2": "Where international transfers occur, applicable safeguards and contractual protections are assessed."
+        },
+        "contact": {
+          "title": "Contact",
+          "body1": "For privacy requests, contact hello@kidmemoir.com with enough information for us to verify your identity and understand the request.",
+          "body2": "Requests are reviewed within applicable legal timeframes and security verification requirements."
+        }
+      }
+    },
+    "terms": {
+      "metadata": {
+        "title": "Terms of Use | KidMemoir",
+        "description": "Review KidMemoir service terms, account rules and user responsibilities."
+      },
+      "back": "Return to App",
+      "eyebrow": "Clear and fair service terms",
+      "title": "Terms of Use",
+      "description": "The essential terms for using KidMemoir safely and responsibly.",
+      "contents": "Contents",
+      "lastUpdated": "Last updated",
+      "lastUpdatedValue": "August 7, 2026",
+      "contactAction": "Contact us about these terms",
+      "sections": {
+        "service": {
+          "title": "Service scope",
+          "body1": "KidMemoir helps families organize childhood memories, media and important dates in a private digital archive.",
+          "body2": "The service may evolve as features develop. Material changes will be communicated through appropriate channels."
+        },
+        "accounts": {
+          "title": "Account rules",
+          "body1": "You must provide accurate account information, keep credentials confidential and protect activity under your account.",
+          "points": [
+            "A valid email address is required",
+            "Accounts must not be shared without authorization",
+            "Suspected unauthorized access should be reported",
+            "Anyone adding child data must have appropriate parental or representative authority"
+          ]
+        },
+        "responsibilities": {
+          "title": "User responsibilities",
+          "body1": "You are responsible for the accuracy and lawfulness of uploaded content and for holding all necessary permissions.",
+          "body2": "You are expected to consider the child's privacy, best interests and future digital reputation."
+        },
+        "prohibited": {
+          "title": "Prohibited uses",
+          "body1": "The service must not be used for unlawful, harmful, abusive purposes or to infringe the rights of others.",
+          "points": [
+            "Unauthorized access or bypassing safeguards",
+            "Malware, automated attacks or service disruption",
+            "Uploading third-party content without permission",
+            "Content that endangers a child's safety or privacy",
+            "Fraudulent, deceptive or illegal activity"
+          ]
+        },
+        "content": {
+          "title": "User content",
+          "body1": "You retain your rights in your content. You allow us to store, process and display it only as needed to provide features you request.",
+          "body2": "Keeping an appropriate backup copy of important content is recommended."
+        },
+        "intellectualProperty": {
+          "title": "Intellectual property",
+          "body1": "The KidMemoir brand, software, interface and original service materials are protected by applicable intellectual property rights.",
+          "body2": "Copying, reverse engineering or commercial redistribution without permission is prohibited."
+        },
+        "premium": {
+          "title": "Premium service terms",
+          "body1": "Premium features will be subject to the scope and limits shown on the plan page. Price, renewal, cancellation and refund terms will be shown before purchase when payments launch.",
+          "body2": "No payment is currently collected and paid subscription processing is not yet available."
+        },
+        "availability": {
+          "title": "Service availability",
+          "body1": "We work to keep the service reliable, but maintenance, security, infrastructure or events outside our control may cause temporary interruptions.",
+          "body2": "Material planned maintenance will be announced when practical."
+        },
+        "disclaimer": {
+          "title": "Disclaimer",
+          "body1": "KidMemoir is not a medical, legal or professional assessment service. Summaries and future AI outputs do not replace professional advice.",
+          "body2": "Liability is limited to the extent permitted by applicable law; rights that cannot legally be limited remain unaffected."
+        },
+        "termination": {
+          "title": "Suspension and termination",
+          "body1": "Access may be restricted for serious violations, security risks or legal obligations. Notice and a chance to respond will be provided where appropriate.",
+          "body2": "Account closure and data rights remain subject to the Privacy Policy."
+        },
+        "changes": {
+          "title": "Changes to these terms",
+          "body1": "Terms may be updated as the service or law changes. Reasonable notice will be provided before material changes take effect."
+        },
+        "contact": {
+          "title": "Contact",
+          "body1": "Questions about these terms can be sent to hello@kidmemoir.com."
+        }
+      }
+    },
+    "support": {
+      "metadata": {
+        "title": "Support | KidMemoir",
+        "description": "Contact KidMemoir support and prepare your help request."
+      },
+      "back": "Return to App",
+      "eyebrow": "We're here for you",
+      "title": "KidMemoir Support",
+      "description": "Tell us what happened and what you need. We are ready to route your request to the right place.",
+      "formTitle": "Support request",
+      "formDescription": "Share the details of your request and we will securely deliver it to our support team.",
+      "form": {
+        "email": { "label": "Email", "placeholder": "name@example.com" },
+        "subject": {
+          "label": "Subject",
+          "placeholder": "Choose a subject",
+          "options": {
+            "account": "Account management",
+            "memory": "Memories",
+            "media": "Photo, video or audio",
+            "premium": "Premium",
+            "privacy": "Privacy",
+            "technical": "Technical issue"
+          }
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Describe what happened, your device and the relevant steps.",
+          "hint": "Up to 5,000 characters."
+        },
+        "attachment": {
+          "label": "Attachment",
+          "action": "Choose a file",
+          "hint": "JPG, PNG, WebP, PDF or TXT · Up to 5 MB"
+        },
+        "submit": "Send Request",
+        "submitting": "Sending",
+        "backendNote": "Your message and selected file are sent to our support team for the purpose of responding to your request.",
+        "validation": {
+          "email": "Enter a valid email address.",
+          "subject": "Choose a support subject.",
+          "message": "Your message must contain at least 20 characters.",
+          "attachment": "The file must be JPG, PNG, WebP, PDF or TXT and no larger than 5 MB."
+        },
+        "feedback": {
+          "successTitle": "Your request was sent",
+          "successDescription": "Our support team received your message. We will reply to the email address you provided.",
+          "errorTitle": "Request not sent",
+          "errors": {
+            "validation": "Check the highlighted fields.",
+            "rateLimited": "Too many requests were sent in a short time. Please try again later.",
+            "configuration": "Support email is not configured yet. Please use our email address directly.",
+            "network": "A connection error occurred while sending your message. Please try again.",
+            "unauthorized": "You need to sign in again to complete this action."
+          }
+        }
+      },
+      "email": {
+        "title": "Email support",
+        "description": "Until online submission is enabled, you can email us directly."
+      },
+      "topics": {
+        "title": "Common contact topics",
+        "items": {
+          "account": "Account access and profile issues",
+          "memory": "Creating, editing or deleting a memory",
+          "media": "Photo, video and audio uploads",
+          "billing": "Premium plans and future payment questions"
+        }
+      }
+    }
+  },
+  "account": {
+    "deletion": {
+      "title": "Delete account",
+      "description": "Account deletion affects your profile, children and memories.",
+      "trigger": "Delete Account",
+      "confirmTitle": "Do you want to delete your account?",
+      "unavailable": "An authorized deletion function has not yet been configured in Supabase. The operation cannot be completed yet to prevent incomplete or incorrect data deletion.",
+      "close": "Close"
+    },
+    "profile": {
+      "metadata": {
+        "title": "Profile",
+        "description": "Manage your account and profile details."
+      },
+      "back": "Return Home",
+      "eyebrow": "Your Account",
+      "title": "Profile",
+      "description": "Manage your identity, language and appearance preferences in one place.",
+      "information": "Profile Information",
+      "avatar": {
+        "sectionTitle": "Profile Photo",
+        "sectionDescription": "Choose a photo that makes your account feel personal.",
+        "label": "Profile photo of {name}",
+        "action": "Change Photo",
+        "uploading": "Uploading {progress}%",
+        "description": "JPG, PNG or WebP · Up to 5 MB",
+        "error": "The photo could not be updated. Please try again."
+      },
+      "fields": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "language": "Language",
+        "timezone": "Time Zone",
+        "theme": "Theme"
+      },
+      "languages": { "tr": "Türkçe", "en": "English" },
+      "themes": { "system": "System", "light": "Light", "dark": "Dark" },
+      "save": "Save Changes",
+      "changePassword": "Change Password",
+      "feedback": {
+        "success": "Your profile was updated.",
+        "error": "The profile could not be updated. Please try again."
+      }
+    },
+    "children": {
+      "metadata": {
+        "title": "My Children",
+        "description": "Manage your child profiles."
+      },
+      "back": "Return Home",
+      "eyebrow": "Your Family",
+      "title": "My Children",
+      "description": "Edit child profiles and choose the active child.",
+      "add": "Add New Child",
+      "addPremium": "Add a Second Child with Premium",
+      "card": {
+        "avatar": "Profile photo of {name}",
+        "active": "Active Child",
+        "edit": "Edit",
+        "makeDefault": "Make Active",
+        "delete": "Delete",
+        "confirmTitle": "Delete this child profile?",
+        "confirmDescription": "The profile for {name} and related application access will be removed.",
+        "cancel": "Cancel",
+        "confirm": "Delete Profile",
+        "summary": {
+          "age": "Age",
+          "ageValue": "{count, plural, one {# year} other {# years}}",
+          "photos": "Total photos",
+          "memories": "Total memories",
+          "videos": "Video count",
+          "lastMemory": "Latest memory",
+          "noMemory": "No memories yet"
+        },
+        "errors": {
+          "default": "The active child could not be changed.",
+          "lastChild": "The last child profile cannot be deleted.",
+          "database": "The profile could not be deleted.",
+          "unauthorized": "You are not authorized for this action.",
+          "invalid": "Invalid child profile."
+        }
+      },
+      "edit": {
+        "back": "Back to My Children",
+        "eyebrow": "Child Profile",
+        "title": "Edit Profile",
+        "description": "Update your child's basic information.",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "birthDate": "Birth Date",
+        "gender": "Gender",
+        "calendar": "Choose a date",
+        "openCalendar": "Open calendar",
+        "previousMonth": "Previous month",
+        "nextMonth": "Next month",
+        "save": "Save Changes",
+        "error": "The profile could not be updated.",
+        "genders": {
+          "female": "Girl",
+          "male": "Boy",
+          "other": "Other",
+          "prefer_not_to_say": "Prefer not to say"
+        }
+      }
+    },
+    "subscription": {
+      "metadata": {
+        "title": "Subscription",
+        "description": "View your plan and usage."
+      },
+      "back": "Return Home",
+      "eyebrow": "KidMemoir Plan",
+      "title": "Subscription",
+      "description": "Track your current plan, media usage and AI consumption.",
+      "currentPlan": "Current Plan",
+      "plans": { "free": "Free", "premium": "Premium" },
+      "status": {
+        "free": "Free",
+        "premium": "Premium",
+        "trial": "Trial",
+        "expired": "Expired",
+        "cancelled": "Cancelled",
+        "active": "Active",
+        "trialing": "Trial",
+        "past_due": "Past Due",
+        "canceled": "Canceled",
+        "incomplete": "Incomplete"
+      },
+      "usage": {
+        "ai": "AI tokens this month",
+        "storage": "Media storage",
+        "photos": "Photos",
+        "videos": "Videos",
+        "audio": "Audio recordings"
+      },
+      "upsell": {
+        "childLimit": {
+          "title": "A second child profile is included with Premium",
+          "description": "The Free plan includes one child profile. Upgrade to Premium to preserve each child's memories in a separate profile."
+        }
+      },
+      "premium": {
+        "title": "Preserve more with Premium",
+        "features": {
+          "ai": "Advanced AI analysis",
+          "storage": "Expanded storage",
+          "media": "Premium media experience",
+          "reports": "Development reports"
+        },
+        "viewPlans": "Compare Plans"
+      }
+    },
+    "settings": {
+      "metadata": {
+        "title": "Settings",
+        "description": "Manage your application preferences."
+      },
+      "back": "Return Home",
+      "eyebrow": "Application Preferences",
+      "title": "Settings",
+      "description": "Manage language, appearance, notifications and data preferences.",
+      "preferencesTitle": "General Preferences",
+      "save": "Save Settings",
+      "fields": {
+        "language": "Language",
+        "theme": "Theme",
+        "timezone": "Time Zone",
+        "dateFormat": "Date Format",
+        "timeFormat": "Time Format"
+      },
+      "options": {
+        "tr": "Türkçe",
+        "en": "English",
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark",
+        "12h": "12 Hour",
+        "24h": "24 Hour"
+      },
+      "toggles": {
+        "pushNotifications": {
+          "title": "Push Notifications",
+          "description": "Receive application notifications."
+        },
+        "emailNotifications": {
+          "title": "Email Notifications",
+          "description": "Receive important updates by email."
+        },
+        "reminderNotifications": {
+          "title": "Reminder Notifications",
+          "description": "Receive scheduled memory reminders."
+        },
+        "aiEnabled": {
+          "title": "AI Features",
+          "description": "Allow AI-powered features for memories."
+        }
+      },
+      "feedback": {
+        "success": "Your settings were saved.",
+        "error": "The settings could not be saved."
+      },
+      "privacy": {
+        "title": "Privacy",
+        "description": "Your data is accessible only through your account.",
+        "message": "Private Storage areas and Row Level Security protection are active."
+      },
+      "export": {
+        "title": "Download My Data",
+        "description": "Download a JSON copy of your profile, child and memory data.",
+        "action": "Download Data Archive"
+      },
+      "about": { "title": "About", "version": "KidMemoir version {version}" }
     }
   },
   "onThisDay": {

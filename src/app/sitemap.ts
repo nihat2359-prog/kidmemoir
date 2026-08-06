@@ -1,16 +1,17 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const languages = {
-    en: "https://kidmemoir.com/en",
-    tr: "https://kidmemoir.com/tr",
-  };
-
-  return Object.values(languages).map((url) => ({
-    url,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 1,
-    alternates: { languages },
-  }));
+  return ["", "/pricing", "/help", "/privacy", "/terms"].flatMap((path) => {
+    const languages = {
+      en: `https://kidmemoir.com/en${path}`,
+      tr: `https://kidmemoir.com/tr${path}`,
+    };
+    return Object.values(languages).map((url) => ({
+      alternates: { languages },
+      changeFrequency: path ? ("monthly" as const) : ("weekly" as const),
+      lastModified: new Date(),
+      priority: path ? 0.7 : 1,
+      url,
+    }));
+  });
 }

@@ -3,6 +3,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 import { CreateChildExperience } from "@/features/children";
+import { getAccountPlan } from "@/features/account/services/accountService";
 import { routing } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -36,15 +37,19 @@ export default async function CreateChildPage({
   if (!user) redirect(`/${locale}/login?next=/children/new`);
 
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("children")
-    .select("id")
-    .eq("user_id", user.id)
-    .is("archived_at", null)
-    .limit(1);
+  const [{ data, error }, plan] = await Promise.all([
+    supabase
+      .from("children")
+      .select("id")
+      .eq("user_id", user.id)
+      .is("archived_at", null)
+      .limit(1),
+    getAccountPlan(user),
+  ]);
   if (error)
     throw new Error("First child eligibility check failed", { cause: error });
-  if (data.length > 0) redirect(`/${locale}/dashboard`);
+  if (data.length > 0 && plan === "free")
+    redirect(`/${locale}/subscription?reason=child_limit`);
 
   return <CreateChildExperience locale={locale} />;
 }

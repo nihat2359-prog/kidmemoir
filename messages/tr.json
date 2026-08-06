@@ -708,7 +708,8 @@
         "title": "Profil oluşturulamadı",
         "validation": "Lütfen işaretlenen alanları kontrol edin.",
         "unauthorized": "Oturumunuz sona ermiş. Lütfen yeniden giriş yapın.",
-        "database": "Çocuk profili kaydedilemedi. Lütfen tekrar deneyin."
+        "database": "Çocuk profili kaydedilemedi. Lütfen tekrar deneyin.",
+        "premiumRequired": "İkinci çocuk profili için Premium plan gereklidir."
       }
     }
   },
@@ -1030,6 +1031,674 @@
         "repeatTypeInvalid": "Geçerli bir tekrar türü seçin.",
         "reminderNoteMax": "Hatırlatma notu 5.000 karakterden uzun olamaz."
       }
+    }
+  },
+  "billing": {
+    "upgradeBanner": {
+      "general": {
+        "title": "KidMemoir Premium ile daha fazlasını saklayın",
+        "description": "Daha geniş medya alanı, sınırsız çocuk profili ve gelişmiş özelliklerle aile arşivinizi büyütün."
+      },
+      "dashboard": {
+        "title": "Ailenizin bütün hikâyesine yer açın",
+        "description": "Premium ile daha fazla çocuğun anılarını ve medyalarını tek yerde saklayın."
+      },
+      "timeline": {
+        "title": "Zaman tüneliniz büyümeye hazır",
+        "description": "Premium depolama kapasitesiyle daha fazla fotoğraf, video ve ses kaydı ekleyin."
+      },
+      "memory": {
+        "title": "Her anıyı eksiksiz koruyun",
+        "description": "Premium medya kapasitesiyle anılarınıza daha fazla fotoğraf, video ve ses ekleyin."
+      },
+      "action": "Planları İncele"
+    },
+    "pricing": {
+      "metadata": {
+        "title": "Fiyatlandırma",
+        "description": "KidMemoir Free ve Premium planlarını karşılaştırın; ailenizin dijital anı arşivi için uygun planı seçin.",
+        "imageAlt": "KidMemoir Free ve Premium fiyatlandırma planları"
+      },
+      "back": "KidMemoir'a Dön",
+      "eyebrow": "Sade ve şeffaf planlar",
+      "title": "Ailenizin hikâyesine uygun planı seçin.",
+      "description": "Free ile başlayın; daha fazla çocuk, medya kapasitesi ve gelişmiş özelliklere ihtiyaç duyduğunuzda Premium'a geçin.",
+      "plansTitle": "KidMemoir planları",
+      "recommended": "Önerilen",
+      "free": {
+        "eyebrow": "Başlangıç",
+        "name": "Free",
+        "price": "₺0",
+        "period": "süresiz",
+        "description": "İlk çocuğunuzun hikâyesini güvenle oluşturmaya başlamak için temel deneyim.",
+        "action": "Ücretsiz Başla"
+      },
+      "premium": {
+        "eyebrow": "Ailenizle büyür",
+        "name": "Premium",
+        "priceLabel": "Abonelik fiyatı ödeme açılışında gösterilecek",
+        "description": "Birden fazla çocuk ve büyüyen medya arşivi için kapsamlı KidMemoir deneyimi.",
+        "action": "Premium Satın Al",
+        "checkoutNote": "Güvenli Lemon Checkout bağlantısı entegrasyon aşamasında etkinleştirilecektir."
+      },
+      "comparison": {
+        "eyebrow": "Plan karşılaştırması",
+        "title": "İhtiyacınız olanı tek bakışta görün",
+        "caption": "KidMemoir Free ve Premium özellik karşılaştırması",
+        "feature": "Özellik"
+      },
+      "features": {
+        "children": {
+          "label": "Çocuk profili",
+          "free": "1 çocuk",
+          "freeAvailable": true,
+          "premium": "Sınırsız çocuk",
+          "premiumAvailable": true
+        },
+        "storage": {
+          "label": "Medya depolama",
+          "free": "1 GB",
+          "freeAvailable": true,
+          "premium": "Yüksek depolama kotası",
+          "premiumAvailable": true
+        },
+        "memories": {
+          "label": "Anılar",
+          "free": "Temel anı deneyimi",
+          "freeAvailable": true,
+          "premium": "Gelişmiş anı deneyimi",
+          "premiumAvailable": true
+        },
+        "media": {
+          "label": "Fotoğraf, video ve ses",
+          "free": "Desteklenir",
+          "freeAvailable": true,
+          "premium": "Genişletilmiş kapasite",
+          "premiumAvailable": true
+        },
+        "timeline": {
+          "label": "Zaman tüneli",
+          "free": "Dahil",
+          "freeAvailable": true,
+          "premium": "Dahil",
+          "premiumAvailable": true
+        },
+        "ai": {
+          "label": "AI kullanımı",
+          "free": "Aylık limit",
+          "freeAvailable": true,
+          "premium": "Sınırsız, yapılandırılabilir",
+          "premiumAvailable": true
+        },
+        "reports": {
+          "label": "Gelişim raporları",
+          "free": "Dahil değil",
+          "freeAvailable": false,
+          "premium": "Dahil",
+          "premiumAvailable": true
+        }
+      }
+    },
+    "results": {
+      "success": {
+        "title": "Ödeme dönüşü alındı",
+        "description": "Ödeme sağlayıcısının dönüş sayfasına güvenli şekilde ulaştınız.",
+        "note": "Ödeme doğrulaması henüz etkin değildir; bu sayfa abonelik durumunuzu değiştirmez.",
+        "action": "Planlara Dön"
+      },
+      "cancel": {
+        "title": "Ödeme tamamlanmadı",
+        "description": "Herhangi bir plan değişikliği yapılmadı. Dilediğiniz zaman planları yeniden inceleyebilirsiniz.",
+        "note": "Bu sayfa ödeme iptal dönüşü için hazırlanmıştır ve hesabınızda işlem yapmaz.",
+        "action": "Planları İncele"
+      },
+      "welcome": {
+        "title": "Premium deneyimine hoş geldiniz",
+        "description": "Premium avantajlarını kullanmaya başlamak için abonelik doğrulama altyapısı hazırdır.",
+        "note": "Bu tanıtım sayfası tek başına Premium yetkisi tanımlamaz; webhook doğrulaması entegrasyon aşamasında etkinleştirilecektir.",
+        "action": "Planları Gör"
+      }
+    }
+  },
+  "information": {
+    "help": {
+      "metadata": {
+        "title": "Yardım Merkezi | KidMemoir",
+        "description": "KidMemoir kullanımı, hesaplar, anılar, medya ve Premium hakkında yanıtlar bulun."
+      },
+      "back": "Uygulamaya Dön",
+      "eyebrow": "Bilgi ve rehberlik",
+      "title": "Size nasıl yardımcı olabiliriz?",
+      "description": "KidMemoir deneyiminizle ilgili güvenilir yanıtlara hızla ulaşın.",
+      "search": {
+        "label": "Yardım merkezinde ara",
+        "placeholder": "Bir konu veya soru arayın",
+        "empty": "Aramanızla eşleşen bir yanıt bulunamadı."
+      },
+      "categories": {
+        "title": "Kategoriler",
+        "soon": "Yakında",
+        "items": {
+          "usage": {
+            "title": "Uygulama kullanımı",
+            "description": "KidMemoir'a başlama ve temel kullanım adımları."
+          },
+          "account": {
+            "title": "Hesap yönetimi",
+            "description": "Profil, güvenlik, çocuk hesapları ve tercihler."
+          },
+          "memories": {
+            "title": "Anılar",
+            "description": "Anı oluşturma, düzenleme, silme ve zaman tüneli."
+          },
+          "media": {
+            "title": "Medya",
+            "description": "Fotoğraf, video ve ses kayıtlarının yönetimi."
+          },
+          "premium": {
+            "title": "Premium",
+            "description": "Plan kapsamı, kullanım alanları ve hesap limitleri."
+          },
+          "ai": {
+            "title": "KidMemoir AI",
+            "description": "Yakında sunulacak AI özellikleri ve gizlilik yaklaşımı."
+          }
+        }
+      },
+      "faq": {
+        "title": "Sık sorulan sorular",
+        "items": {
+          "createMemory": {
+            "category": "memories",
+            "question": "Yeni bir anı nasıl oluşturulur?",
+            "answer": "Dashboard üzerindeki Yeni Anı Oluştur alanını kullanın. Anı türünü seçtikten sonra başlık, tarih ve diğer bilgileri aynı editörde tamamlayabilirsiniz."
+          },
+          "addChild": {
+            "category": "account",
+            "question": "Başka bir çocuk profili ekleyebilir miyim?",
+            "answer": "Free plan bir çocuk profili içerir. Premium plan ile her çocuk için ayrı bir profil ve yaşam hikâyesi oluşturabilirsiniz."
+          },
+          "changePassword": {
+            "category": "account",
+            "question": "Şifremi nasıl değiştirebilirim?",
+            "answer": "Profil sayfasındaki Şifre Değiştir bağlantısını kullanarak güvenli şifre yenileme akışını başlatabilirsiniz."
+          },
+          "mediaLimits": {
+            "category": "media",
+            "question": "Hangi medya türleri desteklenir?",
+            "answer": "KidMemoir fotoğraf, video ve ses kayıtlarını destekler. Editör, dosyanızı yüklemeden önce format ve boyut kontrollerini gerçekleştirir."
+          },
+          "privacy": {
+            "category": "account",
+            "question": "Çocuğumun verilerini kimler görebilir?",
+            "answer": "Çocuk profilleri ve ilişkili anılar hesabınıza özeldir. Erişim, oturumunuz ve veritabanı satır güvenliği kurallarıyla sınırlandırılır."
+          },
+          "premium": {
+            "category": "premium",
+            "question": "Premium plan neler sunacak?",
+            "answer": "Premium plan; birden fazla çocuk profili, genişletilmiş kullanım alanları ve gelecekte sunulacak gelişmiş özellikler için hazırlanmıştır. Ödeme sistemi henüz etkin değildir."
+          },
+          "ai": {
+            "category": "ai",
+            "question": "KidMemoir AI ne zaman kullanılabilir olacak?",
+            "answer": "AI deneyimi henüz geliştirme aşamasındadır. Kullanıma açılmadan önce açık bilgilendirme, tercih yönetimi ve veri güvenliği kontrolleri sağlanacaktır."
+          }
+        }
+      },
+      "unresolved": {
+        "title": "Sorununuzu çözemediniz mi?",
+        "description": "Destek ekibimize ulaşın; talebinizi doğru bağlamla iletmeniz için size hazır bir iletişim alanı sunduk.",
+        "action": "Destek Al"
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "Gizlilik Politikası | KidMemoir",
+        "description": "KidMemoir'ın kişisel ve çocuk verilerini nasıl işlediğini, koruduğunu ve kullanıcı haklarını öğrenin."
+      },
+      "back": "Uygulamaya Dön",
+      "eyebrow": "Gizliliğiniz önceliğimiz",
+      "title": "Gizlilik Politikası",
+      "description": "Verilerinizi hangi amaçlarla işlediğimizi ve kontrolün sizde kalmasını nasıl sağladığımızı açık bir dille anlatıyoruz.",
+      "contents": "İçindekiler",
+      "lastUpdated": "Son güncelleme",
+      "lastUpdatedValue": "7 Ağustos 2026",
+      "contactAction": "Gizlilik hakkında bize yazın",
+      "sections": {
+        "scope": {
+          "title": "Kapsam ve veri sorumluluğu",
+          "body1": "Bu politika, KidMemoir hizmetleri kapsamında işlenen kişisel verileri ve ebeveynlerin çocukları adına eklediği içerikleri kapsar.",
+          "body2": "KidMemoir, yürürlükteki KVKK ve uygulanabildiği ölçüde GDPR ilkelerini; hukuka uygunluk, şeffaflık, amaçla sınırlılık ve veri minimizasyonu temelinde gözetir."
+        },
+        "data": {
+          "title": "Kullandığımız veriler",
+          "body1": "Hizmeti sunmak için hesap, profil, çocuk profili, anı ve teknik kullanım bilgileri işlenebilir.",
+          "points": [
+            "Ad, soyad, e-posta ve hesap tercihleri",
+            "Çocuk profiline ebeveyn tarafından eklenen temel bilgiler",
+            "Anılar, tarihler, notlar, fotoğraflar, videolar ve ses kayıtları",
+            "Güvenlik, oturum, cihaz ve hata kayıtları",
+            "Plan ve özellik kullanım bilgileri"
+          ]
+        },
+        "purposes": {
+          "title": "İşleme amaçları",
+          "body1": "Veriler; hesabı çalıştırmak, anıları güvenli biçimde saklamak, kullanıcı tercihlerini uygulamak, güvenliği sağlamak ve talep edilen desteği sunmak için kullanılır.",
+          "body2": "Veriler, açık bir hukuki dayanak veya kullanıcı tercihi olmadan ilgisiz reklam profilleri oluşturmak amacıyla kullanılmaz."
+        },
+        "children": {
+          "title": "Çocuk verilerinin özel korunması",
+          "body1": "Çocuklara ilişkin verilerin hassasiyetinin farkındayız. Bu içerikler yalnızca ebeveyn veya yetkili kullanıcı tarafından eklenmeli ve çocuğun üstün yararı gözetilmelidir.",
+          "points": [
+            "Çocuk profilleri varsayılan olarak özel tutulur",
+            "Erişim hesap oturumu ve satır seviyesinde güvenlik ile sınırlandırılır",
+            "Gereksiz veri eklenmemesi ve paylaşım öncesi dikkatli değerlendirme önerilir",
+            "Çocuğun yaşına ve olgunluğuna uygun olduğunda görüşü dikkate alınmalıdır"
+          ]
+        },
+        "retention": {
+          "title": "Saklama süresi",
+          "body1": "Veriler, hesabın aktif olduğu ve hizmetin sunulması için gerekli olduğu süre boyunca saklanır. Yasal yükümlülükler, güvenlik kayıtları veya uyuşmazlıklar için daha uzun saklama gerekebilir.",
+          "body2": "Silme talebi sonrasında veriler aktif sistemlerden kaldırılır; güvenli yedeklerin olağan döngüler içinde silinmesi ek süre gerektirebilir."
+        },
+        "security": {
+          "title": "Güvenlik önlemleri",
+          "body1": "Erişim kontrolü, oturum güvenliği, şifreli aktarım, özel depolama alanları ve veritabanı satır güvenliği gibi teknik ve organizasyonel önlemler uygulanır.",
+          "body2": "Hiçbir dijital sistem mutlak güvenlik garantisi veremez. Şüpheli bir durum fark ederseniz vakit kaybetmeden bizimle iletişime geçin."
+        },
+        "rights": {
+          "title": "Kullanıcı hakları",
+          "body1": "Uygulanabilir mevzuata göre verilerinize erişme, düzeltme, silme, işlemeyi sınırlandırma, itiraz etme ve verileri taşıma haklarına sahip olabilirsiniz.",
+          "points": [
+            "İşlenen veriler hakkında bilgi talep etme",
+            "Yanlış veya eksik bilgileri düzeltme",
+            "Uygun koşullarda silme veya kısıtlama talep etme",
+            "Veri işlemenin hukuki dayanağına göre itiraz etme",
+            "Yetkili veri koruma kurumuna başvurma"
+          ]
+        },
+        "transfers": {
+          "title": "Hizmet sağlayıcılar ve aktarımlar",
+          "body1": "Barındırma, kimlik doğrulama, depolama ve e-posta gibi hizmetler için gerekli altyapı sağlayıcıları kullanılabilir. Bu sağlayıcılara yalnızca hizmet için gereken kapsamda veri aktarılır.",
+          "body2": "Sınır ötesi aktarım gerektiğinde uygulanabilir koruma mekanizmaları ve sözleşmesel güvenceler değerlendirilir."
+        },
+        "contact": {
+          "title": "İletişim",
+          "body1": "Gizlilik taleplerinizde kimliğinizi ve talebinizi doğrulayabilmemiz için yeterli bilgiyle hello@kidmemoir.com adresinden bize ulaşabilirsiniz.",
+          "body2": "Başvurular, uygulanabilir yasal süreler ve güvenlik doğrulamaları çerçevesinde değerlendirilir."
+        }
+      }
+    },
+    "terms": {
+      "metadata": {
+        "title": "Kullanım Koşulları | KidMemoir",
+        "description": "KidMemoir hizmet şartlarını, hesap kurallarını ve kullanıcı sorumluluklarını inceleyin."
+      },
+      "back": "Uygulamaya Dön",
+      "eyebrow": "Açık ve adil hizmet şartları",
+      "title": "Kullanım Koşulları",
+      "description": "KidMemoir'ı güvenli ve sorumlu biçimde kullanmak için geçerli temel şartlar.",
+      "contents": "İçindekiler",
+      "lastUpdated": "Son güncelleme",
+      "lastUpdatedValue": "7 Ağustos 2026",
+      "contactAction": "Koşullar hakkında bize yazın",
+      "sections": {
+        "service": {
+          "title": "Hizmetin kapsamı",
+          "body1": "KidMemoir, ailelerin çocuklarına ilişkin anıları, medya içeriklerini ve önemli tarihleri özel bir dijital arşivde düzenlemesine yardımcı olur.",
+          "body2": "Özellikler geliştikçe hizmetin kapsamı değişebilir; önemli değişiklikler uygun kanallarla duyurulur."
+        },
+        "accounts": {
+          "title": "Hesap kuralları",
+          "body1": "Doğru ve güncel hesap bilgileri sağlamalı, giriş bilgilerinizi gizli tutmalı ve hesabınızdaki faaliyetlerin güvenliğini korumalısınız.",
+          "points": [
+            "Hesap oluşturmak için geçerli bir e-posta adresi kullanılmalıdır",
+            "Hesap başkalarıyla izinsiz paylaşılmamalıdır",
+            "Yetkisiz erişim şüphesinde KidMemoir'a bildirim yapılmalıdır",
+            "Çocuk verisi ekleyen kişi gerekli ebeveynlik veya temsil yetkisine sahip olmalıdır"
+          ]
+        },
+        "responsibilities": {
+          "title": "Kullanıcı sorumlulukları",
+          "body1": "Yüklediğiniz içeriklerin doğruluğu, hukuka uygunluğu ve gerekli izinlere sahip olunması sizin sorumluluğunuzdadır.",
+          "body2": "Çocuğun mahremiyetini, üstün yararını ve gelecekteki dijital itibarını gözetmeniz beklenir."
+        },
+        "prohibited": {
+          "title": "Yasaklanan kullanımlar",
+          "body1": "Hizmet; hukuka aykırı, zararlı, istismar edici veya başkalarının haklarını ihlal eden amaçlarla kullanılamaz.",
+          "points": [
+            "Yetkisiz erişim veya güvenlik önlemlerini aşma",
+            "Zararlı yazılım, otomatik saldırı veya hizmeti aksatma",
+            "Başkasına ait içeriği izinsiz yükleme",
+            "Çocukların güvenliğini veya mahremiyetini tehlikeye atan içerik",
+            "Hizmeti yanıltıcı, dolandırıcı veya yasa dışı faaliyetlerde kullanma"
+          ]
+        },
+        "content": {
+          "title": "Kullanıcı içerikleri",
+          "body1": "İçerikleriniz üzerindeki haklarınız size aittir. Hizmeti sunabilmemiz için içeriği yalnızca saklama, işleme, görüntüleme ve talep ettiğiniz özellikleri sağlama ölçüsünde kullanmamıza izin verirsiniz.",
+          "body2": "İçeriğinizin yedek bir kopyasını uygun aralıklarla saklamanız önerilir."
+        },
+        "intellectualProperty": {
+          "title": "Fikri mülkiyet",
+          "body1": "KidMemoir markası, yazılımı, arayüzü ve hizmete ait özgün içerikler ilgili fikri mülkiyet haklarıyla korunur.",
+          "body2": "Açık izin olmadan hizmetin kopyalanması, tersine mühendisliği veya ticari olarak yeniden dağıtılması yasaktır."
+        },
+        "premium": {
+          "title": "Premium hizmet şartları",
+          "body1": "Premium özellikler, plan sayfasında belirtilen kapsam ve limitlere tabi olacaktır. Ödeme entegrasyonu etkinleştirildiğinde ücret, yenileme, iptal ve iade koşulları satın alma öncesinde açıkça gösterilecektir.",
+          "body2": "Şu anda ödeme alınmamakta ve ücretli abonelik işlemi sunulmamaktadır."
+        },
+        "availability": {
+          "title": "Hizmet kullanılabilirliği",
+          "body1": "Hizmeti güvenilir tutmak için çalışsak da bakım, güvenlik, altyapı veya kontrolümüz dışındaki nedenlerle geçici kesintiler yaşanabilir.",
+          "body2": "Önemli bakım çalışmaları mümkün olduğunda önceden duyurulur."
+        },
+        "disclaimer": {
+          "title": "Sorumluluk reddi",
+          "body1": "KidMemoir tıbbi, hukuki veya profesyonel değerlendirme hizmeti değildir. Uygulamadaki özetler ve gelecekteki AI çıktıları uzman görüşünün yerine geçmez.",
+          "body2": "Sorumluluk, uygulanabilir hukukun izin verdiği ölçüde sınırlandırılır; kanunen sınırlandırılamayan haklar saklıdır."
+        },
+        "termination": {
+          "title": "Askıya alma ve sona erme",
+          "body1": "Koşulların ciddi ihlali, güvenlik riski veya hukuki zorunluluk halinde erişim sınırlandırılabilir. Uygun olduğunda kullanıcıya bildirim ve itiraz olanağı sağlanır.",
+          "body2": "Hesabınızı kapatma ve verilerinize ilişkin haklarınızı kullanma seçenekleri gizlilik politikasına tabidir."
+        },
+        "changes": {
+          "title": "Koşullardaki değişiklikler",
+          "body1": "Koşullar hizmet veya mevzuat değişikliklerine göre güncellenebilir. Önemli değişikliklerde yürürlük tarihinden önce makul bildirim sağlanır."
+        },
+        "contact": {
+          "title": "İletişim",
+          "body1": "Bu koşullarla ilgili sorularınızı hello@kidmemoir.com adresine iletebilirsiniz."
+        }
+      }
+    },
+    "support": {
+      "metadata": {
+        "title": "Destek | KidMemoir",
+        "description": "KidMemoir destek ekibine ulaşın ve yardım talebinizi hazırlayın."
+      },
+      "back": "Uygulamaya Dön",
+      "eyebrow": "Yanınızdayız",
+      "title": "KidMemoir Destek",
+      "description": "Sorununuzu ve ihtiyaç duyduğunuz yardımı paylaşın. Talebinizi doğru ekibe ulaştırmaya hazırız.",
+      "formTitle": "Destek talebi",
+      "formDescription": "Talebinizi ayrıntılı biçimde paylaşın; destek ekibimize güvenli biçimde iletelim.",
+      "form": {
+        "email": { "label": "E-posta", "placeholder": "ornek@eposta.com" },
+        "subject": {
+          "label": "Konu",
+          "placeholder": "Bir konu seçin",
+          "options": {
+            "account": "Hesap yönetimi",
+            "memory": "Anılar",
+            "media": "Fotoğraf, video veya ses",
+            "premium": "Premium",
+            "privacy": "Gizlilik",
+            "technical": "Teknik sorun"
+          }
+        },
+        "message": {
+          "label": "Mesaj",
+          "placeholder": "Yaşadığınız durumu, kullandığınız cihazı ve ilgili adımları açıklayın.",
+          "hint": "En fazla 5.000 karakter."
+        },
+        "attachment": {
+          "label": "Dosya eki",
+          "action": "Dosya seç",
+          "hint": "JPG, PNG, WebP, PDF veya TXT · En fazla 5 MB"
+        },
+        "submit": "Talebi Gönder",
+        "submitting": "Gönderiliyor",
+        "backendNote": "Mesajınız ve seçtiğiniz dosya, talebinizi yanıtlamak amacıyla destek ekibimize iletilir.",
+        "validation": {
+          "email": "Geçerli bir e-posta adresi girin.",
+          "subject": "Bir destek konusu seçin.",
+          "message": "Mesajınız en az 20 karakter olmalıdır.",
+          "attachment": "Dosya JPG, PNG, WebP, PDF veya TXT formatında ve en fazla 5 MB olmalıdır."
+        },
+        "feedback": {
+          "successTitle": "Talebiniz gönderildi",
+          "successDescription": "Destek ekibimiz mesajınızı aldı. Yanıtı belirttiğiniz e-posta adresine göndereceğiz.",
+          "errorTitle": "Talep gönderilemedi",
+          "errors": {
+            "validation": "Lütfen işaretlenen alanları kontrol edin.",
+            "rateLimited": "Kısa süre içinde çok fazla talep gönderildi. Lütfen daha sonra tekrar deneyin.",
+            "configuration": "Destek e-posta sistemi henüz yapılandırılmamış. Lütfen doğrudan e-posta adresimizi kullanın.",
+            "network": "Mesaj iletilirken bağlantı hatası oluştu. Lütfen tekrar deneyin.",
+            "unauthorized": "Bu işlem için yeniden giriş yapmanız gerekiyor."
+          }
+        }
+      },
+      "email": {
+        "title": "E-posta ile destek",
+        "description": "Çevrimiçi form etkinleşene kadar bize doğrudan e-posta gönderebilirsiniz."
+      },
+      "topics": {
+        "title": "Sık iletişim konuları",
+        "items": {
+          "account": "Hesaba erişim ve profil sorunları",
+          "memory": "Anı oluşturma, düzenleme veya silme",
+          "media": "Fotoğraf, video ve ses yükleme",
+          "billing": "Premium plan ve gelecekteki ödeme soruları"
+        }
+      }
+    }
+  },
+  "account": {
+    "deletion": {
+      "title": "Hesabı sil",
+      "description": "Hesap silme işlemi profilinizi, çocuklarınızı ve anılarınızı etkiler.",
+      "trigger": "Hesabı Sil",
+      "confirmTitle": "Hesabınızı silmek mi istiyorsunuz?",
+      "unavailable": "Güvenli hesap silme işlemi için Supabase üzerinde yetkili silme fonksiyonu henüz yapılandırılmamış. Verilerinizin eksik veya yanlış silinmesini önlemek için işlem şu anda tamamlanamaz.",
+      "close": "Kapat"
+    },
+    "profile": {
+      "metadata": {
+        "title": "Profil",
+        "description": "Hesap ve profil bilgilerinizi yönetin."
+      },
+      "back": "Ana Sayfaya Dön",
+      "eyebrow": "Hesabınız",
+      "title": "Profil",
+      "description": "Kimlik, dil ve görünüm tercihlerinizi tek yerden yönetin.",
+      "information": "Profil Bilgileri",
+      "avatar": {
+        "sectionTitle": "Profil Fotoğrafı",
+        "sectionDescription": "Hesabınızı size ait hissettiren bir fotoğraf seçin.",
+        "label": "{name} profil fotoğrafı",
+        "action": "Fotoğrafı Değiştir",
+        "uploading": "Yükleniyor {progress}%",
+        "description": "JPG, PNG veya WebP · En fazla 5 MB",
+        "error": "Fotoğraf güncellenemedi. Lütfen tekrar deneyin."
+      },
+      "fields": {
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "email": "E-posta",
+        "language": "Dil",
+        "timezone": "Saat Dilimi",
+        "theme": "Tema"
+      },
+      "languages": { "tr": "Türkçe", "en": "English" },
+      "themes": { "system": "Sistem", "light": "Açık", "dark": "Koyu" },
+      "save": "Değişiklikleri Kaydet",
+      "changePassword": "Şifreyi Değiştir",
+      "feedback": {
+        "success": "Profiliniz güncellendi.",
+        "error": "Profil güncellenemedi. Lütfen tekrar deneyin."
+      }
+    },
+    "children": {
+      "metadata": {
+        "title": "Çocuklarım",
+        "description": "Çocuk profillerinizi yönetin."
+      },
+      "back": "Ana Sayfaya Dön",
+      "eyebrow": "Aileniz",
+      "title": "Çocuklarım",
+      "description": "Çocuk profillerini düzenleyin ve aktif çocuğu seçin.",
+      "add": "Yeni Çocuk Ekle",
+      "addPremium": "Premium ile İkinci Çocuğu Ekle",
+      "card": {
+        "avatar": "{name} profil fotoğrafı",
+        "active": "Aktif Çocuk",
+        "edit": "Düzenle",
+        "makeDefault": "Aktif Yap",
+        "delete": "Sil",
+        "confirmTitle": "Çocuk profilini silmek istiyor musunuz?",
+        "confirmDescription": "{name} profili ve ilişkili uygulama erişimi kaldırılacaktır.",
+        "cancel": "Vazgeç",
+        "confirm": "Profili Sil",
+        "summary": {
+          "age": "Yaş",
+          "ageValue": "{count} yaş",
+          "photos": "Toplam fotoğraf",
+          "memories": "Toplam anı",
+          "videos": "Video sayısı",
+          "lastMemory": "Son eklenen anı",
+          "noMemory": "Henüz anı yok"
+        },
+        "errors": {
+          "default": "Aktif çocuk değiştirilemedi.",
+          "lastChild": "Son çocuk profili silinemez.",
+          "database": "Profil silinemedi.",
+          "unauthorized": "Bu işlem için yetkiniz yok.",
+          "invalid": "Geçersiz çocuk profili."
+        }
+      },
+      "edit": {
+        "back": "Çocuklarıma Dön",
+        "eyebrow": "Çocuk Profili",
+        "title": "Profili Düzenle",
+        "description": "Çocuğunuzun temel bilgilerini güncelleyin.",
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "birthDate": "Doğum Tarihi",
+        "gender": "Cinsiyet",
+        "calendar": "Tarih seçin",
+        "openCalendar": "Takvimi aç",
+        "previousMonth": "Önceki ay",
+        "nextMonth": "Sonraki ay",
+        "save": "Değişiklikleri Kaydet",
+        "error": "Profil güncellenemedi.",
+        "genders": {
+          "female": "Kız",
+          "male": "Erkek",
+          "other": "Diğer",
+          "prefer_not_to_say": "Belirtmek istemiyorum"
+        }
+      }
+    },
+    "subscription": {
+      "metadata": {
+        "title": "Abonelik",
+        "description": "Planınızı ve kullanımınızı görüntüleyin."
+      },
+      "back": "Ana Sayfaya Dön",
+      "eyebrow": "KidMemoir Planı",
+      "title": "Abonelik",
+      "description": "Mevcut planınızı, medya kullanımınızı ve AI tüketiminizi takip edin.",
+      "currentPlan": "Mevcut Plan",
+      "plans": { "free": "Free", "premium": "Premium" },
+      "status": {
+        "free": "Free",
+        "premium": "Premium",
+        "trial": "Deneme",
+        "expired": "Süresi Doldu",
+        "cancelled": "İptal Edildi",
+        "active": "Aktif",
+        "trialing": "Deneme",
+        "past_due": "Ödeme Bekliyor",
+        "canceled": "İptal Edildi",
+        "incomplete": "Tamamlanmadı"
+      },
+      "usage": {
+        "ai": "Bu ay AI token",
+        "storage": "Medya depolama",
+        "photos": "Fotoğraf",
+        "videos": "Video",
+        "audio": "Ses kaydı"
+      },
+      "upsell": {
+        "childLimit": {
+          "title": "İkinci çocuk profili Premium'a dahildir",
+          "description": "Free plan bir çocuk profili içerir. Ailenizdeki diğer çocukların anılarını ayrı profillerde saklamak için Premium plana geçebilirsiniz."
+        }
+      },
+      "premium": {
+        "title": "Premium ile daha fazlasını saklayın",
+        "features": {
+          "ai": "Gelişmiş AI analizleri",
+          "storage": "Daha geniş depolama",
+          "media": "Premium medya deneyimi",
+          "reports": "Gelişim raporları"
+        },
+        "viewPlans": "Planları Karşılaştır"
+      }
+    },
+    "settings": {
+      "metadata": {
+        "title": "Ayarlar",
+        "description": "Uygulama tercihlerinizi yönetin."
+      },
+      "back": "Ana Sayfaya Dön",
+      "eyebrow": "Uygulama Tercihleri",
+      "title": "Ayarlar",
+      "description": "Dil, görünüm, bildirim ve veri tercihlerinizi yönetin.",
+      "preferencesTitle": "Genel Tercihler",
+      "save": "Ayarları Kaydet",
+      "fields": {
+        "language": "Dil",
+        "theme": "Tema",
+        "timezone": "Saat Dilimi",
+        "dateFormat": "Tarih Formatı",
+        "timeFormat": "Saat Formatı"
+      },
+      "options": {
+        "tr": "Türkçe",
+        "en": "English",
+        "system": "Sistem",
+        "light": "Açık",
+        "dark": "Koyu",
+        "12h": "12 Saat",
+        "24h": "24 Saat"
+      },
+      "toggles": {
+        "pushNotifications": {
+          "title": "Push Bildirimleri",
+          "description": "Uygulama bildirimlerini alın."
+        },
+        "emailNotifications": {
+          "title": "E-posta Bildirimleri",
+          "description": "Önemli güncellemeleri e-postayla alın."
+        },
+        "reminderNotifications": {
+          "title": "Hatırlatma Bildirimleri",
+          "description": "Planlanan anı hatırlatmalarını alın."
+        },
+        "aiEnabled": {
+          "title": "AI Özellikleri",
+          "description": "Anılar için AI destekli özelliklere izin verin."
+        }
+      },
+      "feedback": {
+        "success": "Ayarlarınız kaydedildi.",
+        "error": "Ayarlar kaydedilemedi."
+      },
+      "privacy": {
+        "title": "Gizlilik",
+        "description": "Verileriniz yalnızca kendi hesabınız tarafından erişilebilir.",
+        "message": "Özel Storage alanları ve Row Level Security koruması aktiftir."
+      },
+      "export": {
+        "title": "Verilerimi İndir",
+        "description": "Profil, çocuk ve anı verilerinizin JSON kopyasını indirin.",
+        "action": "Veri Arşivini İndir"
+      },
+      "about": { "title": "Hakkında", "version": "KidMemoir sürüm {version}" }
     }
   },
   "onThisDay": {

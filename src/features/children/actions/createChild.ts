@@ -10,9 +10,10 @@ import {
 import { routing, type AppLocale } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
 import { createClient } from "@/lib/supabase/server";
+import { getAccountPlan } from "@/features/account/services/accountService";
 
 type CreateChildFailure = Readonly<{
-  error: "database" | "unauthorized" | "validation";
+  error: "database" | "premiumRequired" | "unauthorized" | "validation";
   fieldErrors?: Partial<Record<keyof CreateChildInput, string>>;
   success: false;
 }>;
@@ -57,19 +58,22 @@ export async function createChildAction(
   if (!user) return { error: "unauthorized", success: false };
 
   const supabase = await createClient();
-  const existingChild = await supabase
-    .from("children")
-    .select("id")
-    .eq("user_id", user.id)
-    .is("archived_at", null)
-    .limit(1);
+  const [existingChild, plan] = await Promise.all([
+    supabase
+      .from("children")
+      .select("id")
+      .eq("user_id", user.id)
+      .is("archived_at", null)
+      .limit(1),
+    getAccountPlan(user),
+  ]);
 
   if (existingChild.error) {
     console.error("First child eligibility check failed", existingChild.error);
     return { error: "database", success: false };
   }
-  if (existingChild.data.length > 0) redirect(`/${locale}/dashboard`);
-
+  if (existingChild.data.length > 0 && plan === "free")
+    return { error: "premiumRequired", success: false };
   const { error } = await supabase.from("children").insert({
     birth_date: result.data.birthDate,
     birth_height: result.data.birthHeight ?? null,
@@ -77,7 +81,7 @@ export async function createChildAction(
     birth_weight: result.data.birthWeight ?? null,
     first_name: result.data.firstName,
     gender: result.data.gender,
-    is_default: true,
+    is_default: existingChild.data.length === 0,
     last_name: result.data.lastName ?? null,
     notes: result.data.notes ?? null,
     user_id: user.id,
@@ -88,5 +92,9 @@ export async function createChildAction(
     return { error: "database", success: false };
   }
 
-  redirect(`/${locale}/dashboard`);
+  redirect(
+    existingChild.data.length === 0
+      ? `/${locale}/dashboard`
+      : `/${locale}/children`,
+  );
 }

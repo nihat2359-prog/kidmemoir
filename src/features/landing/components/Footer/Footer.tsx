@@ -11,31 +11,31 @@ const groups = [
       ["features", "#features"],
       ["ai", "#ai"],
       ["timeline", "#timeline"],
-      ["pricing", "#pricing"],
+      ["pricing", "/pricing"],
     ],
   },
   {
     key: "company",
     links: [
       ["howItWorks", "#how-it-works"],
-      ["privacy", "#privacy"],
+      ["privacy", "/privacy"],
       ["faq", "#faq"],
     ],
   },
   {
     key: "support",
     links: [
-      ["contact", "mailto:hello@kidmemoir.com"],
-      ["help", "#faq"],
-      ["status", "#privacy"],
+      ["contact", "/support"],
+      ["help", "/help"],
+      ["status", "/help"],
     ],
   },
   {
     key: "legal",
     links: [
-      ["terms", "#privacy"],
-      ["privacyPolicy", "#privacy"],
-      ["cookies", "#privacy"],
+      ["terms", "/terms"],
+      ["privacyPolicy", "/privacy"],
+      ["cookies", "/privacy"],
     ],
   },
 ] as const;
@@ -74,12 +74,12 @@ export function Footer() {
                 <ul className="text-muted-foreground mt-5 space-y-3 text-sm">
                   {links.map(([label, href]) => (
                     <li key={label}>
-                      <a
+                      <Link
                         className="hover:text-foreground inline-flex items-center gap-1 transition-colors"
                         href={href}
                       >
                         {t(`${key}.${label}`)}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

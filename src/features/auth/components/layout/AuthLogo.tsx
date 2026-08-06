@@ -1,5 +1,5 @@
-import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -19,10 +19,8 @@ export function AuthLogo({ className }: AuthLogoProps) {
       )}
       href="/"
     >
-      <span className="from-primary to-ai text-primary-foreground grid size-9 place-items-center rounded-md bg-gradient-to-br shadow-sm">
-        <Heart aria-hidden className="size-4" fill="currentColor" />
-      </span>
-      {t("brandName")}
+      <LogoMark className="h-10 w-9 rounded-md" />
+      <span>{t("brandName")}</span>
     </Link>
   );
 }

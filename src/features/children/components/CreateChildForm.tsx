@@ -26,11 +26,13 @@ import {
   type CreateChildValues,
 } from "@/features/children/schemas/createChildSchema";
 import type { AppLocale } from "@/i18n/routing";
+import { useRouter } from "@/i18n/navigation";
 
 type CreateChildFormProps = Readonly<{ locale: AppLocale }>;
 
 export function CreateChildForm({ locale }: CreateChildFormProps) {
   const t = useTranslations("children.create");
+  const router = useRouter();
   const controlLocale = locale === "tr" ? "tr-TR" : "en-US";
   const [submitError, setSubmitError] = useState<string | null>(null);
   const schema = createChildSchema({
@@ -71,6 +73,11 @@ export function CreateChildForm({ locale }: CreateChildFormProps) {
   async function onSubmit(values: CreateChildValues) {
     setSubmitError(null);
     const result = await createChildAction(values, locale);
+
+    if (result.error === "premiumRequired") {
+      router.push("/subscription?reason=child_limit");
+      return;
+    }
 
     if (result.fieldErrors) {
       Object.entries(result.fieldErrors).forEach(([field, message]) => {

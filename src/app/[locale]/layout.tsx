@@ -11,6 +11,15 @@ import { routing, type AppLocale } from "@/i18n/routing";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        type: "image/svg+xml",
+        url: "https://kidmemoir.com/kidmemoir.svg",
+      },
+    ],
+    shortcut: "https://kidmemoir.com/kidmemoir.svg",
+  },
   metadataBase: new URL("https://kidmemoir.com"),
   title: {
     default: "KidMemoir",

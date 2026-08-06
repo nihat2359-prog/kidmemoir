@@ -21,6 +21,7 @@ export async function generateMetadata({
   const canonical = `${siteUrl}/${locale}`;
 
   return {
+    metadataBase: new URL(siteUrl),
     title: t("title"),
     description: t("description"),
     alternates: {
@@ -34,6 +35,14 @@ export async function generateMetadata({
     openGraph: {
       title: t("openGraphTitle"),
       description: t("openGraphDescription"),
+      images: [
+        {
+          alt: "KidMemoir",
+          height: 630,
+          url: `${siteUrl}/${locale}/opengraph-image`,
+          width: 1200,
+        },
+      ],
       locale: locale === "tr" ? "tr_TR" : "en_US",
       alternateLocale: locale === "tr" ? ["en_US"] : ["tr_TR"],
       siteName: "KidMemoir",
@@ -44,6 +53,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: t("twitterTitle"),
       description: t("twitterDescription"),
+      images: [`${siteUrl}/${locale}/opengraph-image`],
     },
   };
 }
