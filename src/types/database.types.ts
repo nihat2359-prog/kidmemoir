@@ -563,11 +563,190 @@ type SeoTopicMetricDailyRow = {
   updated_at: string;
 };
 
+type SeoSectionDefinitionRow = {
+  created_at: string;
+  id: string;
+  slug: string;
+  status: string;
+  supports_media: string[];
+  updated_at: string;
+};
+
+type SeoTemplateRuleRow = {
+  created_at: string;
+  maximum_faq_items: number;
+  maximum_internal_links: number;
+  maximum_words: number;
+  minimum_faq_items: number;
+  minimum_internal_links: number;
+  minimum_words: number;
+  recommended_words: number;
+  template_id: string;
+  updated_at: string;
+};
+
+type SeoTemplateSectionRow = {
+  is_required: boolean;
+  position: number;
+  section_definition_id: string;
+  template_id: string;
+};
+
+type SeoContentDraftRow = {
+  approved_at: string | null;
+  content_hash: string | null;
+  created_at: string;
+  freshness_score: number;
+  generated_at: string | null;
+  id: string;
+  locale: string;
+  model: string | null;
+  outline: Json;
+  primary_keyword: string | null;
+  prompt_version: string | null;
+  published_page_id: string | null;
+  quality_score: number;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
+  reviewer_notes: string | null;
+  secondary_keywords: string[];
+  seo_description: string | null;
+  seo_title: string | null;
+  status: string;
+  template_id: string;
+  title: string | null;
+  topic_id: string;
+  updated_at: string;
+  version: number;
+  word_count: number;
+};
+
+type SeoDraftSectionRow = {
+  body: Json;
+  created_at: string;
+  draft_id: string;
+  heading: string | null;
+  id: string;
+  position: number;
+  section_definition_id: string;
+  updated_at: string;
+  word_count: number;
+};
+
+type SeoFactReferenceRow = {
+  claim_key: string;
+  created_at: string;
+  draft_section_id: string;
+  id: string;
+  published_at: string | null;
+  publisher: string | null;
+  reference_status: string;
+  source_title: string | null;
+  source_url: string | null;
+  updated_at: string;
+  verified_at: string | null;
+  verified_by: string | null;
+};
+
+type SeoMediaRecommendationRow = {
+  alt_text_guidance: string | null;
+  brief: string;
+  created_at: string;
+  draft_section_id: string;
+  id: string;
+  media_type: string;
+  position: number;
+  status: string;
+  updated_at: string;
+};
+
+type SeoDraftFaqItemRow = {
+  answer: string;
+  created_at: string;
+  draft_id: string;
+  id: string;
+  position: number;
+  question: string;
+  updated_at: string;
+};
+
+type SeoDraftRelatedTopicRow = {
+  content_type: string;
+  draft_id: string;
+  position: number;
+  semantic_score: number;
+  target_topic_id: string;
+};
+
+type SeoDraftCtaRow = {
+  cta_target_id: string;
+  draft_id: string;
+  position: string;
+  priority: number;
+};
+
+type SeoQualityRuleRow = {
+  created_at: string;
+  id: string;
+  is_required: boolean;
+  slug: string;
+  status: string;
+  updated_at: string;
+  weight: number;
+};
+
+type SeoQualityAssessmentRow = {
+  created_at: string;
+  draft_content_hash: string;
+  draft_id: string;
+  evaluated_at: string;
+  id: string;
+  passed: boolean;
+  score: number;
+};
+
+type SeoQualityResultRow = {
+  assessment_id: string;
+  findings: Json;
+  passed: boolean;
+  rule_id: string;
+  score: number;
+};
+
+type SeoDraftWorkflowEventRow = {
+  actor_id: string | null;
+  created_at: string;
+  draft_id: string;
+  from_status: string | null;
+  id: string;
+  notes: string | null;
+  to_status: string;
+};
+
+type SeoContentMetricDailyRow = {
+  average_position: number | null;
+  clicks: number;
+  conversions: number;
+  created_at: string;
+  ctr: number;
+  currency: string;
+  draft_id: string;
+  impressions: number;
+  metric_date: string;
+  premium_conversions: number;
+  revenue: number;
+  updated_at: string;
+};
+
 export type Database = {
   public: {
     CompositeTypes: Record<string, never>;
     Enums: Record<string, never>;
     Functions: {
+      finalize_seo_quality_assessment: {
+        Args: { target_assessment_id: string };
+        Returns: number;
+      };
       claim_ai_jobs: {
         Args: { batch_size?: number };
         Returns: AiJobRow[];
@@ -803,6 +982,64 @@ export type Database = {
       seo_topic_metrics_daily: TableDefinition<
         SeoTopicMetricDailyRow,
         "metric_date" | "topic_id"
+      >;
+      seo_section_definitions: TableDefinition<SeoSectionDefinitionRow, "slug">;
+      seo_template_rules: TableDefinition<
+        SeoTemplateRuleRow,
+        "maximum_words" | "minimum_words" | "recommended_words" | "template_id"
+      >;
+      seo_template_sections: TableDefinition<
+        SeoTemplateSectionRow,
+        "position" | "section_definition_id" | "template_id"
+      >;
+      seo_content_drafts: TableDefinition<
+        SeoContentDraftRow,
+        "locale" | "template_id" | "topic_id"
+      >;
+      seo_draft_sections: TableDefinition<
+        SeoDraftSectionRow,
+        "draft_id" | "position" | "section_definition_id"
+      >;
+      seo_fact_references: TableDefinition<
+        SeoFactReferenceRow,
+        "claim_key" | "draft_section_id"
+      >;
+      seo_media_recommendations: TableDefinition<
+        SeoMediaRecommendationRow,
+        "brief" | "draft_section_id" | "media_type"
+      >;
+      seo_draft_faq_items: TableDefinition<
+        SeoDraftFaqItemRow,
+        "answer" | "draft_id" | "position" | "question"
+      >;
+      seo_draft_related_topics: TableDefinition<
+        SeoDraftRelatedTopicRow,
+        | "content_type"
+        | "draft_id"
+        | "position"
+        | "semantic_score"
+        | "target_topic_id"
+      >;
+      seo_draft_ctas: TableDefinition<
+        SeoDraftCtaRow,
+        "cta_target_id" | "draft_id" | "position"
+      >;
+      seo_quality_rules: TableDefinition<SeoQualityRuleRow, "slug" | "weight">;
+      seo_quality_assessments: TableDefinition<
+        SeoQualityAssessmentRow,
+        "draft_content_hash" | "draft_id"
+      >;
+      seo_quality_results: TableDefinition<
+        SeoQualityResultRow,
+        "assessment_id" | "passed" | "rule_id" | "score"
+      >;
+      seo_draft_workflow_events: TableDefinition<
+        SeoDraftWorkflowEventRow,
+        "draft_id" | "to_status"
+      >;
+      seo_content_metrics_daily: TableDefinition<
+        SeoContentMetricDailyRow,
+        "draft_id" | "metric_date"
       >;
       seo_topics: TableDefinition<
         SeoTopicRow,

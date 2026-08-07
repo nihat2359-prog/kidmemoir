@@ -7,6 +7,11 @@ export {
 } from "@/features/programmatic-seo/constants/categories";
 export { SeoPageTemplate } from "@/features/programmatic-seo/components/SeoPageTemplate";
 export { prepareSeoContent } from "@/features/programmatic-seo/services/contentPipeline";
+export {
+  assessDraftQuality,
+  canTransitionEditorialStatus,
+  meetsTemplateLength,
+} from "@/features/programmatic-seo/services/contentQualityEngine";
 export { groupRelatedContent } from "@/features/programmatic-seo/services/relatedContentEngine";
 export {
   calculatePriorityScore,
@@ -25,3 +30,12 @@ export type {
   QualitySignals,
   TopicIntelligence,
 } from "@/features/programmatic-seo/types/intelligence";
+export type {
+  ContentSectionType,
+  EditorialStatus,
+  FactoryTemplate,
+  MediaRecommendationType,
+  QualityAssessment,
+  QualityResult,
+  QualityRule,
+} from "@/features/programmatic-seo/types/contentFactory";
