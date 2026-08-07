@@ -10,6 +10,7 @@ export async function MemoryConnections({
   connections: ReadonlyArray<{
     id: string;
     occurred_at: string;
+    reason: "context" | "development" | "emotion";
     similarity: number;
     title: string;
   }>;
@@ -45,6 +46,9 @@ export async function MemoryConnections({
               {new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
                 new Date(connection.occurred_at),
               )}
+            </p>
+            <p className="text-muted-foreground mt-3 text-sm leading-6">
+              {t(`reasons.${connection.reason}`)}
             </p>
           </Link>
         ))}

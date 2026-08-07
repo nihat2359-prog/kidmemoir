@@ -64,23 +64,49 @@ export async function loadMemoryContext(
   job: AiJob,
 ) {
   if (!job.event_id) throw new Error("AI_EVENT_REQUIRED");
-  const [eventResult, tagsResult] = await Promise.all([
-    supabase
-      .from("events")
-      .select("id,title,description,occurred_at,location,mood,importance")
-      .eq("id", job.event_id)
-      .eq("child_id", job.child_id)
-      .is("archived_at", null)
-      .maybeSingle(),
-    supabase.from("event_tags").select("tag").eq("event_id", job.event_id),
-  ]);
-  if (eventResult.error || tagsResult.error)
+  const [eventResult, tagsResult, settingsResult, recentQuotesResult] =
+    await Promise.all([
+      supabase
+        .from("events")
+        .select("id,title,description,occurred_at,location,mood,importance")
+        .eq("id", job.event_id)
+        .eq("child_id", job.child_id)
+        .is("archived_at", null)
+        .maybeSingle(),
+      supabase.from("event_tags").select("tag").eq("event_id", job.event_id),
+      supabase
+        .from("user_settings")
+        .select("language")
+        .eq("user_id", job.user_id)
+        .maybeSingle(),
+      supabase
+        .from("ai_analysis")
+        .select("memory_quote")
+        .eq("child_id", job.child_id)
+        .not("memory_quote", "is", null)
+        .order("created_at", { ascending: false })
+        .limit(5),
+    ]);
+  if (
+    eventResult.error ||
+    tagsResult.error ||
+    settingsResult.error ||
+    recentQuotesResult.error
+  )
     throw new Error("AI_MEMORY_CONTEXT_FAILED", {
-      cause: eventResult.error ?? tagsResult.error,
+      cause:
+        eventResult.error ??
+        tagsResult.error ??
+        settingsResult.error ??
+        recentQuotesResult.error,
     });
   if (!eventResult.data) throw new Error("AI_EVENT_NOT_FOUND");
   return {
     ...eventResult.data,
+    avoidQuotes: (recentQuotesResult.data ?? []).flatMap(({ memory_quote }) =>
+      memory_quote ? [memory_quote] : [],
+    ),
+    language: settingsResult.data?.language === "tr" ? "tr" : "en",
     tags: (tagsResult.data ?? []).map(({ tag }) => tag),
   };
 }

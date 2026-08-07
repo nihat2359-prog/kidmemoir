@@ -800,9 +800,32 @@
     }
   },
   "memories": {
+    "insight": {
+      "eyebrow": "Anı içgörüsü",
+      "title": "Bu anıya yakından bakış",
+      "emotion": "Duygu: {value}",
+      "importance": "Önem: {value}/100",
+      "emotions": {
+        "joy": "Mutlu",
+        "pride": "Gururlu",
+        "love": "Sevgi dolu",
+        "calm": "Sakin",
+        "sadness": "Hüzünlü",
+        "fear": "Kaygılı",
+        "surprise": "Şaşkın",
+        "neutral": "Dingin",
+        "excitement": "Heyecanlı",
+        "curiosity": "Meraklı"
+      }
+    },
     "connections": {
       "title": "Bağlantılı anılar",
-      "description": "Bu anının yanında doğal olarak yer alan diğer anlar."
+      "description": "Bu anının yanında doğal olarak yer alan diğer anlar.",
+      "reasons": {
+        "development": "Bu anılar aynı gelişim temasını taşıyor.",
+        "emotion": "Bu anlar benzer bir duygusal tona sahip.",
+        "context": "Kaydedilen anlamları ve bağlamları onları doğal olarak birleştiriyor."
+      }
     },
     "edit": {
       "metadata": {
@@ -1903,6 +1926,34 @@
       "description": "Çocuğunuzun anıları, yaklaşan günleri ve gelişim özeti."
     },
     "navigationLabel": "KidMemoir ana navigasyonu",
+    "memoryOfTheDay": {
+      "eyebrow": "Günün Anısı",
+      "types": {
+        "anniversary": "Bugün tam {years} yıl önce",
+        "emotional": "Kalbinize dokunan bir anı",
+        "photo": "Bir fotoğrafa sığan güzel an",
+        "first": "Unutulmayacak bir ilk",
+        "milestone": "Hatırlanmaya değer bir dönüm noktası",
+        "development": "Son zamanlarda dikkat çeken bir gelişim",
+        "smile": "Bugün gülümsetecek bir anı",
+        "family": "Ailece unutulmayacak bir gün",
+        "favorite": "En sevdiğiniz anılardan biri",
+        "recommended": "Bugün yeniden okumaya değer"
+      },
+      "actions": {
+        "photo": "Fotoğrafı Gör",
+        "open": "Anıyı Aç",
+        "timeline": "Timeline'a Git"
+      },
+      "premium": {
+        "title": "Premium öneriler",
+        "ariaLabel": "Premium anı önerileri",
+        "related": "Benzer anılar",
+        "after": "Bu olaydan sonra yaşananlar",
+        "weekly": "Haftalık hikâyeye ekle",
+        "pdf": "PDF Anı Kitabı'na ekle"
+      }
+    },
     "greeting": {
       "morning": "Günaydın",
       "afternoon": "İyi günler",

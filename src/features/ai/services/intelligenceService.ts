@@ -24,6 +24,7 @@ function nullableCard(value: Json | undefined) {
         id: card.id,
         occurredAt: card.occurred_at,
         summary: typeof card.summary === "string" ? card.summary : "",
+        quote: typeof card.memory_quote === "string" ? card.memory_quote : "",
         title: card.title,
       }
     : null;
@@ -205,14 +206,24 @@ export async function getMemoryConnections(
 ) {
   const supabase = await verifyChildOwnership(user, childId);
   if (!(await hasPremiumAi(user.id))) return [];
-  const source = await supabase
-    .from("ai_event_embeddings")
-    .select("embedding")
-    .eq("child_id", childId)
-    .eq("event_id", eventId)
-    .maybeSingle();
-  if (source.error)
-    throw new Error("AI_CONNECTION_SOURCE_FAILED", { cause: source.error });
+  const [source, sourceInsight] = await Promise.all([
+    supabase
+      .from("ai_event_embeddings")
+      .select("embedding")
+      .eq("child_id", childId)
+      .eq("event_id", eventId)
+      .maybeSingle(),
+    supabase
+      .from("ai_analysis")
+      .select("emotion,development_categories")
+      .eq("child_id", childId)
+      .eq("event_id", eventId)
+      .maybeSingle(),
+  ]);
+  if (source.error || sourceInsight.error)
+    throw new Error("AI_CONNECTION_SOURCE_FAILED", {
+      cause: source.error ?? sourceInsight.error,
+    });
   if (!source.data) return [];
   const matches = await supabase.rpc("match_memory_embeddings", {
     excluded_event_id: eventId,
@@ -224,18 +235,69 @@ export async function getMemoryConnections(
     throw new Error("AI_CONNECTIONS_FAILED", { cause: matches.error });
   const ids = (matches.data ?? []).map(({ event_id }) => event_id);
   if (!ids.length) return [];
-  const events = await supabase
-    .from("events")
-    .select("id,title,occurred_at")
-    .in("id", ids)
-    .is("archived_at", null);
-  if (events.error)
-    throw new Error("AI_CONNECTION_EVENTS_FAILED", { cause: events.error });
+  const [events, insights] = await Promise.all([
+    supabase
+      .from("events")
+      .select("id,title,occurred_at")
+      .in("id", ids)
+      .is("archived_at", null),
+    supabase
+      .from("ai_analysis")
+      .select("event_id,emotion,development_categories")
+      .in("event_id", ids),
+  ]);
+  if (events.error || insights.error)
+    throw new Error("AI_CONNECTION_EVENTS_FAILED", {
+      cause: events.error ?? insights.error,
+    });
   const byId = new Map((events.data ?? []).map((event) => [event.id, event]));
+  const insightByEvent = new Map(
+    (insights.data ?? []).map((insight) => [insight.event_id, insight]),
+  );
   return (matches.data ?? []).flatMap((match) => {
     const event = byId.get(match.event_id);
-    return event ? [{ ...event, similarity: match.similarity }] : [];
+    const insight = insightByEvent.get(match.event_id);
+    const sharedDevelopment = insight?.development_categories.some((category) =>
+      sourceInsight.data?.development_categories.includes(category),
+    );
+    const sameEmotion = Boolean(
+      insight?.emotion && insight.emotion === sourceInsight.data?.emotion,
+    );
+    return event
+      ? [
+          {
+            ...event,
+            reason: sharedDevelopment
+              ? ("development" as const)
+              : sameEmotion
+                ? ("emotion" as const)
+                : ("context" as const),
+            similarity: match.similarity,
+          },
+        ]
+      : [];
   });
+}
+
+export async function getMemoryInsight(
+  user: User,
+  childId: string,
+  eventId: string,
+) {
+  const supabase = await verifyChildOwnership(user, childId);
+  const result = await supabase
+    .from("ai_analysis")
+    .select(
+      "short_title,summary,memory_quote,importance_score,emotion,keywords",
+    )
+    .eq("child_id", childId)
+    .eq("event_id", eventId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (result.error)
+    throw new Error("AI_MEMORY_INSIGHT_FAILED", { cause: result.error });
+  return result.data;
 }
 
 export async function getDevelopmentTrends(user: User, childId: string) {

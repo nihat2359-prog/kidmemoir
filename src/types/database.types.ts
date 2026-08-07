@@ -182,6 +182,8 @@ type AiAnalysisRow = {
   id: string;
   input_hash: string | null;
   keywords: string[];
+  memory_quote: string | null;
+  importance_score: number | null;
   model: string;
   prompt_version: string;
   recommendations: string | null;
@@ -382,6 +384,10 @@ export type Database = {
       get_smart_dashboard_intelligence: {
         Args: { target_child_id: string };
         Returns: Json;
+      };
+      get_memory_of_the_day: {
+        Args: { target_child_id: string; target_date?: string };
+        Returns: Json | null;
       };
       match_memory_embeddings: {
         Args: {

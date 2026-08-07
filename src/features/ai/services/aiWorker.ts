@@ -41,14 +41,18 @@ const memoryInsightSchema = z.object({
     "pride",
     "love",
     "calm",
+    "curiosity",
+    "excitement",
     "sadness",
     "fear",
     "surprise",
     "neutral",
   ]),
   keywords: z.array(z.string().min(1).max(40)).max(5),
+  memoryQuote: z.string().min(1).max(240),
+  importance: z.number().int().min(1).max(100),
   shortTitle: z.string().min(1).max(80),
-  summary: z.string().min(1).max(240),
+  summary: z.string().min(1).max(480),
 });
 
 const storyArtifactSchema = z.object({

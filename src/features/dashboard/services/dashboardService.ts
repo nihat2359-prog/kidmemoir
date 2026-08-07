@@ -5,6 +5,7 @@ import { getSmartDashboardIntelligence } from "@/features/ai";
 import type { DashboardData } from "@/features/dashboard/types/dashboard.types";
 import { getMonthBounds } from "@/features/dashboard/utils/date";
 import { getOnThisDayMemories } from "@/features/on-this-day";
+import { getMemoryOfTheDay } from "@/features/dashboard/services/memoryOfTheDayService";
 import { createClient } from "@/lib/supabase/server";
 
 function assertQuery(error: { message: string } | null, operation: string) {
@@ -63,6 +64,7 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       child: null,
       insight: null,
       intelligence: null,
+      memoryOfTheDay: null,
       onThisDay: [],
       profileFirstName,
       recentMemories: [],
@@ -80,6 +82,7 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
     avatarResult,
     onThisDay,
     intelligence,
+    memoryOfTheDay,
   ] = await Promise.all([
     supabase
       .from("events")
@@ -109,6 +112,7 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       : Promise.resolve({ data: null, error: null }),
     getOnThisDayMemories(supabase, child.id, child.birth_date),
     getSmartDashboardIntelligence(child.id),
+    getMemoryOfTheDay(supabase, child.id),
   ]);
 
   assertQuery(eventsResult.error, "recent memories");
@@ -168,15 +172,18 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       aiAvailable && intelligence.latestStory
         ? {
             createdAt: intelligence.latestStory.createdAt,
+            quote: null,
             summary: intelligence.latestStory.story,
           }
         : intelligence.notable
           ? {
               createdAt: intelligence.notable.occurredAt,
+              quote: intelligence.notable.quote || null,
               summary: intelligence.notable.summary,
             }
           : null,
     intelligence,
+    memoryOfTheDay,
     profileFirstName,
     onThisDay,
     recentMemories: (eventsResult.data ?? []).map((event) => ({

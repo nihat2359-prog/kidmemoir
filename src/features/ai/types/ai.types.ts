@@ -25,6 +25,8 @@ export type MemoryInsight = Readonly<{
   developmentCategories: string[];
   emotion:
     | "calm"
+    | "curiosity"
+    | "excitement"
     | "fear"
     | "joy"
     | "love"
@@ -33,6 +35,8 @@ export type MemoryInsight = Readonly<{
     | "sadness"
     | "surprise";
   keywords: string[];
+  memoryQuote: string;
+  importance: number;
   shortTitle: string;
   summary: string;
 }>;
@@ -61,6 +65,7 @@ export type SmartDashboardInsight = Readonly<{
     id: string;
     occurredAt: string;
     summary: string;
+    quote: string;
     title: string;
   }> | null;
   favoriteCount: number;
@@ -74,6 +79,7 @@ export type SmartDashboardInsight = Readonly<{
     id: string;
     occurredAt: string;
     summary: string;
+    quote: string;
     title: string;
   }> | null;
   recentActivities: string[];

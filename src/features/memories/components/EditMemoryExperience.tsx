@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { CreateMemoryForm } from "@/features/memories/components/CreateMemoryForm";
 import { DeleteMemoryButton } from "@/features/memories/components/DeleteMemoryButton";
 import { MemoryConnections } from "@/features/memories/components/MemoryConnections";
+import { MemoryInsightCard } from "@/features/memories/components/MemoryInsightCard";
 import type { CreateMemoryInput } from "@/features/memories/schemas/createMemorySchema";
 import type {
   CreateMemoryContext,
@@ -16,18 +17,28 @@ export async function EditMemoryExperience({
   eventId,
   existingMedia,
   initialValues,
+  insight,
   locale,
 }: {
   context: CreateMemoryContext;
   connections: ReadonlyArray<{
     id: string;
     occurred_at: string;
+    reason: "context" | "development" | "emotion";
     similarity: number;
     title: string;
   }>;
   eventId: string;
   existingMedia: ExistingMemoryMedia | null;
   initialValues: CreateMemoryInput;
+  insight: Readonly<{
+    emotion: string | null;
+    importance_score: number | null;
+    keywords: string[];
+    memory_quote: string | null;
+    short_title: string | null;
+    summary: string;
+  }> | null;
   locale: AppLocale;
 }) {
   const t = await getTranslations({ locale, namespace: "memories.edit" });
@@ -59,6 +70,7 @@ export async function EditMemoryExperience({
             today={today}
             tomorrow={now.toISOString().slice(0, 10)}
           />
+          <MemoryInsightCard insight={insight} locale={locale} />
           <MemoryConnections connections={connections} locale={locale} />
           <section className="border-danger/20 bg-danger/5 mt-12 flex flex-col gap-4 rounded-[2rem] border p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>

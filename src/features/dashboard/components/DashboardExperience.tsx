@@ -8,6 +8,7 @@ import { TimelinePreview } from "@/features/dashboard/components/TimelinePreview
 import { UpcomingEvents } from "@/features/dashboard/components/UpcomingEvents";
 import type { DashboardData } from "@/features/dashboard/types/dashboard.types";
 import { OnThisDaySection } from "@/features/on-this-day";
+import { MemoryOfTheDayCard } from "@/features/dashboard/components/MemoryOfTheDayCard";
 import type { AppLocale } from "@/i18n/routing";
 
 export async function DashboardExperience({
@@ -25,6 +26,15 @@ export async function DashboardExperience({
         <div className="bg-ai/6 absolute top-1/3 -right-48 size-[40rem] rounded-full blur-3xl" />
       </div>
       <div className="mx-auto w-full max-w-[90rem] px-4 py-8 sm:px-6 sm:py-12 lg:px-10 lg:py-16 2xl:px-12">
+        {data.memoryOfTheDay ? (
+          <div className="mb-8 sm:mb-10">
+            <MemoryOfTheDayCard
+              isPremium={data.aiAvailable}
+              locale={locale}
+              memory={data.memoryOfTheDay}
+            />
+          </div>
+        ) : null}
         <section className="from-primary/11 via-card/72 to-ai/9 relative overflow-hidden rounded-[2.5rem] border border-white/50 bg-gradient-to-br shadow-lg dark:border-white/10">
           <div className="grid min-h-[34rem] items-stretch lg:grid-cols-[1.15fr_0.85fr]">
             <div className="relative z-10 flex items-center p-7 sm:p-10 lg:p-14 xl:p-16">

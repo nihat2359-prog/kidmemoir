@@ -42,14 +42,19 @@ export async function AIInsight({
       </div>
       {insight ? (
         <div className="relative z-10 space-y-4">
-          <blockquote className="bg-background/50 rounded-[1.75rem] border p-6 text-base leading-8 shadow-sm backdrop-blur-md sm:p-8">
+          <div className="bg-background/50 rounded-[1.75rem] border p-6 text-base leading-8 shadow-sm backdrop-blur-md sm:p-8">
             <p className="text-pretty">{insight.summary}</p>
+            {insight.quote ? (
+              <blockquote className="border-primary/35 text-foreground/80 mt-4 border-l-2 pl-4 text-sm italic">
+                “{insight.quote}”
+              </blockquote>
+            ) : null}
             <footer className="text-muted-foreground mt-3 text-xs">
               {new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
                 new Date(insight.createdAt),
               )}
             </footer>
-          </blockquote>
+          </div>
           {intelligence && (
             <dl className="grid gap-3 sm:grid-cols-2">
               <div className="bg-background/45 rounded-2xl border p-4">

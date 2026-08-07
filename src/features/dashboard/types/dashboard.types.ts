@@ -29,6 +29,7 @@ export type DashboardReminder = Readonly<{
 
 export type DashboardInsight = Readonly<{
   createdAt: string;
+  quote: string | null;
   summary: string;
 }>;
 
@@ -44,9 +45,31 @@ export type DashboardData = Readonly<{
   child: DashboardChild | null;
   insight: DashboardInsight | null;
   intelligence: SmartDashboardInsight | null;
+  memoryOfTheDay: MemoryOfTheDay | null;
   onThisDay: readonly OnThisDayMemory[];
   profileFirstName: string;
   recentMemories: DashboardMemory[];
   reminders: DashboardReminder[];
   summary: DashboardSummary;
+}>;
+
+export type MemoryOfTheDay = Readonly<{
+  description: string;
+  eventId: string;
+  mediaUrl: string | null;
+  occurredAt: string;
+  quote: string;
+  title: string;
+  type:
+    | "anniversary"
+    | "development"
+    | "emotional"
+    | "family"
+    | "favorite"
+    | "first"
+    | "milestone"
+    | "photo"
+    | "recommended"
+    | "smile";
+  yearsAgo: number;
 }>;

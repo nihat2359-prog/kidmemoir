@@ -48,11 +48,19 @@ export function deriveRuleBasedMemoryInsight(
   const keywords = [
     ...new Set(memory.tags.map((tag) => tag.trim()).filter(Boolean)),
   ].slice(0, 5);
+  const titleWords = memory.title.trim().split(/\s+/).slice(0, 6).join(" ");
+  const groundedText = memory.description?.trim() || memory.title.trim();
+  const quote = groundedText.split(/(?<=[.!?])\s+/)[0] || memory.title.trim();
   return {
     developmentCategories: categories,
     emotion,
     keywords,
-    shortTitle: memory.title.slice(0, 80),
-    summary: (memory.description?.trim() || memory.title).slice(0, 240),
+    memoryQuote: quote.slice(0, 240),
+    importance: Math.min(
+      100,
+      45 + categories.length * 12 + (emotion === "pride" ? 15 : 0),
+    ),
+    shortTitle: titleWords.slice(0, 80),
+    summary: groundedText.slice(0, 480),
   };
 }

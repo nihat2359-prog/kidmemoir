@@ -23,7 +23,7 @@ export function getAiEnvironment(): AiEnvironment {
 
 export const AI_LIMITS = {
   maxContextRecords: 10,
-  memoryInsight: 60,
+  memoryInsight: 180,
   monthlyStory: 300,
   weeklyStory: 200,
   yearBook: 800,

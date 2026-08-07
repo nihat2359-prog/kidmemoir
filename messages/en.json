@@ -798,9 +798,32 @@
     }
   },
   "memories": {
+    "insight": {
+      "eyebrow": "Memory insight",
+      "title": "A closer look at this memory",
+      "emotion": "Emotion: {value}",
+      "importance": "Importance: {value}/100",
+      "emotions": {
+        "joy": "Happy",
+        "pride": "Proud",
+        "love": "Loving",
+        "calm": "Calm",
+        "sadness": "Sad",
+        "fear": "Worried",
+        "surprise": "Surprised",
+        "neutral": "Quiet",
+        "excitement": "Excited",
+        "curiosity": "Curious"
+      }
+    },
     "connections": {
       "title": "Connected memories",
-      "description": "Other moments that naturally belong beside this memory."
+      "description": "Other moments that naturally belong beside this memory.",
+      "reasons": {
+        "development": "These memories share a supported development theme.",
+        "emotion": "These moments carry a similar emotional tone.",
+        "context": "Their recorded meaning and context naturally connect them."
+      }
     },
     "edit": {
       "metadata": {
@@ -1904,6 +1927,34 @@
       "description": "Your child's memories, upcoming days and development summary."
     },
     "navigationLabel": "KidMemoir main navigation",
+    "memoryOfTheDay": {
+      "eyebrow": "Memory of the Day",
+      "types": {
+        "anniversary": "Today, {years} years ago",
+        "emotional": "A memory close to your heart",
+        "photo": "A beautiful moment in a photograph",
+        "first": "A precious first",
+        "milestone": "A milestone worth remembering",
+        "development": "A development that stands out",
+        "smile": "A memory to make you smile",
+        "family": "An unforgettable family day",
+        "favorite": "One of your favorite memories",
+        "recommended": "Worth reading again today"
+      },
+      "actions": {
+        "photo": "View Photo",
+        "open": "Open Memory",
+        "timeline": "Go to Timeline"
+      },
+      "premium": {
+        "title": "Premium suggestions",
+        "ariaLabel": "Premium memory suggestions",
+        "related": "Similar memories",
+        "after": "What happened next",
+        "weekly": "Add to weekly story",
+        "pdf": "Add to PDF Memory Book"
+      }
+    },
     "greeting": {
       "morning": "Good morning",
       "afternoon": "Good afternoon",

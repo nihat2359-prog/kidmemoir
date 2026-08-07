@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
-import { getMemoryConnections } from "@/features/ai";
+import { getMemoryConnections, getMemoryInsight } from "@/features/ai";
 import { EditMemoryExperience } from "@/features/memories/components/EditMemoryExperience";
 import { getCreateMemoryContext } from "@/features/memories/services/createMemoryService";
 import { getEditableMemory } from "@/features/memories/services/editMemoryService";
@@ -31,9 +31,10 @@ export default async function EditMemoryPage({ params }: Props) {
   if (!user) redirect(`/${locale}/login?next=/memories/${eventId}/edit`);
   const context = await getCreateMemoryContext(user);
   if (!context) redirect(`/${locale}/onboarding`);
-  const [memory, connections] = await Promise.all([
+  const [memory, connections, insight] = await Promise.all([
     getEditableMemory(user, eventId, context.child.id),
     getMemoryConnections(user, context.child.id, eventId),
+    getMemoryInsight(user, context.child.id, eventId),
   ]);
   if (!memory) notFound();
   return (
@@ -43,6 +44,7 @@ export default async function EditMemoryPage({ params }: Props) {
       eventId={eventId}
       existingMedia={memory.media}
       initialValues={memory.initialValues}
+      insight={insight}
       locale={locale as AppLocale}
     />
   );

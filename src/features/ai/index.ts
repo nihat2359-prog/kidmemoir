@@ -1,6 +1,7 @@
 export {
   getDevelopmentTrends,
   getMemoryConnections,
+  getMemoryInsight,
   getMemoryHighlights,
   getSmartDashboardIntelligence,
   semanticMemorySearch,
