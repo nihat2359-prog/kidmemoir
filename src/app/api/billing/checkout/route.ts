@@ -12,33 +12,35 @@ function localeFrom(value: FormDataEntryValue | null): AppLocale {
 }
 
 export async function POST(request: NextRequest) {
+  const expectsJson = request.headers
+    .get("accept")
+    ?.includes("application/json");
   const form = await request.formData().catch(() => null);
   const locale = localeFrom(form?.get("locale") ?? null);
   const user = await getCurrentUser();
   if (!user?.email) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/login?next=/subscription`, request.url),
-      303,
-    );
+    const redirectTo = `/${locale}/login?next=/subscription`;
+    if (expectsJson) return NextResponse.json({ redirectTo }, { status: 401 });
+    return NextResponse.redirect(new URL(redirectTo, request.url), 303);
   }
   try {
-    if ((await getAccountPlan(user)) === "premium")
-      return NextResponse.redirect(
-        new URL(`/${locale}/subscription`, request.url),
-        303,
-      );
+    if ((await getAccountPlan(user)) === "premium") {
+      const redirectTo = `/${locale}/subscription`;
+      if (expectsJson) return NextResponse.json({ redirectTo });
+      return NextResponse.redirect(new URL(redirectTo, request.url), 303);
+    }
     const checkoutUrl = await lemonBillingService.createCheckout({
       email: user.email,
       locale,
       plan: "premium",
       userId: user.id,
     });
+    if (expectsJson) return NextResponse.json({ checkoutUrl });
     return NextResponse.redirect(checkoutUrl, 303);
   } catch (error) {
     console.error("Lemon checkout creation failed", error);
-    return NextResponse.redirect(
-      new URL(`/${locale}/subscription?billing_error=checkout`, request.url),
-      303,
-    );
+    const redirectTo = `/${locale}/subscription?billing_error=checkout`;
+    if (expectsJson) return NextResponse.json({ redirectTo }, { status: 502 });
+    return NextResponse.redirect(new URL(redirectTo, request.url), 303);
   }
 }

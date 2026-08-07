@@ -263,7 +263,7 @@ export const lemonBillingService = {
     const now = new Date();
     const cached = await admin
       .from("billing_checkout_sessions")
-      .select("checkout_url,expires_at,state")
+      .select("checkout_url,expires_at,provider_checkout_id,state")
       .eq("user_id", input.userId)
       .gt("expires_at", now.toISOString())
       .maybeSingle();
@@ -271,10 +271,49 @@ export const lemonBillingService = {
       throw new Error("Billing checkout lookup failed", {
         cause: cached.error,
       });
-    if (cached.data?.state === "ready" && cached.data.checkout_url)
-      return cached.data.checkout_url;
-    if (cached.data)
+    if (cached.data?.state === "ready" && cached.data.checkout_url) {
+      let matchesCurrentEnvironment = false;
+      if (cached.data.provider_checkout_id) {
+        try {
+          const existingCheckout = await lemonRequest(
+            `/checkouts/${encodeURIComponent(cached.data.provider_checkout_id)}`,
+          );
+          const checkoutOptions = z
+            .record(z.unknown())
+            .safeParse(existingCheckout.data.attributes.checkout_options);
+          const cachedUrl = new URL(cached.data.checkout_url);
+          const hasLegacyMutatedParameters =
+            cachedUrl.searchParams.has("media") ||
+            cachedUrl.searchParams.has("logo") ||
+            cachedUrl.searchParams.has("desc");
+          matchesCurrentEnvironment =
+            !hasLegacyMutatedParameters &&
+            idValue(existingCheckout.data.attributes.store_id) ===
+              configuration.LEMON_STORE_ID &&
+            idValue(existingCheckout.data.attributes.variant_id) ===
+              configuration.LEMON_VARIANT_ID &&
+            checkoutOptions.success &&
+            checkoutOptions.data.embed === true &&
+            checkoutOptions.data.media === false &&
+            checkoutOptions.data.logo === false &&
+            checkoutOptions.data.desc === false;
+        } catch {
+          matchesCurrentEnvironment = false;
+        }
+      }
+      if (matchesCurrentEnvironment) return cached.data.checkout_url;
+
+      const staleHostedCheckout = await admin
+        .from("billing_checkout_sessions")
+        .delete()
+        .eq("user_id", input.userId);
+      if (staleHostedCheckout.error)
+        throw new Error("Hosted checkout cache cleanup failed", {
+          cause: staleHostedCheckout.error,
+        });
+    } else if (cached.data) {
       throw new Error("Billing checkout creation is already in progress");
+    }
 
     const returnUrl = `${configuration.NEXT_PUBLIC_APP_URL}/${input.locale}/subscription/success`;
     const cancelUrl = `${configuration.NEXT_PUBLIC_APP_URL}/${input.locale}/subscription/cancel`;
@@ -316,6 +355,12 @@ export const lemonBillingService = {
                   user_id: input.userId,
                 },
                 email: input.email,
+              },
+              checkout_options: {
+                desc: false,
+                embed: true,
+                logo: false,
+                media: false,
               },
               product_options: {
                 enabled_variants: [Number(configuration.LEMON_VARIANT_ID)],

@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/Toast";
 import { AuthProvider, SessionProvider } from "@/features/auth/client";
@@ -49,6 +50,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={GeistSans.variable}>
+        <Script
+          src="https://app.lemonsqueezy.com/js/lemon.js"
+          strategy="afterInteractive"
+        />
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <SessionProvider>

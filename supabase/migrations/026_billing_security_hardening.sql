@@ -1,22 +1,60 @@
-alter table public.subscriptions
-  rename column start_date to current_period_start;
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'start_date'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'current_period_start'
+  ) then
+    alter table public.subscriptions rename column start_date to current_period_start;
+  end if;
 
-alter table public.subscriptions
-  rename column end_date to current_period_end;
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'end_date'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'current_period_end'
+  ) then
+    alter table public.subscriptions rename column end_date to current_period_end;
+  end if;
 
-alter table public.subscriptions
-  rename column provider_product_id to product_id;
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'provider_product_id'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'product_id'
+  ) then
+    alter table public.subscriptions rename column provider_product_id to product_id;
+  end if;
 
-alter table public.subscriptions
-  rename column provider_variant_id to variant_id;
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'provider_variant_id'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'subscriptions' and column_name = 'variant_id'
+  ) then
+    alter table public.subscriptions rename column provider_variant_id to variant_id;
+  end if;
+end
+$$;
 
 alter table public.subscriptions
   drop constraint if exists subscriptions_valid_date_range;
 
 alter table public.subscriptions
-  add column billing_cycle text not null default 'yearly',
-  add column cancelled_at timestamptz,
-  add column next_payment_at timestamptz,
+  add column if not exists billing_cycle text not null default 'yearly',
+  add column if not exists cancelled_at timestamptz,
+  add column if not exists next_payment_at timestamptz;
+
+alter table public.subscriptions
+  drop constraint if exists subscriptions_valid_period,
+  drop constraint if exists subscriptions_billing_cycle_check;
+
+alter table public.subscriptions
   add constraint subscriptions_valid_period check (
     current_period_end is null
     or current_period_end >= current_period_start
@@ -25,7 +63,7 @@ alter table public.subscriptions
     billing_cycle in ('monthly', 'yearly')
   );
 
-create table public.billing_webhook_events (
+create table if not exists public.billing_webhook_events (
   event_key text primary key check (event_key ~ '^[a-f0-9]{64}$'),
   event_name text not null check (char_length(event_name) between 1 and 100),
   resource_type text not null check (char_length(resource_type) between 1 and 100),
@@ -37,7 +75,7 @@ create table public.billing_webhook_events (
   created_at timestamptz not null default now()
 );
 
-create table public.billing_checkout_sessions (
+create table if not exists public.billing_checkout_sessions (
   user_id uuid primary key references public.profiles (id) on delete cascade,
   provider text not null default 'lemon' check (provider = 'lemon'),
   provider_checkout_id text unique,
@@ -53,18 +91,21 @@ alter table public.billing_webhook_events force row level security;
 alter table public.billing_checkout_sessions enable row level security;
 alter table public.billing_checkout_sessions force row level security;
 
+drop trigger if exists billing_checkout_sessions_set_updated_at
+  on public.billing_checkout_sessions;
+
 create trigger billing_checkout_sessions_set_updated_at
 before update on public.billing_checkout_sessions
 for each row execute function public.set_updated_at();
 
-create index subscriptions_next_payment_idx
+create index if not exists subscriptions_next_payment_idx
   on public.subscriptions (next_payment_at)
   where next_payment_at is not null;
 
-create index billing_webhook_events_created_idx
+create index if not exists billing_webhook_events_created_idx
   on public.billing_webhook_events (created_at desc);
 
-create index billing_checkout_sessions_expiry_idx
+create index if not exists billing_checkout_sessions_expiry_idx
   on public.billing_checkout_sessions (expires_at);
 
 comment on table public.billing_webhook_events is
