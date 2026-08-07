@@ -41,7 +41,8 @@ export function calculateAiCost({
 
 export const AI_LIMITS = {
   maxContextRecords: 10,
-  memoryInsight: 180,
+  // Structured insight JSON plus GPT-5 reasoning tokens share this budget.
+  memoryInsight: 512,
   monthlyStory: 300,
   weeklyStory: 200,
   yearBook: 800,

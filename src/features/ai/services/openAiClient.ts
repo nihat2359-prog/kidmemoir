@@ -5,6 +5,7 @@ import { getAiEnvironment } from "@/features/ai/config/aiConfig";
 import type { OpenAiResult } from "@/features/ai/types/ai.types";
 
 const responseSchema = z.object({
+  incomplete_details: z.object({ reason: z.string().optional() }).nullish(),
   model: z.string(),
   output: z.array(
     z.object({
@@ -16,6 +17,7 @@ const responseSchema = z.object({
       ),
     }),
   ),
+  status: z.string().optional(),
   usage: z
     .object({
       input_tokens: z.number().int().nonnegative().default(0),
@@ -82,6 +84,7 @@ export async function createStructuredResponse<T>({
       instructions,
       max_output_tokens: maxOutputTokens,
       model: OPENAI_MODEL,
+      reasoning: { effort: "minimal" },
       safety_identifier: safetyIdentifier,
       store: false,
       text: {
@@ -100,7 +103,14 @@ export async function createStructuredResponse<T>({
   const text = response.output
     .flatMap((item) => item.content)
     .find((content) => typeof content.text === "string")?.text;
-  if (!text) throw new Error("OPENAI_EMPTY_OUTPUT");
+  if (!text) {
+    const reason = response.incomplete_details?.reason;
+    throw new Error(
+      reason === "max_output_tokens"
+        ? "OPENAI_OUTPUT_TOKEN_LIMIT"
+        : "OPENAI_EMPTY_OUTPUT",
+    );
+  }
   const usage = response.usage;
   return {
     durationMs: Math.round(performance.now() - startedAt),
