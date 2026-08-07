@@ -1,7 +1,10 @@
 import "server-only";
 
 import type { User } from "@supabase/supabase-js";
-import { getAiEnvironment } from "@/features/ai/config/aiConfig";
+import {
+  calculateAiCost,
+  getAiEnvironment,
+} from "@/features/ai/config/aiConfig";
 import { createEmbedding } from "@/features/ai/services/openAiClient";
 import type { SmartDashboardInsight } from "@/features/ai/types/ai.types";
 import { contentHash } from "@/features/ai/utils/hash";
@@ -146,9 +149,11 @@ async function queryEmbedding(user: User, childId: string, query: string) {
   );
   if (saved.error)
     throw new Error("AI_QUERY_CACHE_SAVE_FAILED", { cause: saved.error });
-  const estimatedCost =
-    (created.tokens * getAiEnvironment().OPENAI_EMBEDDING_COST_PER_MILLION) /
-    1_000_000;
+  const estimatedCost = calculateAiCost({
+    embedding: true,
+    inputTokens: created.tokens,
+    outputTokens: 0,
+  });
   const usage = await admin.from("ai_usage").insert({
     child_id: childId,
     completion_tokens: 0,

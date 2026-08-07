@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getAiEnvironment } from "@/features/ai/config/aiConfig";
+import { calculateAiCost } from "@/features/ai/config/aiConfig";
 import type { AiJob, OpenAiUsage } from "@/features/ai/types/ai.types";
 import type { Database, Json } from "@/types/database.types";
 
@@ -245,14 +245,11 @@ export async function saveUsage(
     usage: OpenAiUsage;
   },
 ) {
-  const environment = getAiEnvironment();
-  const estimatedCost =
-    (input.usage.inputTokens *
-      (input.embedding
-        ? environment.OPENAI_EMBEDDING_COST_PER_MILLION
-        : environment.OPENAI_INPUT_COST_PER_MILLION) +
-      input.usage.outputTokens * environment.OPENAI_OUTPUT_COST_PER_MILLION) /
-    1_000_000;
+  const estimatedCost = calculateAiCost({
+    embedding: input.embedding,
+    inputTokens: input.usage.inputTokens,
+    outputTokens: input.usage.outputTokens,
+  });
   const result = await supabase.from("ai_usage").insert({
     artifact_id: input.artifactId ?? null,
     cache_hit: input.cacheHit ?? false,
