@@ -2055,6 +2055,43 @@
       "related": "Related content"
     }
   },
+  "heroGenerator": {
+    "eyebrow": "Hero Guide Factory",
+    "title": "Generate a Hero Guide",
+    "description": "A one-call workflow powered by the Topic Graph, Editorial Bible, and quality gates.",
+    "topic": "Topic",
+    "template": "Template",
+    "tier": "Content tier",
+    "searchIntent": "Search intent",
+    "generate": "Generate Hero Guide",
+    "words": "words",
+    "tokens": "tokens",
+    "quality": "Quality",
+    "reject": "Reject",
+    "approve": "Approve",
+    "publish": "Publish",
+    "quickAnswer": "Quick answer",
+    "faq": "Frequently asked questions",
+    "editDraft": "Edit draft",
+    "structuredContent": "Structured content",
+    "save": "Save changes",
+    "intents": {
+      "informational": "Informational",
+      "commercial": "Commercial investigation",
+      "comparison": "Comparison",
+      "inspirational": "Inspirational",
+      "educational": "Educational",
+      "transactional": "Transactional",
+      "navigational": "Navigational"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "needs_review": "Needs review",
+      "approved": "Approved",
+      "published": "Published",
+      "archived": "Archived"
+    }
+  },
   "statusPages": {
     "notFound": {
       "eyebrow": "404 · Page not found",

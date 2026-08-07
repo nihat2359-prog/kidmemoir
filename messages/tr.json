@@ -2054,6 +2054,43 @@
       "related": "İlgili içerikler"
     }
   },
+  "heroGenerator": {
+    "eyebrow": "Hero Guide Factory",
+    "title": "Yeni Hero Guide üret",
+    "description": "Topic Graph, Editorial Bible ve kalite kapılarını kullanan tek çağrılık üretim akışı.",
+    "topic": "Konu",
+    "template": "Şablon",
+    "tier": "İçerik katmanı",
+    "searchIntent": "Arama niyeti",
+    "generate": "Hero Guide Üret",
+    "words": "kelime",
+    "tokens": "token",
+    "quality": "Kalite",
+    "reject": "Reddet",
+    "approve": "Onayla",
+    "publish": "Yayınla",
+    "quickAnswer": "Kısa yanıt",
+    "faq": "Sık sorulan sorular",
+    "editDraft": "Taslağı düzenle",
+    "structuredContent": "Yapılandırılmış içerik",
+    "save": "Değişiklikleri kaydet",
+    "intents": {
+      "informational": "Bilgilendirici",
+      "commercial": "Ticari araştırma",
+      "comparison": "Karşılaştırma",
+      "inspirational": "İlham verici",
+      "educational": "Eğitici",
+      "transactional": "İşlem odaklı",
+      "navigational": "Navigasyon"
+    },
+    "statuses": {
+      "draft": "Taslak",
+      "needs_review": "İnceleme bekliyor",
+      "approved": "Onaylandı",
+      "published": "Yayınlandı",
+      "archived": "Arşivlendi"
+    }
+  },
   "statusPages": {
     "notFound": {
       "eyebrow": "404 · Sayfa bulunamadı",

@@ -13,6 +13,11 @@ export {
   meetsTemplateLength,
 } from "@/features/programmatic-seo/services/contentQualityEngine";
 export { groupRelatedContent } from "@/features/programmatic-seo/services/relatedContentEngine";
+export { generateContent } from "@/features/programmatic-seo/content-generation";
+export type {
+  ContentGenerationResult,
+  GenerateContentInput,
+} from "@/features/programmatic-seo/content-generation";
 export {
   calculatePriorityScore,
   calculateQualityScore,
