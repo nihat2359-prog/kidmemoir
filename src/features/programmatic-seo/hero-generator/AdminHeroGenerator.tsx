@@ -1,13 +1,26 @@
 import { generateHeroGuideAction } from "./actions";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 type Props = Readonly<{
+  drafts: readonly Readonly<{
+    id: string;
+    quality_score: number;
+    status: string;
+    title: string | null;
+    updated_at: string;
+  }>[];
   locale: "tr" | "en";
   templates: readonly Readonly<{ id: string; slug: string }>[];
   topics: readonly Readonly<{ id: string; title: string }>[];
 }>;
 
-export async function AdminHeroGenerator({ locale, templates, topics }: Props) {
+export async function AdminHeroGenerator({
+  drafts,
+  locale,
+  templates,
+  topics,
+}: Props) {
   const t = await getTranslations("heroGenerator");
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6">
@@ -89,6 +102,39 @@ export async function AdminHeroGenerator({ locale, templates, topics }: Props) {
           {t("generate")}
         </button>
       </form>
+      <section className="mt-10" aria-labelledby="hero-guide-drafts">
+        <h2 className="text-2xl font-semibold" id="hero-guide-drafts">
+          {t("drafts")}
+        </h2>
+        <div className="mt-5 grid gap-3">
+          {drafts.map((draft) => (
+            <Link
+              className="border-border bg-card hover:bg-muted/60 focus-visible:ring-ring flex items-center justify-between gap-4 rounded-2xl border p-5 transition focus-visible:ring-2 focus-visible:outline-none"
+              href={`/admin/hero-guides/${draft.id}`}
+              key={draft.id}
+            >
+              <span>
+                <span className="block font-semibold">
+                  {draft.title ?? t("untitled")}
+                </span>
+                <span className="text-muted-foreground mt-1 block text-sm">
+                  {t(
+                    `statuses.${draft.status as "draft" | "needs_review" | "approved" | "published"}`,
+                  )}
+                </span>
+              </span>
+              <span className="text-sm font-semibold">
+                {draft.quality_score}/100
+              </span>
+            </Link>
+          ))}
+          {!drafts.length ? (
+            <p className="text-muted-foreground rounded-2xl border border-dashed p-6 text-sm">
+              {t("noDrafts")}
+            </p>
+          ) : null}
+        </div>
+      </section>
     </main>
   );
 }

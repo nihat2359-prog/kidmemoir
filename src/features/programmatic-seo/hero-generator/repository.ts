@@ -8,6 +8,7 @@ import type { AppLocale } from "@/i18n/routing";
 import type { Json } from "@/types/database.types";
 import { generateHeroGuide, getHeroGuideInputHash } from "./generator";
 import { evaluateHeroGuide } from "./quality";
+import { SeoQualityGateError } from "./qualityGateError";
 import { parseGeneratedHeroGuide } from "./schema";
 import {
   HERO_GUIDE_PROMPT_VERSION,
@@ -39,6 +40,19 @@ export async function listHeroGeneratorOptions(locale: AppLocale) {
   return { templates: templates.data, topics: topics.data };
 }
 
+export async function listHeroGuideDrafts(locale: AppLocale) {
+  const db = createAdminClient();
+  const result = await db
+    .from("seo_content_drafts")
+    .select("id,title,status,quality_score,updated_at")
+    .eq("locale", locale)
+    .in("status", ["draft", "needs_review", "approved", "published"])
+    .order("updated_at", { ascending: false })
+    .limit(100);
+  if (result.error) throw new Error("SEO_DRAFT_LIST_UNAVAILABLE");
+  return result.data;
+}
+
 export async function createOrReuseHeroGuide(input: HeroGuideInput) {
   const db = createAdminClient();
   const template = await db
@@ -56,6 +70,19 @@ export async function createOrReuseHeroGuide(input: HeroGuideInput) {
     .single();
   if (template.error || topic.error)
     throw new Error("SEO_GENERATOR_INPUT_INVALID");
+  const publishedDraft = await db
+    .from("seo_content_drafts")
+    .select("id")
+    .eq("topic_id", input.topicId)
+    .eq("locale", input.locale)
+    .eq("template_id", template.data.id)
+    .eq("status", "published")
+    .order("version", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (publishedDraft.error) throw new Error("SEO_DRAFT_LOOKUP_FAILED");
+  if (publishedDraft.data)
+    return { cached: true, draftId: publishedDraft.data.id };
   const cluster = await db
     .from("seo_clusters")
     .select("category")
@@ -127,7 +154,7 @@ export async function createOrReuseHeroGuide(input: HeroGuideInput) {
     input.template,
   );
   if (!quality.publishable || quality.score < 85)
-    throw new Error(`SEO_QUALITY_GATE_${quality.score}`);
+    throw new SeoQualityGateError(quality.score, generation.analytics);
 
   const latest = await db
     .from("seo_content_drafts")
@@ -167,6 +194,113 @@ export async function createOrReuseHeroGuide(input: HeroGuideInput) {
     throw error;
   }
   return { cached: false, draftId: inserted.data.id };
+}
+
+export async function previewHeroGuide(input: HeroGuideInput) {
+  const db = createAdminClient();
+  const [template, topic] = await Promise.all([
+    db
+      .from("seo_templates")
+      .select("id")
+      .eq("slug", input.template)
+      .eq("status", "active")
+      .single(),
+    db
+      .from("seo_topics")
+      .select("id,title,slug,description,cluster_id,locale")
+      .eq("id", input.topicId)
+      .eq("locale", input.locale)
+      .in("status", ["draft", "published"])
+      .single(),
+  ]);
+  if (template.error || topic.error)
+    throw new Error("SEO_GENERATOR_INPUT_INVALID");
+  const cluster = await db
+    .from("seo_clusters")
+    .select("category")
+    .eq("id", topic.data.cluster_id)
+    .single();
+  if (cluster.error) throw new Error("SEO_GENERATOR_INPUT_INVALID");
+  const relations = await db
+    .from("seo_topic_relations")
+    .select("target_topic_id,semantic_score")
+    .eq("source_topic_id", input.topicId)
+    .order("semantic_score", { ascending: false })
+    .limit(10);
+  const relatedIds = (relations.data ?? []).map((item) => item.target_topic_id);
+  const relatedTopics =
+    relatedIds.length >= 5
+      ? await db.from("seo_topics").select("id,title").in("id", relatedIds)
+      : await db
+          .from("seo_topics")
+          .select("id,title")
+          .eq("locale", input.locale)
+          .in("status", ["draft", "published"])
+          .neq("id", input.topicId)
+          .order("title")
+          .limit(30);
+  const topicContext = { ...topic.data, category: cluster.data.category };
+  const inputHash = getHeroGuideInputHash(
+    input,
+    topicContext,
+    relatedTopics.data ?? [],
+  );
+  const cached = await db
+    .from("seo_content_drafts")
+    .select("id")
+    .eq("topic_id", input.topicId)
+    .eq("locale", input.locale)
+    .eq("template_id", template.data.id)
+    .eq("prompt_version", HERO_GUIDE_PROMPT_VERSION)
+    .contains("outline", [{ inputHash }])
+    .in("status", ["draft", "needs_review", "approved", "published"])
+    .order("version", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (cached.data) {
+    const draft = await getHeroGuideDraft(cached.data.id);
+    if (draft && draft.quality_score >= 85)
+      return {
+        cached: true,
+        createdAt: draft.created_at,
+        draftId: draft.id,
+        generation: draft.generation,
+        qualityScore: draft.quality_score,
+      };
+  }
+  const generation = await generateHeroGuide(
+    input,
+    topicContext,
+    relatedTopics.data ?? [],
+  );
+  const contentHash = hash(generation.generated);
+  const [duplicate, cannibalization] = await Promise.all([
+    db
+      .from("seo_content_drafts")
+      .select("id", { count: "exact", head: true })
+      .eq("content_hash", contentHash),
+    db
+      .from("seo_pages")
+      .select("id", { count: "exact", head: true })
+      .eq("locale", input.locale)
+      .eq("slug", generation.generated.slug)
+      .eq("status", "published"),
+  ]);
+  const quality = evaluateHeroGuide(
+    generation.generated,
+    Boolean(duplicate.count),
+    Boolean(cannibalization.count),
+    input.template,
+  );
+  if (!quality.publishable || quality.score < 85)
+    throw new SeoQualityGateError(quality.score, generation.analytics);
+  return {
+    cached: false,
+    createdAt: new Date().toISOString(),
+    draftId: null,
+    generation,
+    qualityScore: quality.score,
+  };
 }
 
 async function persistDraftChildren(
@@ -420,7 +554,7 @@ export async function reviewHeroGuide(
 export async function publishHeroGuide(draftId: string) {
   const db = createAdminClient();
   const draft = await getHeroGuideDraft(draftId);
-  if (!draft || draft.status !== "approved" || draft.quality_score < 80)
+  if (!draft || draft.status !== "approved" || draft.quality_score < 85)
     throw new Error("SEO_PUBLISH_GATE_FAILED");
   const topic = await db
     .from("seo_topics")
@@ -436,6 +570,16 @@ export async function publishHeroGuide(draftId: string) {
   if (cluster.error) throw new Error("SEO_CLUSTER_NOT_FOUND");
   const guide = draft.generation.generated;
   const now = new Date().toISOString();
+  const translatedPage = await db
+    .from("seo_pages")
+    .select("translation_key")
+    .eq("slug", guide.slug)
+    .eq("schema_type", "guide")
+    .eq("status", "published")
+    .neq("locale", draft.generation.input.locale)
+    .limit(1)
+    .maybeSingle();
+  if (translatedPage.error) throw new Error("SEO_TRANSLATION_LOOKUP_FAILED");
   if (cluster.data.status !== "published") {
     const clusterPublish = await db
       .from("seo_clusters")
@@ -476,7 +620,7 @@ export async function publishHeroGuide(draftId: string) {
       cluster_id: topic.data.cluster_id,
       content: json(content),
       content_hash: hash(guide),
-      content_source: "editorial-factory",
+      content_source: "ai-assisted",
       content_word_count: wordCount,
       cta: json({
         description: guide.cta.description,
@@ -510,7 +654,7 @@ export async function publishHeroGuide(draftId: string) {
       status: "published",
       title: guide.hero.title,
       topic_id: topic.data.id,
-      translation_key: topic.data.id,
+      translation_key: translatedPage.data?.translation_key ?? topic.data.id,
       updated_at: now,
     })
     .select("id")
@@ -526,4 +670,6 @@ export async function publishHeroGuide(draftId: string) {
   }
   revalidateTag("programmatic-seo", "max");
   revalidatePath(`/${draft.generation.input.locale}/guides/${guide.slug}`);
+  revalidatePath("/sitemap-index.xml");
+  return `/${draft.generation.input.locale}/guides/${guide.slug}`;
 }

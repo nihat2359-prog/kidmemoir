@@ -69,9 +69,8 @@ export async function reviewHeroGuideAction(formData: FormData) {
 export async function publishHeroGuideAction(formData: FormData) {
   await requireAdmin();
   const draftId = z.string().uuid().parse(formData.get("draftId"));
-  const locale = z.enum(["tr", "en"]).parse(formData.get("locale"));
-  await publishHeroGuide(draftId);
-  redirect(`/${locale}/admin/hero-guides/${draftId}`);
+  const publishedPath = await publishHeroGuide(draftId);
+  redirect(publishedPath);
 }
 
 export async function updateHeroGuideAction(formData: FormData) {

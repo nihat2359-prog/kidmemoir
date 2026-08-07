@@ -34,6 +34,7 @@ const pageColumns =
 
 async function mapPage(
   record: Record<string, unknown>,
+  categoryOverride?: string,
 ): Promise<SeoPage | null> {
   const parsed = assertSeoQuality({ ...record, search_volume: null });
   const supabase = publicClient();
@@ -51,7 +52,7 @@ async function mapPage(
   ]);
   if (cluster.error || topic.error) return null;
   return {
-    category: parsed.category,
+    category: categoryOverride ?? parsed.category,
     childAgeMax: parsed.child_age_max,
     childAgeMin: parsed.child_age_min,
     clusterId: parsed.cluster_id,
@@ -116,15 +117,77 @@ export function getPublishedSeoPage(
   return getCachedPage(locale, category, slugPath.join("/"));
 }
 
+const getCachedGuide = unstable_cache(
+  async (locale: AppLocale, slug: string) => {
+    const result = await publicClient()
+      .from("seo_pages")
+      .select(pageColumns)
+      .eq("locale", locale)
+      .eq("slug", slug)
+      .eq("schema_type", "guide")
+      .eq("status", "published")
+      .lte("published_at", new Date().toISOString())
+      .maybeSingle();
+    if (isUnavailableTable(result.error) || result.error || !result.data)
+      return null;
+    try {
+      return await mapPage(
+        result.data as unknown as Record<string, unknown>,
+        "guides",
+      );
+    } catch {
+      return null;
+    }
+  },
+  ["programmatic-seo-guide-v1"],
+  { revalidate: PUBLIC_REVALIDATE_SECONDS, tags: ["programmatic-seo"] },
+);
+
+export function getPublishedGuide(locale: AppLocale, slug: string) {
+  return getCachedGuide(locale, slug);
+}
+
+const getCachedAlternatePaths = unstable_cache(
+  async (pageId: string) => {
+    const source = await publicClient()
+      .from("seo_pages")
+      .select("translation_key")
+      .eq("id", pageId)
+      .single();
+    if (source.error) return {};
+    const translations = await publicClient()
+      .from("seo_pages")
+      .select("locale,category,slug_path,schema_type")
+      .eq("translation_key", source.data.translation_key)
+      .eq("status", "published")
+      .lte("published_at", new Date().toISOString());
+    if (translations.error) return {};
+    return Object.fromEntries(
+      translations.data.map((translation) => [
+        translation.locale,
+        translation.schema_type === "guide"
+          ? `/guides/${translation.slug_path.join("/")}`
+          : `/${translation.category}/${translation.slug_path.join("/")}`,
+      ]),
+    ) as Partial<Record<AppLocale, string>>;
+  },
+  ["programmatic-seo-alternate-paths-v1"],
+  { revalidate: PUBLIC_REVALIDATE_SECONDS, tags: ["programmatic-seo"] },
+);
+
+export function getPublishedSeoAlternatePaths(pageId: string) {
+  return getCachedAlternatePaths(pageId);
+}
+
 function toRelated(
   row: Pick<
     Database["public"]["Tables"]["seo_pages"]["Row"],
-    "category" | "excerpt" | "id" | "slug_path" | "title"
+    "category" | "excerpt" | "id" | "schema_type" | "slug_path" | "title"
   >,
   relationType: string,
 ): RelatedSeoPage {
   return {
-    category: row.category,
+    category: row.schema_type === "guide" ? "guides" : row.category,
     excerpt: row.excerpt,
     id: row.id,
     relationType,
@@ -152,7 +215,7 @@ async function loadRelatedSeoPages(
   const explicit = explicitIds.length
     ? await supabase
         .from("seo_pages")
-        .select("id,category,slug_path,title,excerpt")
+        .select("id,category,schema_type,slug_path,title,excerpt")
         .in("id", explicitIds)
         .eq("cluster_id", clusterId)
         .eq("locale", locale)
@@ -172,7 +235,7 @@ async function loadRelatedSeoPages(
   const excluded = [pageId, ...related.map(({ id }) => id)];
   const fallback = await supabase
     .from("seo_pages")
-    .select("id,category,slug_path,title,excerpt")
+    .select("id,category,schema_type,slug_path,title,excerpt")
     .eq("cluster_id", clusterId)
     .eq("locale", locale)
     .eq("status", "published")

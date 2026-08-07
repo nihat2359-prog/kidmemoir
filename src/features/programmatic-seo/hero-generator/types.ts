@@ -1,6 +1,6 @@
 import type { FactoryTemplate } from "@/features/programmatic-seo/types/contentFactory";
 
-export const HERO_GUIDE_PROMPT_VERSION = "content-generation-v2";
+export const HERO_GUIDE_PROMPT_VERSION = "content-generation-v5";
 
 export type HeroGuideInput = Readonly<{
   locale: "tr" | "en";
@@ -68,9 +68,14 @@ export type HeroGuideGeneration = Readonly<{
   analytics: Readonly<{
     durationMs: number;
     estimatedCost: number;
+    initialValidationPassed: boolean;
     inputTokens: number;
     model: string;
     outputTokens: number;
+    repairAttempts: number;
+    repairEstimatedCost: number;
+    repairInputTokens: number;
+    repairOutputTokens: number;
     totalTokens: number;
   }>;
   canonical: string;

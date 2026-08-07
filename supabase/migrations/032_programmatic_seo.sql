@@ -44,7 +44,7 @@ create table public.seo_pages (
   locale text not null check (locale in ('tr', 'en')),
   slug text not null check (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$'),
   slug_path text[] not null check (cardinality(slug_path) between 1 and 8),
-  path_key text generated always as (array_to_string(slug_path, '/')) stored,
+  path_key text not null,
   title text not null check (char_length(btrim(title)) between 2 and 180),
   seo_title text not null check (char_length(btrim(seo_title)) between 20 and 70),
   seo_description text not null check (char_length(btrim(seo_description)) between 70 and 170),
@@ -77,6 +77,9 @@ create table public.seo_pages (
     child_age_min is null or child_age_max is null or child_age_min <= child_age_max
   ),
   constraint seo_pages_slug_path_leaf check (slug_path[cardinality(slug_path)] = slug),
+  constraint seo_pages_path_key_matches_slug_path check (
+    path_key = array_to_string(slug_path, '/')
+  ),
   constraint seo_pages_parent_not_self check (parent_page_id is null or parent_page_id <> id),
   constraint seo_pages_publish_quality check (
     status <> 'published' or (
@@ -219,7 +222,7 @@ begin
 end;
 $$;
 
-create function public.validate_published_seo_page()
+create or replace function public.validate_published_seo_page()
 returns trigger
 language plpgsql
 set search_path = ''

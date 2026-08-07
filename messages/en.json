@@ -2052,6 +2052,7 @@
     "readingTime": "{minutes} min read",
     "sections": {
       "faq": "Frequently asked questions",
+      "quickAnswer": "Quick answer",
       "related": "Related content"
     }
   },
@@ -2064,6 +2065,9 @@
     "tier": "Content tier",
     "searchIntent": "Search intent",
     "generate": "Generate Hero Guide",
+    "drafts": "Generated drafts",
+    "noDrafts": "No generated drafts are waiting for review.",
+    "untitled": "Untitled draft",
     "words": "words",
     "tokens": "tokens",
     "quality": "Quality",

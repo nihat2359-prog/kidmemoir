@@ -269,3 +269,111 @@ export const heroGuideJsonSchema = {
 export function parseGeneratedHeroGuide(value: unknown): GeneratedHeroGuide {
   return generatedHeroGuideSchema.parse(value);
 }
+
+const repairPatchSchema = z.object({
+  externalReferencePlaceholders:
+    generatedHeroGuideSchema.shape.externalReferencePlaceholders.nullable(),
+  faq: generatedHeroGuideSchema.shape.faq.nullable(),
+  introduction: generatedHeroGuideSchema.shape.introduction.nullable(),
+  letters: generatedHeroGuideSchema.shape.letters.nullable(),
+  memoryIdeas: generatedHeroGuideSchema.shape.memoryIdeas.nullable(),
+  metaDescription: generatedHeroGuideSchema.shape.metaDescription.nullable(),
+  metaTitle: generatedHeroGuideSchema.shape.metaTitle.nullable(),
+  photoIdeas: generatedHeroGuideSchema.shape.photoIdeas.nullable(),
+  questions: generatedHeroGuideSchema.shape.questions.nullable(),
+  sectionRepairs: z
+    .array(generatedHeroGuideSchema.shape.sections.element)
+    .nullable(),
+  seoTitle: generatedHeroGuideSchema.shape.seoTitle.nullable(),
+  timeline: generatedHeroGuideSchema.shape.timeline.nullable(),
+});
+
+const nullable = (schema: Record<string, unknown>) => ({
+  anyOf: [schema, { type: "null" }],
+});
+
+export const heroGuideRepairJsonSchema = {
+  additionalProperties: false,
+  properties: {
+    externalReferencePlaceholders: nullable({
+      items: heroGuideJsonSchema.properties.externalReferencePlaceholders.items,
+      minItems: 3,
+      maxItems: 12,
+      type: "array",
+    }),
+    faq: nullable({
+      items: heroGuideJsonSchema.properties.faq.items,
+      minItems: 5,
+      maxItems: 10,
+      type: "array",
+    }),
+    introduction: nullable({
+      items: { type: "string" },
+      minItems: 2,
+      maxItems: 5,
+      type: "array",
+    }),
+    letters: nullable({
+      items: { type: "string" },
+      minItems: 4,
+      maxItems: 12,
+      type: "array",
+    }),
+    memoryIdeas: nullable({
+      items: { type: "string" },
+      minItems: 6,
+      maxItems: 16,
+      type: "array",
+    }),
+    metaDescription: nullable({ type: "string" }),
+    metaTitle: nullable({ type: "string" }),
+    photoIdeas: nullable({
+      items: { type: "string" },
+      minItems: 6,
+      maxItems: 16,
+      type: "array",
+    }),
+    questions: nullable({
+      items: { type: "string" },
+      minItems: 8,
+      maxItems: 20,
+      type: "array",
+    }),
+    sectionRepairs: nullable({
+      items: heroGuideJsonSchema.properties.sections.items,
+      minItems: 1,
+      maxItems: 20,
+      type: "array",
+    }),
+    seoTitle: nullable({ type: "string" }),
+    timeline: nullable({
+      items: heroGuideJsonSchema.properties.timeline.items,
+      minItems: 6,
+      maxItems: 24,
+      type: "array",
+    }),
+  },
+  required: [
+    "externalReferencePlaceholders",
+    "faq",
+    "introduction",
+    "letters",
+    "memoryIdeas",
+    "metaDescription",
+    "metaTitle",
+    "photoIdeas",
+    "questions",
+    "sectionRepairs",
+    "seoTitle",
+    "timeline",
+  ],
+  type: "object",
+} as const;
+
+export type HeroGuideRepairPatch = z.infer<typeof repairPatchSchema>;
+
+export function parseHeroGuideRepairPatch(
+  value: unknown,
+): HeroGuideRepairPatch {
+  return repairPatchSchema.parse(value);
+}

@@ -6,10 +6,12 @@ import { programmaticSitemapSource } from "@/features/programmatic-seo/services/
 export const SITEMAP_URL_LIMIT = 45_000;
 
 export type SitemapEntry = Readonly<{
+  alternatePaths?: Partial<Record<AppLocale, string>>;
   path: string;
   changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"];
   images?: readonly string[];
   lastModified?: Date | string;
+  locales?: readonly AppLocale[];
   priority?: number;
   videos?: MetadataRoute.Sitemap[number]["videos"];
 }>;
@@ -47,10 +49,32 @@ export type SitemapDescriptor = Readonly<{
 
 const entriesPerShard = Math.floor(SITEMAP_URL_LIMIT / routing.locales.length);
 
-function alternates(path: string) {
+function alternates(
+  path: string,
+  alternatePaths?: Partial<Record<AppLocale, string>>,
+) {
+  const locales = alternatePaths
+    ? routing.locales.filter((locale) => alternatePaths[locale])
+    : routing.locales;
+  const defaultLocale = locales.includes(routing.defaultLocale)
+    ? routing.defaultLocale
+    : locales[0];
   return Object.fromEntries([
-    ...routing.locales.map((locale) => [locale, localizedUrl(locale, path)]),
-    ["x-default", localizedUrl(routing.defaultLocale, path)],
+    ...locales.map((locale) => [
+      locale,
+      localizedUrl(locale, alternatePaths?.[locale] ?? path),
+    ]),
+    ...(defaultLocale
+      ? [
+          [
+            "x-default",
+            localizedUrl(
+              defaultLocale,
+              alternatePaths?.[defaultLocale] ?? path,
+            ),
+          ],
+        ]
+      : []),
   ]);
 }
 
@@ -101,8 +125,10 @@ export async function createSitemap(
     entriesPerShard,
   );
   return entries.flatMap((entry) =>
-    routing.locales.map((locale: AppLocale) => ({
-      alternates: { languages: alternates(entry.path) },
+    (entry.locales ?? routing.locales).map((locale: AppLocale) => ({
+      alternates: {
+        languages: alternates(entry.path, entry.alternatePaths),
+      },
       changeFrequency: entry.changeFrequency,
       images: entry.images ? [...entry.images] : undefined,
       lastModified: entry.lastModified,

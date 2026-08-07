@@ -13,9 +13,16 @@ export {
   meetsTemplateLength,
 } from "@/features/programmatic-seo/services/contentQualityEngine";
 export { groupRelatedContent } from "@/features/programmatic-seo/services/relatedContentEngine";
-export { generateContent } from "@/features/programmatic-seo/content-generation";
+export {
+  generateBatch,
+  generateContent,
+} from "@/features/programmatic-seo/content-generation";
 export type {
+  BatchContentResult,
+  BatchGenerationResult,
+  ContentGenerationOptions,
   ContentGenerationResult,
+  GenerateBatchInput,
   GenerateContentInput,
 } from "@/features/programmatic-seo/content-generation";
 export {

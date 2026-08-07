@@ -2051,6 +2051,7 @@
     "readingTime": "{minutes} dakika okuma",
     "sections": {
       "faq": "Sık sorulan sorular",
+      "quickAnswer": "Kısa yanıt",
       "related": "İlgili içerikler"
     }
   },
@@ -2063,6 +2064,9 @@
     "tier": "İçerik katmanı",
     "searchIntent": "Arama niyeti",
     "generate": "Hero Guide Üret",
+    "drafts": "Oluşturulan taslaklar",
+    "noDrafts": "İncelenmeyi bekleyen oluşturulmuş taslak bulunmuyor.",
+    "untitled": "Başlıksız taslak",
     "words": "kelime",
     "tokens": "token",
     "quality": "Kalite",

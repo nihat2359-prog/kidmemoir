@@ -1,2 +1,12 @@
 export { generateContent } from "./service";
-export type { ContentGenerationResult, GenerateContentInput } from "./types";
+export { generateBatch } from "./batch";
+export type {
+  ContentGenerationOptions,
+  ContentGenerationResult,
+  GenerateContentInput,
+} from "./types";
+export type {
+  BatchContentResult,
+  BatchGenerationResult,
+  GenerateBatchInput,
+} from "./batch";

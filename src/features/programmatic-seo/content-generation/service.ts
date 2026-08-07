@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import {
   createOrReuseHeroGuide,
   getHeroGuideDraft,
+  previewHeroGuide,
 } from "@/features/programmatic-seo/hero-generator/repository";
 import { countGuideWords } from "@/features/programmatic-seo/hero-generator/quality";
 import type { FactoryTemplate } from "@/features/programmatic-seo/types/contentFactory";
@@ -16,7 +17,11 @@ import {
   webpageSchema,
 } from "@/lib/seo/structuredData";
 import { renderContentMarkdown } from "./markdown";
-import type { ContentGenerationResult, GenerateContentInput } from "./types";
+import type {
+  ContentGenerationOptions,
+  ContentGenerationResult,
+  GenerateContentInput,
+} from "./types";
 
 const inputSchema = z.object({
   locale: z.enum(["tr", "en"]),
@@ -77,6 +82,7 @@ async function resolveTopic(input: GenerateContentInput) {
 /** Generates or reuses one quality-gated Content Factory draft. */
 export async function generateContent(
   rawInput: GenerateContentInput,
+  options: ContentGenerationOptions = {},
 ): Promise<ContentGenerationResult> {
   const input = inputSchema.parse(rawInput);
   const topic = await resolveTopic(input);
@@ -88,19 +94,28 @@ export async function generateContent(
     .maybeSingle();
   const tierValue = intelligence.data?.content_tier ?? 1;
   const tier = (tierValue >= 1 && tierValue <= 3 ? tierValue : 1) as 1 | 2 | 3;
-  const created = await createOrReuseHeroGuide({
+  const generationInput = {
     locale: input.locale,
     searchIntent: intelligence.data?.search_intent ?? "informational",
     template: input.template,
     tier,
     topicId: topic.id,
-  });
-  const draft = await getHeroGuideDraft(created.draftId);
-  if (!draft || draft.quality_score < 85)
+  } as const;
+  const persisted =
+    options.persist === false
+      ? null
+      : await createOrReuseHeroGuide(generationInput);
+  const draft = persisted ? await getHeroGuideDraft(persisted.draftId) : null;
+  const preview = persisted ? null : await previewHeroGuide(generationInput);
+  if (persisted && (!draft || draft.quality_score < 85))
     throw new Error("SEO_CONTENT_QUALITY_GATE_FAILED");
-  const { analytics, delivery, generated } = draft.generation;
+  const generation = draft?.generation ?? preview?.generation;
+  const qualityScore = draft?.quality_score ?? preview?.qualityScore;
+  if (!generation || qualityScore === undefined)
+    throw new Error("SEO_CONTENT_GENERATION_FAILED");
+  const { analytics, delivery, generated } = generation;
   const wordCount = countGuideWords(generated);
-  const canonicalUrl = new URL(draft.generation.canonical);
+  const canonicalUrl = new URL(generation.canonical);
   const localizedPrefix = `/${input.locale}`;
   const pagePath = canonicalUrl.pathname.startsWith(localizedPrefix)
     ? canonicalUrl.pathname.slice(localizedPrefix.length)
@@ -131,7 +146,7 @@ export async function generateContent(
         name: SEO_CONFIG.brand,
         url: new URL(`/${input.locale}`, SEO_CONFIG.siteUrl).toString(),
       },
-      { name: generated.metaTitle, url: draft.generation.canonical },
+      { name: generated.metaTitle, url: generation.canonical },
     ]),
     schemaBuilders.faqPage(generated.faq),
     ...(input.template === "checklist" || input.template === "timeline"
@@ -145,19 +160,19 @@ export async function generateContent(
       : [
           schemaBuilders.article({
             author: SEO_CONFIG.publisher,
-            datePublished: draft.created_at,
+            datePublished: draft?.created_at ?? preview!.createdAt,
             description: generated.metaDescription,
             headline: generated.seoTitle,
-            url: draft.generation.canonical,
+            url: generation.canonical,
           }),
         ]),
   ];
   return {
-    cached: created.cached,
+    cached: persisted?.cached ?? preview?.cached ?? false,
     checklist: generated.checklist,
     cta: generated.cta,
     difficulty: difficultyFor(input.template),
-    draftId: draft.id,
+    draftId: draft?.id ?? null,
     faq: generated.faq,
     internalLinks: delivery.internalLinks,
     markdown: renderContentMarkdown(generated, input.locale),
@@ -166,10 +181,10 @@ export async function generateContent(
       { suggestions: generated.videoIdeas, type: "video" },
     ],
     metadata: {
-      canonical: draft.generation.canonical,
+      canonical: generation.canonical,
       value: metadata,
     },
-    quality: { minimum: 85, passed: true, score: draft.quality_score },
+    quality: { minimum: 85, passed: true, score: qualityScore },
     readingTime: Math.max(1, Math.ceil(wordCount / 220)),
     schema,
     seo: {
@@ -181,8 +196,13 @@ export async function generateContent(
     usage: {
       durationMs: analytics.durationMs,
       estimatedCost: analytics.estimatedCost,
+      initialValidationPassed: analytics.initialValidationPassed,
       inputTokens: analytics.inputTokens,
       outputTokens: analytics.outputTokens,
+      repairAttempts: analytics.repairAttempts,
+      repairEstimatedCost: analytics.repairEstimatedCost,
+      repairInputTokens: analytics.repairInputTokens,
+      repairOutputTokens: analytics.repairOutputTokens,
       totalTokens: analytics.totalTokens,
     },
   };

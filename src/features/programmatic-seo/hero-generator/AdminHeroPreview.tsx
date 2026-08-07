@@ -44,7 +44,7 @@ export async function AdminHeroPreview({
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {status !== "published" && (
+          {["draft", "needs_review"].includes(status) && (
             <form action={reviewHeroGuideAction}>
               <input name="draftId" type="hidden" value={draftId} />
               <input name="locale" type="hidden" value={locale} />

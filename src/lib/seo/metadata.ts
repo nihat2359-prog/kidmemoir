@@ -8,6 +8,7 @@ import {
 } from "@/lib/seo/config";
 
 type MetadataInput = Readonly<{
+  alternatePaths?: Partial<Record<AppLocale, string>>;
   locale: AppLocale;
   title: string;
   description: string;
@@ -20,14 +21,37 @@ type MetadataInput = Readonly<{
   type?: "website" | "article";
 }>;
 
-function languageAlternates(path: string) {
+function languageAlternates(
+  path: string,
+  alternatePaths?: Partial<Record<AppLocale, string>>,
+) {
+  const locales = alternatePaths
+    ? routing.locales.filter((locale) => alternatePaths[locale])
+    : routing.locales;
+  const defaultLocale = locales.includes(routing.defaultLocale)
+    ? routing.defaultLocale
+    : locales[0];
   return Object.fromEntries([
-    ...routing.locales.map((locale) => [locale, localizedUrl(locale, path)]),
-    ["x-default", localizedUrl(routing.defaultLocale, path)],
+    ...locales.map((locale) => [
+      locale,
+      localizedUrl(locale, alternatePaths?.[locale] ?? path),
+    ]),
+    ...(defaultLocale
+      ? [
+          [
+            "x-default",
+            localizedUrl(
+              defaultLocale,
+              alternatePaths?.[defaultLocale] ?? path,
+            ),
+          ],
+        ]
+      : []),
   ]);
 }
 
 export function buildMetadata({
+  alternatePaths,
   description,
   imageAlt = SEO_CONFIG.brand,
   index = true,
@@ -49,7 +73,7 @@ export function buildMetadata({
   return {
     alternates: {
       canonical,
-      languages: languageAlternates(normalizedPath),
+      languages: languageAlternates(normalizedPath, alternatePaths),
     },
     appleWebApp: {
       capable: true,

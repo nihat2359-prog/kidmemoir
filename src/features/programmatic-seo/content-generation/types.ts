@@ -8,6 +8,8 @@ export type GenerateContentInput = Readonly<{
   topic: string;
 }>;
 
+export type ContentGenerationOptions = Readonly<{ persist?: boolean }>;
+
 export type ContentGenerationResult = Readonly<{
   cached: boolean;
   checklist: readonly string[];
@@ -18,7 +20,7 @@ export type ContentGenerationResult = Readonly<{
     title: string;
   }>;
   difficulty: "beginner" | "intermediate" | "advanced";
-  draftId: string;
+  draftId: string | null;
   faq: readonly Readonly<{ answer: string; question: string }>[];
   internalLinks: readonly Readonly<{
     anchor: string;
@@ -46,8 +48,13 @@ export type ContentGenerationResult = Readonly<{
   usage: Readonly<{
     durationMs: number;
     estimatedCost: number;
+    initialValidationPassed: boolean;
     inputTokens: number;
     outputTokens: number;
+    repairAttempts: number;
+    repairEstimatedCost: number;
+    repairInputTokens: number;
+    repairOutputTokens: number;
     totalTokens: number;
   }>;
 }>;

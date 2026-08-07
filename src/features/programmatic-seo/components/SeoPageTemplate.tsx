@@ -16,7 +16,12 @@ export function SeoPageTemplate({
   page,
   relatedPages,
 }: {
-  labels: Readonly<{ faq: string; related: string; readingTime: string }>;
+  labels: Readonly<{
+    faq: string;
+    quickAnswer: string;
+    related: string;
+    readingTime: string;
+  }>;
   page: SeoPage;
   relatedPages: readonly RelatedSeoPage[];
 }) {
@@ -30,9 +35,29 @@ export function SeoPageTemplate({
           <Link href="/">
             <Brand />
           </Link>
+          <span aria-hidden className="text-muted-foreground mx-3">
+            /
+          </span>
+          <span className="text-muted-foreground text-sm">
+            {page.clusterTitle}
+          </span>
+          <span aria-hidden className="text-muted-foreground mx-3">
+            /
+          </span>
+          <span aria-current="page" className="truncate text-sm font-medium">
+            {page.title}
+          </span>
         </nav>
         <SeoHero page={page} readingTimeLabel={labels.readingTime} />
         <article className="mx-auto mt-10 grid max-w-5xl gap-8 sm:mt-14">
+          <aside className="from-primary/10 to-ai/5 rounded-[1.75rem] border bg-gradient-to-br p-6 sm:p-9">
+            <h2 className="text-xl font-semibold tracking-tight">
+              {labels.quickAnswer}
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-3xl leading-8">
+              {page.excerpt}
+            </p>
+          </aside>
           <SeoContentBlocks sections={page.content} />
           <SeoFaq items={page.faq} title={labels.faq} />
           <RelatedSeoContent pages={relatedPages} title={labels.related} />

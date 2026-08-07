@@ -39,19 +39,31 @@ async function openAiRequest(
   path: string,
   body: unknown,
   idempotencyKey: string,
+  timeoutMs = 45_000,
 ): Promise<unknown> {
   const { OPENAI_API_KEY } = getAiEnvironment();
-  const response = await fetch(`https://api.openai.com/v1/${path}`, {
-    body: JSON.stringify(body),
-    cache: "no-store",
-    headers: {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-      "Idempotency-Key": idempotencyKey,
-    },
-    method: "POST",
-    signal: AbortSignal.timeout(45_000),
-  });
+  let response: Response;
+  try {
+    response = await fetch(`https://api.openai.com/v1/${path}`, {
+      body: JSON.stringify(body),
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": idempotencyKey,
+      },
+      method: "POST",
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+  } catch (error) {
+    if (
+      error instanceof DOMException &&
+      ["AbortError", "TimeoutError"].includes(error.name)
+    ) {
+      throw new Error("OPENAI_TIMEOUT", { cause: error });
+    }
+    throw error;
+  }
   if (!response.ok) throw new Error(`OPENAI_${response.status}`);
   return response.json();
 }
@@ -65,6 +77,7 @@ export async function createStructuredResponse<T>({
   outputSchema,
   parse,
   safetyIdentifier,
+  timeoutMs = 45_000,
 }: {
   input: unknown;
   instructions: string;
@@ -74,6 +87,7 @@ export async function createStructuredResponse<T>({
   outputSchema: Record<string, unknown>;
   parse: (value: unknown) => T;
   safetyIdentifier: string;
+  timeoutMs?: number;
 }): Promise<OpenAiResult<T>> {
   const { OPENAI_MODEL } = getAiEnvironment();
   const startedAt = performance.now();
@@ -98,6 +112,7 @@ export async function createStructuredResponse<T>({
       },
     },
     idempotencyKey,
+    timeoutMs,
   );
   const response = responseSchema.parse(raw);
   const text = response.output

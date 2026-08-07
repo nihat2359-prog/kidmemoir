@@ -5,11 +5,10 @@ import { notFound } from "next/navigation";
 import { SeoPageTemplate } from "@/features/programmatic-seo/components/SeoPageTemplate";
 import { SeoStructuredData } from "@/features/programmatic-seo/components/SeoStructuredData";
 import {
-  getPublishedSeoPage,
+  getPublishedGuide,
   getPublishedSeoAlternatePaths,
   getRelatedSeoPages,
 } from "@/features/programmatic-seo/services/contentRepository";
-import { isSupportedSeoCategory } from "@/features/programmatic-seo/services/domainRepository";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { buildMetadata, buildPrivateMetadata } from "@/lib/seo";
 
@@ -17,30 +16,27 @@ export const dynamicParams = true;
 export const revalidate = 3600;
 
 type Props = Readonly<{
-  params: Promise<{ category: string; locale: string; slug?: string[] }>;
+  params: Promise<{ locale: string; slug: string }>;
 }>;
 
 export function generateStaticParams() {
   return [];
 }
 
-async function resolvePage({ params }: Props) {
-  const { category, locale, slug = [] } = await params;
+async function resolveGuide({ params }: Props) {
+  const { locale, slug } = await params;
   if (
     !hasLocale(routing.locales, locale) ||
-    !(await isSupportedSeoCategory(category)) ||
-    slug.length === 0 ||
-    slug.length > 8
+    !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(slug)
   ) {
     return null;
   }
-  const page = await getPublishedSeoPage(locale as AppLocale, category, slug);
-  if (page?.schemaType === "guide") return null;
+  const page = await getPublishedGuide(locale as AppLocale, slug);
   return page ? { locale: locale as AppLocale, page } : null;
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const resolved = await resolvePage(props);
+  const resolved = await resolveGuide(props);
   if (!resolved) return buildPrivateMetadata();
   const alternatePaths = await getPublishedSeoAlternatePaths(resolved.page.id);
   return buildMetadata({
@@ -49,18 +45,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     index: true,
     keywords: resolved.page.semanticTerms,
     locale: resolved.locale,
-    path: `/${resolved.page.category}/${resolved.page.slugPath.join("/")}`,
+    path: `/guides/${resolved.page.slug}`,
     title: resolved.page.seoTitle,
-    type:
-      resolved.page.schemaType === "article" ||
-      resolved.page.schemaType === "guide"
-        ? "article"
-        : "website",
+    type: "article",
   });
 }
 
-export default async function ProgrammaticSeoPage(props: Props) {
-  const resolved = await resolvePage(props);
+export default async function PublishedGuidePage(props: Props) {
+  const resolved = await resolveGuide(props);
   if (!resolved) notFound();
   setRequestLocale(resolved.locale);
   const [relatedPages, t] = await Promise.all([

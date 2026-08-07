@@ -23,6 +23,9 @@ const contentSecurityPolicy = [
   .join("; ");
 
 const nextConfig: NextConfig = {
+  pageExtensions: isDevelopment
+    ? ["dev.tsx", "dev.ts", "tsx", "ts"]
+    : ["tsx", "ts"],
   images: {
     remotePatterns: [{ hostname: "**.supabase.co", protocol: "https" }],
   },
