@@ -35,9 +35,9 @@ Use a natural native writing style for the requested locale, never translation-l
 Return only the requested JSON. Keep FAQ answers useful. Ensure headings are unique and logically nested. The slug must be ASCII lowercase kebab-case. Select 5-10 internal links only from the supplied candidates and copy each candidate UUID exactly.
 WORD COUNT CONTRACT: targetLength.minimum is a hard minimum, not a suggestion. Count the complete draft before responding and never return fewer words than targetLength.minimum. Aim for targetLength.recommended without exceeding targetLength.maximum.
 METADATA CONTRACT: metaDescription must contain 70-160 characters, metaTitle 20-65 characters, and seoTitle 20-70 characters. Count characters before responding.
-COMPLETION CONTRACT — count every item before responding: externalReferencePlaceholders >= 3; faq >= 5; introduction >= 2 complete paragraphs; letters >= 4; memoryIdeas >= 6; photoIdeas >= 6; questions >= 8; timeline >= 6; sections >= 10; every sections[].body >= 2 complete paragraphs of at least 40 characters each. Never omit a required field and never return an undersized collection.`;
+COMPLETION CONTRACT — count every item before responding: checklist >= 8; commonMistakes >= 5; comparison.columns >= 2; comparison.rows >= 4 and every row >= 2 cells; conclusion >= 2 paragraphs; externalReferencePlaceholders >= 3; faq >= 5; introduction >= 2 complete paragraphs; internalLinks >= 5; letters >= 4; memoryIdeas >= 6; photoIdeas >= 6; questions >= 8; timeline >= 6; videoIdeas >= 4; sections >= 10; every sections[].body >= 2 complete paragraphs of at least 40 characters each. Never omit a required field and never return an undersized collection.`;
 
-const REPAIR_RULES = `Repair only the fields named by validationIssues. Return null for every field that does not need repair. Do not rewrite valid content. Metadata limits are strict: metaDescription 70-160 characters, metaTitle 20-65 characters, seoTitle 20-70 characters. For sectionRepairs, return only invalid sections, preserving their id, type, and heading; add new complete sections only when the section count is below 10. Every repaired paragraph must contain at least 40 characters. Observe these minimums: externalReferencePlaceholders 3, faq 5, introduction 2 paragraphs, letters 4, memoryIdeas 6, photoIdeas 6, questions 8, timeline 6, and each repaired section body 2 paragraphs.`;
+const REPAIR_RULES = `Repair only the fields named by validationIssues. Return null for every field that does not need repair. Do not rewrite valid content. Metadata limits are strict: metaDescription 70-160 characters, metaTitle 20-65 characters, seoTitle 20-70 characters. Collection minimums are strict: checklist 8, commonMistakes 5, comparison rows 4, conclusion paragraphs 2, external references 3, FAQ 5, introduction paragraphs 2, internal links 5, letters 4, memory ideas 6, photo ideas 6, questions 8, timeline 6, video ideas 4. For sectionRepairs, return only invalid sections, preserving their id, type, and heading; add new complete sections only when the section count is below 10. Every repaired paragraph must contain at least 40 characters.`;
 
 function stableJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(stableJson).join(",")}]`;
@@ -59,9 +59,14 @@ function applyRepair(candidate: unknown, patch: HeroGuideRepairPatch): unknown {
     return candidate;
   const repaired = { ...(candidate as Record<string, unknown>) };
   for (const key of [
+    "checklist",
+    "commonMistakes",
+    "comparison",
+    "conclusion",
     "externalReferencePlaceholders",
     "faq",
     "introduction",
+    "internalLinks",
     "letters",
     "memoryIdeas",
     "metaDescription",
@@ -70,6 +75,7 @@ function applyRepair(candidate: unknown, patch: HeroGuideRepairPatch): unknown {
     "questions",
     "seoTitle",
     "timeline",
+    "videoIdeas",
   ] as const) {
     if (patch[key] !== null) repaired[key] = patch[key];
   }
@@ -196,6 +202,7 @@ export async function generateHeroGuide(
         deficientSections: sections.filter((_, index) =>
           deficientSectionIndexes.has(index),
         ),
+        internalLinkCandidates: relatedTopics,
         locale: input.locale,
         topic,
         validationIssues: issues,

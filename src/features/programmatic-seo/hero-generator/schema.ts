@@ -271,10 +271,15 @@ export function parseGeneratedHeroGuide(value: unknown): GeneratedHeroGuide {
 }
 
 const repairPatchSchema = z.object({
+  checklist: generatedHeroGuideSchema.shape.checklist.nullable(),
+  commonMistakes: generatedHeroGuideSchema.shape.commonMistakes.nullable(),
+  comparison: generatedHeroGuideSchema.shape.comparison.nullable(),
+  conclusion: generatedHeroGuideSchema.shape.conclusion.nullable(),
   externalReferencePlaceholders:
     generatedHeroGuideSchema.shape.externalReferencePlaceholders.nullable(),
   faq: generatedHeroGuideSchema.shape.faq.nullable(),
   introduction: generatedHeroGuideSchema.shape.introduction.nullable(),
+  internalLinks: generatedHeroGuideSchema.shape.internalLinks.nullable(),
   letters: generatedHeroGuideSchema.shape.letters.nullable(),
   memoryIdeas: generatedHeroGuideSchema.shape.memoryIdeas.nullable(),
   metaDescription: generatedHeroGuideSchema.shape.metaDescription.nullable(),
@@ -286,6 +291,7 @@ const repairPatchSchema = z.object({
     .nullable(),
   seoTitle: generatedHeroGuideSchema.shape.seoTitle.nullable(),
   timeline: generatedHeroGuideSchema.shape.timeline.nullable(),
+  videoIdeas: generatedHeroGuideSchema.shape.videoIdeas.nullable(),
 });
 
 const nullable = (schema: Record<string, unknown>) => ({
@@ -295,6 +301,48 @@ const nullable = (schema: Record<string, unknown>) => ({
 export const heroGuideRepairJsonSchema = {
   additionalProperties: false,
   properties: {
+    checklist: nullable({
+      items: { type: "string" },
+      minItems: 8,
+      maxItems: 20,
+      type: "array",
+    }),
+    commonMistakes: nullable({
+      items: heroGuideJsonSchema.properties.commonMistakes.items,
+      minItems: 5,
+      maxItems: 10,
+      type: "array",
+    }),
+    comparison: nullable({
+      additionalProperties: false,
+      properties: {
+        columns: {
+          items: { type: "string" },
+          minItems: 2,
+          maxItems: 4,
+          type: "array",
+        },
+        rows: {
+          items: {
+            items: { type: "string" },
+            minItems: 2,
+            maxItems: 4,
+            type: "array",
+          },
+          minItems: 4,
+          maxItems: 12,
+          type: "array",
+        },
+      },
+      required: ["columns", "rows"],
+      type: "object",
+    }),
+    conclusion: nullable({
+      items: { type: "string" },
+      minItems: 2,
+      maxItems: 4,
+      type: "array",
+    }),
     externalReferencePlaceholders: nullable({
       items: heroGuideJsonSchema.properties.externalReferencePlaceholders.items,
       minItems: 3,
@@ -311,6 +359,12 @@ export const heroGuideRepairJsonSchema = {
       items: { type: "string" },
       minItems: 2,
       maxItems: 5,
+      type: "array",
+    }),
+    internalLinks: nullable({
+      items: heroGuideJsonSchema.properties.internalLinks.items,
+      minItems: 5,
+      maxItems: 10,
       type: "array",
     }),
     letters: nullable({
@@ -352,11 +406,22 @@ export const heroGuideRepairJsonSchema = {
       maxItems: 24,
       type: "array",
     }),
+    videoIdeas: nullable({
+      items: { type: "string" },
+      minItems: 4,
+      maxItems: 12,
+      type: "array",
+    }),
   },
   required: [
+    "checklist",
+    "commonMistakes",
+    "comparison",
+    "conclusion",
     "externalReferencePlaceholders",
     "faq",
     "introduction",
+    "internalLinks",
     "letters",
     "memoryIdeas",
     "metaDescription",
@@ -366,6 +431,7 @@ export const heroGuideRepairJsonSchema = {
     "sectionRepairs",
     "seoTitle",
     "timeline",
+    "videoIdeas",
   ],
   type: "object",
 } as const;

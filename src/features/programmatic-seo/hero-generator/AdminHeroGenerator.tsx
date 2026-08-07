@@ -8,6 +8,7 @@ type Props = Readonly<{
     quality_score: number;
     status: string;
     title: string | null;
+    topic_id: string;
     updated_at: string;
   }>[];
   locale: "tr" | "en";
@@ -22,6 +23,10 @@ export async function AdminHeroGenerator({
   topics,
 }: Props) {
   const t = await getTranslations("heroGenerator");
+  const draftByTopic = new Map(drafts.map((draft) => [draft.topic_id, draft]));
+  const firstAvailableTopic = topics.find(
+    (topic) => !draftByTopic.has(topic.id),
+  );
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6">
       <header className="mb-10 max-w-3xl">
@@ -42,14 +47,27 @@ export async function AdminHeroGenerator({
           {t("topic")}
           <select
             className="border-input bg-background h-11 rounded-xl border px-3"
+            defaultValue={firstAvailableTopic?.id}
             name="topicId"
             required
           >
-            {topics.map((topic) => (
-              <option key={topic.id} value={topic.id}>
-                {topic.title}
-              </option>
-            ))}
+            {topics.map((topic) => {
+              const draft = draftByTopic.get(topic.id);
+              return (
+                <option
+                  disabled={Boolean(draft)}
+                  key={topic.id}
+                  value={topic.id}
+                >
+                  {topic.title}
+                  {draft
+                    ? ` — ${t(
+                        `statuses.${draft.status as "draft" | "needs_review" | "approved" | "published"}`,
+                      )}`
+                    : ""}
+                </option>
+              );
+            })}
           </select>
         </label>
         <label className="grid gap-2 text-sm font-medium">
@@ -96,7 +114,7 @@ export async function AdminHeroGenerator({
         </label>
         <button
           className="bg-primary text-primary-foreground focus-visible:ring-ring col-span-full min-h-12 rounded-xl px-6 font-semibold shadow-sm transition hover:brightness-105 focus-visible:ring-2 focus-visible:outline-none disabled:opacity-50"
-          disabled={!topics.length || !templates.length}
+          disabled={!firstAvailableTopic || !templates.length}
           type="submit"
         >
           {t("generate")}

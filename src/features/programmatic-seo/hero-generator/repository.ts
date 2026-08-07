@@ -44,7 +44,7 @@ export async function listHeroGuideDrafts(locale: AppLocale) {
   const db = createAdminClient();
   const result = await db
     .from("seo_content_drafts")
-    .select("id,title,status,quality_score,updated_at")
+    .select("id,topic_id,title,status,quality_score,updated_at")
     .eq("locale", locale)
     .in("status", ["draft", "needs_review", "approved", "published"])
     .order("updated_at", { ascending: false })
@@ -70,19 +70,19 @@ export async function createOrReuseHeroGuide(input: HeroGuideInput) {
     .single();
   if (template.error || topic.error)
     throw new Error("SEO_GENERATOR_INPUT_INVALID");
-  const publishedDraft = await db
+  const existingDraft = await db
     .from("seo_content_drafts")
     .select("id")
     .eq("topic_id", input.topicId)
     .eq("locale", input.locale)
     .eq("template_id", template.data.id)
-    .eq("status", "published")
+    .in("status", ["draft", "needs_review", "approved", "published"])
     .order("version", { ascending: false })
     .limit(1)
     .maybeSingle();
-  if (publishedDraft.error) throw new Error("SEO_DRAFT_LOOKUP_FAILED");
-  if (publishedDraft.data)
-    return { cached: true, draftId: publishedDraft.data.id };
+  if (existingDraft.error) throw new Error("SEO_DRAFT_LOOKUP_FAILED");
+  if (existingDraft.data)
+    return { cached: true, draftId: existingDraft.data.id };
   const cluster = await db
     .from("seo_clusters")
     .select("category")

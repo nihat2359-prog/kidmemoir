@@ -1,6 +1,6 @@
 import type { FactoryTemplate } from "@/features/programmatic-seo/types/contentFactory";
 
-export const HERO_GUIDE_PROMPT_VERSION = "content-generation-v5";
+export const HERO_GUIDE_PROMPT_VERSION = "content-generation-v6";
 
 export type HeroGuideInput = Readonly<{
   locale: "tr" | "en";
