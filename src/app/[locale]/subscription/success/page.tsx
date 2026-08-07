@@ -22,6 +22,7 @@ export default async function SubscriptionSuccessPage({
   return (
     <BillingStatusPage
       action={t("action")}
+      actionHref="/subscription"
       description={t("description")}
       icon={CircleCheck}
       note={t("note")}

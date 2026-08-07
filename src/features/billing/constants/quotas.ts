@@ -25,6 +25,6 @@ export const PLAN_QUOTAS: Record<BillingPlan, PlanQuotaPolicy> = {
     aiRequestsPerMonth: { kind: "unlimited" },
     children: { kind: "unlimited" },
     featureSet: "premium",
-    mediaBytes: { kind: "configured_at_launch" },
+    mediaBytes: { kind: "fixed", value: 100 * GIBIBYTE },
   },
 };

@@ -6,12 +6,14 @@ import { Link } from "@/i18n/navigation";
 
 export function BillingStatusPage({
   action,
+  actionHref = "/pricing",
   description,
   icon: Icon,
   note,
   title,
 }: {
   action: string;
+  actionHref?: "/dashboard" | "/pricing" | "/subscription";
   description: string;
   icon: LucideIcon;
   note: string;
@@ -40,7 +42,7 @@ export function BillingStatusPage({
           iconPosition="end"
           size="lg"
         >
-          <Link href="/pricing">{action}</Link>
+          <Link href={actionHref}>{action}</Link>
         </Button>
       </section>
     </main>

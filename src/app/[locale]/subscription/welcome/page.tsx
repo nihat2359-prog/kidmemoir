@@ -22,6 +22,7 @@ export default async function PremiumWelcomePage({
   return (
     <BillingStatusPage
       action={t("action")}
+      actionHref="/dashboard"
       description={t("description")}
       icon={Crown}
       note={t("note")}

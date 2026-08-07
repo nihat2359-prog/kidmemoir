@@ -206,14 +206,47 @@ type NotificationRow = {
 };
 
 type SubscriptionRow = {
+  billing_cycle: string;
+  cancelled_at: string | null;
   created_at: string;
-  end_date: string | null;
+  current_period_end: string | null;
+  current_period_start: string;
   id: string;
+  last_payment_at: string | null;
   plan: string;
+  premium_started_at: string | null;
   provider: string;
+  provider_customer_id: string | null;
+  provider_order_id: string | null;
   provider_subscription_id: string | null;
-  start_date: string;
+  product_id: string | null;
+  renews_at: string | null;
+  next_payment_at: string | null;
   status: string;
+  user_id: string;
+  variant_id: string | null;
+};
+
+type BillingWebhookEventRow = {
+  claimed_at: string;
+  created_at: string;
+  event_key: string;
+  event_name: string;
+  payload_hash: string;
+  processed_at: string | null;
+  resource_id: string;
+  resource_type: string;
+  status: string;
+};
+
+type BillingCheckoutSessionRow = {
+  checkout_url: string | null;
+  created_at: string;
+  expires_at: string;
+  provider: string;
+  provider_checkout_id: string | null;
+  state: string;
+  updated_at: string;
   user_id: string;
 };
 
@@ -248,6 +281,18 @@ export type Database = {
         "content" | "conversation_id" | "model" | "role"
       >;
       audit_logs: TableDefinition<AuditLogRow, "action" | "entity">;
+      billing_checkout_sessions: TableDefinition<
+        BillingCheckoutSessionRow,
+        "expires_at" | "user_id"
+      >;
+      billing_webhook_events: TableDefinition<
+        BillingWebhookEventRow,
+        | "event_key"
+        | "event_name"
+        | "payload_hash"
+        | "resource_id"
+        | "resource_type"
+      >;
       children: TableDefinition<
         ChildRow,
         "birth_date" | "first_name" | "gender" | "user_id"
@@ -289,7 +334,7 @@ export type Database = {
       >;
       subscriptions: TableDefinition<
         SubscriptionRow,
-        "plan" | "provider" | "start_date" | "status" | "user_id"
+        "plan" | "provider" | "status" | "user_id"
       >;
       user_devices: TableDefinition<
         UserDeviceRow,

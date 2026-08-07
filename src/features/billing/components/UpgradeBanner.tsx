@@ -1,7 +1,7 @@
-import { ArrowRight, Sparkles } from "lucide-react";
-import { getTranslations } from "next-intl/server";
-import { Button } from "@/components/ui/Button";
-import { Link } from "@/i18n/navigation";
+import { Sparkles } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
+import { CheckoutButton } from "@/features/billing/components/CheckoutButton";
+import type { AppLocale } from "@/i18n/routing";
 
 export type UpgradeBannerContext =
   "dashboard" | "general" | "memory" | "timeline";
@@ -11,7 +11,10 @@ export async function UpgradeBanner({
 }: {
   context?: UpgradeBannerContext;
 }) {
-  const t = await getTranslations("billing.upgradeBanner");
+  const [locale, t] = await Promise.all([
+    getLocale() as Promise<AppLocale>,
+    getTranslations("billing.upgradeBanner"),
+  ]);
   return (
     <aside className="from-primary/12 via-card/90 to-ai/10 flex flex-col gap-5 rounded-[2rem] border bg-gradient-to-br p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-8">
       <div className="flex gap-4">
@@ -25,9 +28,7 @@ export async function UpgradeBanner({
           </p>
         </div>
       </div>
-      <Button asChild icon={<ArrowRight aria-hidden />} iconPosition="end">
-        <Link href="/pricing">{t("action")}</Link>
-      </Button>
+      <CheckoutButton label={t("action")} locale={locale} />
     </aside>
   );
 }

@@ -1,5 +1,5 @@
 import { Check, Crown, Heart, Sparkles } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -7,23 +7,34 @@ import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/features/landing/components/shared/Reveal";
 import { SectionHeading } from "@/features/landing/components/shared/SectionHeading";
 import { Link } from "@/i18n/navigation";
+import { CheckoutButton } from "@/features/billing/components/CheckoutButton";
+import type { AppLocale } from "@/i18n/routing";
 
 const plans = [
   {
     key: "free",
     Icon: Heart,
-    features: ["oneChild", "memory", "timeline", "storage", "limitedAi"],
+    features: [
+      "oneChild",
+      "freeStorage",
+      "mediaMemories",
+      "timeline",
+      "reminders",
+      "limitedAi",
+    ],
     premium: false,
   },
   {
     key: "premium",
     Icon: Crown,
     features: [
-      "multipleChildren",
-      "memory",
-      "timeline",
-      "storage",
+      "unlimitedChildren",
+      "premiumStorage",
+      "mediaMemories",
       "advancedAi",
+      "annualAiSummaries",
+      "pdfMemoryBook",
+      "prioritySupport",
     ],
     premium: true,
   },
@@ -31,6 +42,7 @@ const plans = [
 
 export function Pricing() {
   const t = useTranslations("landing.pricing");
+  const locale = useLocale() as AppLocale;
 
   return (
     <section className="relative py-24 lg:py-32" id="pricing">
@@ -63,10 +75,15 @@ export function Pricing() {
                     <Icon aria-hidden className="size-5" />
                   </span>
                   {premium ? (
-                    <Badge variant="premium">
-                      <Sparkles aria-hidden className="mr-1 size-3" />
-                      {t("recommended")}
-                    </Badge>
+                    <div className="max-w-52 text-right">
+                      <Badge variant="premium">
+                        <Sparkles aria-hidden className="mr-1 size-3" />
+                        {t("recommended")}
+                      </Badge>
+                      <p className="text-muted-foreground mt-2 text-xs leading-5">
+                        {t("foundingNote")}
+                      </p>
+                    </div>
                   ) : null}
                 </div>
 
@@ -85,6 +102,11 @@ export function Pricing() {
                       {t(`${key}.period`)}
                     </span>
                   </div>
+                  {premium ? (
+                    <p className="text-muted-foreground mt-2 text-xs">
+                      {t("premium.billingNote")}
+                    </p>
+                  ) : null}
                 </div>
 
                 <div className="relative my-8 grid gap-3" role="list">
@@ -102,15 +124,18 @@ export function Pricing() {
                   ))}
                 </div>
 
-                <Button
-                  asChild
-                  className={premium ? "shadow-md" : undefined}
-                  fullWidth
-                  size="lg"
-                  variant={premium ? "primary" : "outline"}
-                >
-                  <Link href="/register">{t(`${key}.button`)}</Link>
-                </Button>
+                {premium ? (
+                  <CheckoutButton
+                    className="shadow-md"
+                    fullWidth
+                    label={t(`${key}.button`)}
+                    locale={locale}
+                  />
+                ) : (
+                  <Button asChild fullWidth size="lg" variant="outline">
+                    <Link href="/register">{t(`${key}.button`)}</Link>
+                  </Button>
+                )}
               </Card>
             </Reveal>
           ))}

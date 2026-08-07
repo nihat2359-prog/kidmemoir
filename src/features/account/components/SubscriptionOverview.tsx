@@ -12,14 +12,18 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import type { AccountSubscription } from "@/features/account/types/account.types";
-import { Link } from "@/i18n/navigation";
+import { CheckoutButton } from "@/features/billing/components/CheckoutButton";
 import type { AppLocale } from "@/i18n/routing";
 
 export async function SubscriptionOverview({
+  billingError,
+  billingStatus,
   data,
   locale,
   reason,
 }: {
+  billingError: string | null;
+  billingStatus: string | null;
   data: AccountSubscription;
   locale: AppLocale;
   reason: "childLimit" | null;
@@ -41,8 +45,29 @@ export async function SubscriptionOverview({
     { icon: Video, key: "videos", value: number.format(data.usage.videos) },
     { icon: Mic, key: "audio", value: number.format(data.usage.audio) },
   ];
+  const date = new Intl.DateTimeFormat(locale, { dateStyle: "medium" });
+  const formatDate = (value: string | null) =>
+    value ? date.format(new Date(value)) : t("details.unavailable");
+  const details = [
+    { key: "renewal", value: formatDate(data.renewsAt) },
+    { key: "lastPayment", value: formatDate(data.lastPaymentAt) },
+    { key: "nextPayment", value: formatDate(data.nextPaymentAt) },
+    { key: "premiumStarted", value: formatDate(data.premiumStartedAt) },
+  ];
   return (
     <div className="space-y-8">
+      {billingError ? (
+        <Alert variant="danger">
+          <AlertTitle>{t("billingError.title")}</AlertTitle>
+          <AlertDescription>{t("billingError.description")}</AlertDescription>
+        </Alert>
+      ) : null}
+      {billingStatus ? (
+        <Alert variant="success">
+          <AlertTitle>{t("billingStatus.title")}</AlertTitle>
+          <AlertDescription>{t("billingStatus.description")}</AlertDescription>
+        </Alert>
+      ) : null}
       {reason === "childLimit" && data.plan === "free" ? (
         <Alert variant="info">
           <Sparkles aria-hidden />
@@ -63,6 +88,37 @@ export async function SubscriptionOverview({
           <Badge variant={data.plan === "premium" ? "premium" : "primary"}>
             {t(`status.${data.status}`)}
           </Badge>
+        </div>
+      </section>
+      <section className="bg-card/75 rounded-[2rem] border p-6 shadow-sm sm:p-8">
+        <h2 className="text-xl font-semibold">{t("details.title")}</h2>
+        <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+          {details.map(({ key, value }) => (
+            <div className="bg-muted/45 rounded-2xl p-4" key={key}>
+              <dt className="text-muted-foreground text-sm">
+                {t(`details.${key}`)}
+              </dt>
+              <dd className="mt-1 font-semibold">{value}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          {data.providerSubscriptionId ? (
+            <>
+              <Button asChild>
+                <a href={`/api/billing/portal?locale=${locale}&target=payment`}>
+                  {t("actions.updateCard")}
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href={`/api/billing/portal?locale=${locale}&target=portal`}>
+                  {t("actions.manage")}
+                </a>
+              </Button>
+            </>
+          ) : (
+            <CheckoutButton label={t("actions.upgrade")} locale={locale} />
+          )}
         </div>
       </section>
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -94,9 +150,13 @@ export async function SubscriptionOverview({
             </p>
           ))}
         </div>
-        <Button asChild className="mt-7" variant="outline">
-          <Link href="/pricing">{t("premium.viewPlans")}</Link>
-        </Button>
+        {data.plan === "premium" ? null : (
+          <CheckoutButton
+            className="mt-7"
+            label={t("premium.upgrade")}
+            locale={locale}
+          />
+        )}
       </section>
     </div>
   );

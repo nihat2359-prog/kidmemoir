@@ -1,21 +1,28 @@
-import { Check, Minus, Sparkles } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { Check, Minus } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
+import { CheckoutButton } from "@/features/billing/components/CheckoutButton";
+import type { AppLocale } from "@/i18n/routing";
 
 const featureKeys = [
   "children",
   "storage",
-  "memories",
   "media",
   "timeline",
+  "reminders",
   "ai",
-  "reports",
+  "annualAiSummaries",
+  "pdfMemoryBook",
+  "prioritySupport",
 ] as const;
 
 export async function PricingExperience() {
-  const t = await getTranslations("billing.pricing");
+  const [locale, t] = await Promise.all([
+    getLocale() as Promise<AppLocale>,
+    getTranslations("billing.pricing"),
+  ]);
   return (
     <div className="space-y-16 pb-12">
       <section aria-labelledby="plans-title">
@@ -64,22 +71,29 @@ export async function PricingExperience() {
               <h3 className="mt-3 text-3xl font-semibold">
                 {t("premium.name")}
               </h3>
-              <p className="mt-6 text-2xl font-semibold">
-                {t("premium.priceLabel")}
+              <div className="mt-6 flex items-end gap-2">
+                <span className="text-5xl font-semibold tracking-tight">
+                  {t("premium.price")}
+                </span>
+                <span className="text-muted-foreground pb-1">
+                  {t("premium.period")}
+                </span>
+              </div>
+              <p className="text-muted-foreground mt-2 text-xs">
+                {t("premium.billingNote")}
+              </p>
+              <p className="text-primary mt-4 text-sm font-medium">
+                {t("foundingNote")}
               </p>
               <p className="text-muted-foreground mt-5 leading-7">
                 {t("premium.description")}
               </p>
-              <Button
+              <CheckoutButton
                 className="mt-8"
-                disabled
                 fullWidth
-                icon={<Sparkles aria-hidden />}
-                size="lg"
-                type="button"
-              >
-                {t("premium.action")}
-              </Button>
+                label={t("premium.action")}
+                locale={locale}
+              />
               <p className="text-muted-foreground mt-3 text-center text-xs">
                 {t("premium.checkoutNote")}
               </p>

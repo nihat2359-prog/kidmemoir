@@ -197,29 +197,36 @@
       "eyebrow": "Hikâyenizle birlikte büyür",
       "title": "Bugün ücretsiz başlayın. Anılarınız için doğru alan her zaman hazır olsun.",
       "description": "Karmaşık paketler veya gizli sınırlar yok. Önce hikâyenizi başlatın, ihtiyaç duyduğunuzda daha fazlasına geçin.",
-      "recommended": "En çok tercih edilen",
+      "recommended": "🌱 Founding Member Price",
+      "foundingNote": "Bugün katılın ve bu yıllık fiyatı gelecekte de koruyun.",
       "free": {
         "name": "Free",
         "description": "Bir çocuğun en değerli anılarını güvenle kaydetmeye başlamak için.",
-        "price": "₺0",
-        "period": "sonsuza kadar",
-        "button": "Free ile başlayın"
+        "price": "$0",
+        "period": "Forever",
+        "button": "Başlayın"
       },
       "premium": {
         "name": "Premium",
         "description": "Ailenizin büyüyen hikâyesini daha derin analizler ve daha geniş alanla yaşatmak için.",
-        "price": "Yakında",
-        "period": "erken erişim",
-        "button": "Ücretsiz başlayın"
+        "price": "$49.99",
+        "period": "Per year",
+        "billingNote": "≈ $4.17/month · billed annually",
+        "button": "Premium'a Geç"
       },
       "features": {
-        "oneChild": "Bir çocuk için özel yaşam alanı",
-        "multipleChildren": "Birden fazla çocuk için ayrı hikâyeler",
-        "memory": "Fotoğraf, video, ses ve belge anıları",
-        "timeline": "Yaşayan zaman çizelgesi",
-        "storage": "Güvenli bulut depolama",
-        "limitedAi": "Temel KidMemoir AI kullanımı",
-        "advancedAi": "Gelişmiş AI analizleri ve özetler"
+        "oneChild": "1 çocuk profili",
+        "unlimitedChildren": "Sınırsız çocuk profili",
+        "freeStorage": "1 GB güvenli depolama",
+        "premiumStorage": "100 GB güvenli depolama",
+        "mediaMemories": "Fotoğraf, video ve sesli anılar",
+        "timeline": "Yaşayan zaman tüneli",
+        "reminders": "Hatırlatmalar",
+        "limitedAi": "Temel AI desteği",
+        "advancedAi": "Gelişmiş AI analizleri",
+        "annualAiSummaries": "AI yıllık gelişim özetleri",
+        "pdfMemoryBook": "PDF Anı Kitabı",
+        "prioritySupport": "Öncelikli destek"
       },
       "assurances": {
         "privacy": "Verileriniz her zaman size ait",
@@ -1051,7 +1058,7 @@
         "title": "Her anıyı eksiksiz koruyun",
         "description": "Premium medya kapasitesiyle anılarınıza daha fazla fotoğraf, video ve ses ekleyin."
       },
-      "action": "Planları İncele"
+      "action": "Premium'a Geç"
     },
     "pricing": {
       "metadata": {
@@ -1064,22 +1071,25 @@
       "title": "Ailenizin hikâyesine uygun planı seçin.",
       "description": "Free ile başlayın; daha fazla çocuk, medya kapasitesi ve gelişmiş özelliklere ihtiyaç duyduğunuzda Premium'a geçin.",
       "plansTitle": "KidMemoir planları",
-      "recommended": "Önerilen",
+      "recommended": "🌱 Founding Member Price",
+      "foundingNote": "Bugün katılın ve bu yıllık fiyatı gelecekte de koruyun.",
       "free": {
         "eyebrow": "Başlangıç",
         "name": "Free",
-        "price": "₺0",
-        "period": "süresiz",
+        "price": "$0",
+        "period": "Forever",
         "description": "İlk çocuğunuzun hikâyesini güvenle oluşturmaya başlamak için temel deneyim.",
-        "action": "Ücretsiz Başla"
+        "action": "Başlayın"
       },
       "premium": {
         "eyebrow": "Ailenizle büyür",
         "name": "Premium",
-        "priceLabel": "Abonelik fiyatı ödeme açılışında gösterilecek",
+        "price": "$49.99",
+        "period": "Per year",
+        "billingNote": "≈ $4.17/month · billed annually",
         "description": "Birden fazla çocuk ve büyüyen medya arşivi için kapsamlı KidMemoir deneyimi.",
-        "action": "Premium Satın Al",
-        "checkoutNote": "Güvenli Lemon Checkout bağlantısı entegrasyon aşamasında etkinleştirilecektir."
+        "action": "Premium'a Geç",
+        "checkoutNote": "Güvenli yıllık abonelik"
       },
       "comparison": {
         "eyebrow": "Plan karşılaştırması",
@@ -1099,21 +1109,14 @@
           "label": "Medya depolama",
           "free": "1 GB",
           "freeAvailable": true,
-          "premium": "Yüksek depolama kotası",
-          "premiumAvailable": true
-        },
-        "memories": {
-          "label": "Anılar",
-          "free": "Temel anı deneyimi",
-          "freeAvailable": true,
-          "premium": "Gelişmiş anı deneyimi",
+          "premium": "100 GB",
           "premiumAvailable": true
         },
         "media": {
-          "label": "Fotoğraf, video ve ses",
-          "free": "Desteklenir",
+          "label": "Fotoğraf, video ve sesli anılar",
+          "free": "Dahil",
           "freeAvailable": true,
-          "premium": "Genişletilmiş kapasite",
+          "premium": "Dahil",
           "premiumAvailable": true
         },
         "timeline": {
@@ -1123,17 +1126,38 @@
           "premium": "Dahil",
           "premiumAvailable": true
         },
-        "ai": {
-          "label": "AI kullanımı",
-          "free": "Aylık limit",
+        "reminders": {
+          "label": "Hatırlatmalar",
+          "free": "Dahil",
           "freeAvailable": true,
-          "premium": "Sınırsız, yapılandırılabilir",
+          "premium": "Dahil",
           "premiumAvailable": true
         },
-        "reports": {
-          "label": "Gelişim raporları",
+        "ai": {
+          "label": "AI desteği",
+          "free": "Temel AI desteği",
+          "freeAvailable": true,
+          "premium": "Gelişmiş AI analizleri",
+          "premiumAvailable": true
+        },
+        "annualAiSummaries": {
+          "label": "AI yıllık gelişim özetleri",
           "free": "Dahil değil",
           "freeAvailable": false,
+          "premium": "Dahil",
+          "premiumAvailable": true
+        },
+        "pdfMemoryBook": {
+          "label": "PDF Anı Kitabı",
+          "free": "Dahil değil",
+          "freeAvailable": false,
+          "premium": "Dahil",
+          "premiumAvailable": true
+        },
+        "prioritySupport": {
+          "label": "Öncelikli destek",
+          "free": "Standart destek",
+          "freeAvailable": true,
           "premium": "Dahil",
           "premiumAvailable": true
         }
@@ -1141,10 +1165,10 @@
     },
     "results": {
       "success": {
-        "title": "Ödeme dönüşü alındı",
-        "description": "Ödeme sağlayıcısının dönüş sayfasına güvenli şekilde ulaştınız.",
-        "note": "Ödeme doğrulaması henüz etkin değildir; bu sayfa abonelik durumunuzu değiştirmez.",
-        "action": "Planlara Dön"
+        "title": "Ödemeniz başarıyla alındı",
+        "description": "Premium aboneliğiniz Lemon tarafından güvenli şekilde işleniyor.",
+        "note": "Abonelik durumunuz webhook tamamlandığında otomatik güncellenir. Tekrar giriş yapmanız gerekmez.",
+        "action": "Aboneliğimi Gör"
       },
       "cancel": {
         "title": "Ödeme tamamlanmadı",
@@ -1154,9 +1178,9 @@
       },
       "welcome": {
         "title": "Premium deneyimine hoş geldiniz",
-        "description": "Premium avantajlarını kullanmaya başlamak için abonelik doğrulama altyapısı hazırdır.",
-        "note": "Bu tanıtım sayfası tek başına Premium yetkisi tanımlamaz; webhook doğrulaması entegrasyon aşamasında etkinleştirilecektir.",
-        "action": "Planları Gör"
+        "description": "KidMemoir Premium avantajları hesabınız için etkinleştirildi.",
+        "note": "Ailenizin hikâyesini daha geniş depolama ve gelişmiş özelliklerle büyütebilirsiniz.",
+        "action": "Dashboard'a Git"
       }
     }
   },
@@ -1609,6 +1633,7 @@
         "trial": "Deneme",
         "expired": "Süresi Doldu",
         "cancelled": "İptal Edildi",
+        "past_due": "Ödeme Yeniden Deneniyor",
         "active": "Aktif",
         "trialing": "Deneme",
         "past_due": "Ödeme Bekliyor",
@@ -1621,6 +1646,27 @@
         "photos": "Fotoğraf",
         "videos": "Video",
         "audio": "Ses kaydı"
+      },
+      "details": {
+        "title": "Abonelik Detayları",
+        "renewal": "Yenileme tarihi",
+        "lastPayment": "Son ödeme",
+        "nextPayment": "Bir sonraki ödeme",
+        "premiumStarted": "Premium başlangıcı",
+        "unavailable": "Henüz mevcut değil"
+      },
+      "actions": {
+        "updateCard": "Kartımı Güncelle",
+        "manage": "Aboneliğimi Yönet",
+        "upgrade": "Premium'a Geç"
+      },
+      "billingError": {
+        "title": "Ödeme işlemi tamamlanamadı",
+        "description": "Güvenli ödeme bağlantısı şu anda oluşturulamadı. Lütfen kısa bir süre sonra tekrar deneyin."
+      },
+      "billingStatus": {
+        "title": "Talebiniz alındı",
+        "description": "Abonelik değişikliği Lemon tarafından işlendiğinde durumunuz otomatik güncellenecektir."
       },
       "upsell": {
         "childLimit": {
@@ -1636,7 +1682,7 @@
           "media": "Premium medya deneyimi",
           "reports": "Gelişim raporları"
         },
-        "viewPlans": "Planları Karşılaştır"
+        "upgrade": "Premium'a Geç"
       }
     },
     "settings": {

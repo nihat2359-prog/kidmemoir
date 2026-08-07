@@ -10,7 +10,11 @@ import { routing, type AppLocale } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ reason?: string }>;
+  searchParams: Promise<{
+    billing_error?: string;
+    billing_status?: string;
+    reason?: string;
+  }>;
 };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -30,7 +34,11 @@ export default async function SubscriptionPage({
   searchParams,
 }: Props) {
   const { locale } = await params;
-  const { reason } = await searchParams;
+  const {
+    billing_error: billingError,
+    billing_status: billingStatus,
+    reason,
+  } = await searchParams;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const user = await getCurrentUser();
@@ -49,6 +57,8 @@ export default async function SubscriptionPage({
     >
       <SubscriptionOverview
         data={data}
+        billingError={billingError ?? null}
+        billingStatus={billingStatus ?? null}
         locale={locale as AppLocale}
         reason={reason === "child_limit" ? "childLimit" : null}
       />

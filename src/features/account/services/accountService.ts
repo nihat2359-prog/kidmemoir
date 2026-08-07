@@ -8,10 +8,11 @@ import type {
   AccountSubscription,
 } from "@/features/account/types/account.types";
 import { normalizeSubscriptionState } from "@/features/billing/utils/subscription";
+import { isPremium } from "@/features/billing/utils/entitlements";
 import { createClient } from "@/lib/supabase/server";
 
 function theme(value: string): "light" | "dark" | "system" {
-  return value === "light" || value === "dark" ? value : "system";
+  return value === "light" || value === "system" ? value : "dark";
 }
 
 export async function getAccountProfile(user: User): Promise<AccountProfile> {
@@ -182,7 +183,7 @@ export async function getAccountPlan(user: User): Promise<"free" | "premium"> {
       .single(),
     supabase
       .from("subscriptions")
-      .select("plan,status")
+      .select("plan,status,current_period_end")
       .eq("user_id", user.id)
       .maybeSingle(),
   ]);
@@ -190,13 +191,28 @@ export async function getAccountPlan(user: User): Promise<"free" | "premium"> {
     throw new Error("Account plan could not be loaded", {
       cause: profile.error ?? subscription.error,
     });
-  const activeStatuses = new Set(["active", "trialing"]);
-  const subscriptionIsPremium =
-    subscription.data?.plan === "premium" &&
-    activeStatuses.has(subscription.data.status);
-  const profileIsPremium =
-    profile.data.subscription_plan === "premium" &&
-    activeStatuses.has(profile.data.subscription_status);
+  const subscriptionState = subscription.data
+    ? normalizeSubscriptionState({
+        plan: subscription.data.plan,
+        status: subscription.data.status,
+      })
+    : normalizeSubscriptionState({
+        plan: profile.data.subscription_plan,
+        status: profile.data.subscription_status,
+      });
+  const subscriptionIsPremium = isPremium({
+    endDate: subscription.data?.current_period_end ?? null,
+    plan: subscription.data?.plan === "premium" ? "premium" : "free",
+    status: subscriptionState,
+  });
+  const profileIsPremium = isPremium({
+    endDate: null,
+    plan: profile.data.subscription_plan === "premium" ? "premium" : "free",
+    status: normalizeSubscriptionState({
+      plan: profile.data.subscription_plan,
+      status: profile.data.subscription_status,
+    }),
+  });
   return subscriptionIsPremium || profileIsPremium ? "premium" : "free";
 }
 
@@ -238,7 +254,9 @@ export async function getAccountSubscription(
       .single(),
     supabase
       .from("subscriptions")
-      .select("plan,status")
+      .select(
+        "plan,status,billing_cycle,cancelled_at,current_period_start,current_period_end,renews_at,last_payment_at,next_payment_at,premium_started_at,provider_subscription_id",
+      )
       .eq("user_id", user.id)
       .maybeSingle(),
     supabase
@@ -268,7 +286,16 @@ export async function getAccountSubscription(
   const plan = subscription.data?.plan ?? profile.data.subscription_plan;
   const status = subscription.data?.status ?? profile.data.subscription_status;
   return {
+    billingCycle: subscription.data?.billing_cycle ?? "yearly",
+    cancelledAt: subscription.data?.cancelled_at ?? null,
+    currentPeriodEnd: subscription.data?.current_period_end ?? null,
+    currentPeriodStart: subscription.data?.current_period_start ?? null,
+    lastPaymentAt: subscription.data?.last_payment_at ?? null,
+    nextPaymentAt: subscription.data?.next_payment_at ?? null,
     plan: plan === "premium" ? "premium" : "free",
+    premiumStartedAt: subscription.data?.premium_started_at ?? null,
+    providerSubscriptionId: subscription.data?.provider_subscription_id ?? null,
+    renewsAt: subscription.data?.renews_at ?? null,
     status: normalizeSubscriptionState({ plan, status }),
     usage,
   };

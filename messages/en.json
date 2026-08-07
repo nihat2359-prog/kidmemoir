@@ -195,29 +195,36 @@
       "eyebrow": "Grows with your story",
       "title": "Start free today. The right space for your memories is always ready.",
       "description": "No complicated packages or hidden limits. Start your story first, then move to more when you need it.",
-      "recommended": "Most popular",
+      "recommended": "🌱 Founding Member Price",
+      "foundingNote": "Join today and keep this annual price in the future.",
       "free": {
         "name": "Free",
         "description": "Everything you need to begin preserving one child's most precious memories.",
         "price": "$0",
-        "period": "forever",
-        "button": "Start with Free"
+        "period": "Forever",
+        "button": "Get Started"
       },
       "premium": {
         "name": "Premium",
         "description": "More space and deeper insights for your family's growing story.",
-        "price": "Coming soon",
-        "period": "early access",
-        "button": "Start for free"
+        "price": "$49.99",
+        "period": "Per year",
+        "billingNote": "≈ $4.17/month · billed annually",
+        "button": "Upgrade to Premium"
       },
       "features": {
-        "oneChild": "A private life space for one child",
-        "multipleChildren": "Separate stories for multiple children",
-        "memory": "Photo, video, audio and document memories",
-        "timeline": "A living timeline",
-        "storage": "Secure cloud storage",
-        "limitedAi": "Essential KidMemoir AI access",
-        "advancedAi": "Advanced AI insights and summaries"
+        "oneChild": "1 child profile",
+        "unlimitedChildren": "Unlimited child profiles",
+        "freeStorage": "1 GB secure storage",
+        "premiumStorage": "100 GB secure storage",
+        "mediaMemories": "Photo, video and voice memories",
+        "timeline": "Living timeline",
+        "reminders": "Reminders",
+        "limitedAi": "Essential AI support",
+        "advancedAi": "Advanced AI insights",
+        "annualAiSummaries": "Annual AI development summaries",
+        "pdfMemoryBook": "PDF Memory Book",
+        "prioritySupport": "Priority support"
       },
       "assurances": {
         "privacy": "Your data always belongs to you",
@@ -1052,7 +1059,7 @@
         "title": "Preserve every memory completely",
         "description": "Add more photos, videos and audio to each memory with Premium media capacity."
       },
-      "action": "View Plans"
+      "action": "Upgrade to Premium"
     },
     "pricing": {
       "metadata": {
@@ -1065,22 +1072,25 @@
       "title": "Choose the plan that fits your family's story.",
       "description": "Start with Free, then move to Premium when you need more children, media capacity and advanced features.",
       "plansTitle": "KidMemoir plans",
-      "recommended": "Recommended",
+      "recommended": "🌱 Founding Member Price",
+      "foundingNote": "Join today and keep this annual price in the future.",
       "free": {
         "eyebrow": "Start",
         "name": "Free",
         "price": "$0",
         "period": "forever",
         "description": "The essential experience for safely beginning your first child's story.",
-        "action": "Start Free"
+        "action": "Get Started"
       },
       "premium": {
         "eyebrow": "Grows with your family",
         "name": "Premium",
-        "priceLabel": "Subscription price shown when payments launch",
+        "price": "$49.99",
+        "period": "Per year",
+        "billingNote": "≈ $4.17/month · billed annually",
         "description": "The complete KidMemoir experience for multiple children and a growing media archive.",
-        "action": "Buy Premium",
-        "checkoutNote": "The secure Lemon Checkout link will be enabled during integration."
+        "action": "Upgrade to Premium",
+        "checkoutNote": "Secure annual subscription"
       },
       "comparison": {
         "eyebrow": "Plan comparison",
@@ -1100,21 +1110,14 @@
           "label": "Media storage",
           "free": "1 GB",
           "freeAvailable": true,
-          "premium": "Higher storage quota",
-          "premiumAvailable": true
-        },
-        "memories": {
-          "label": "Memories",
-          "free": "Core memory experience",
-          "freeAvailable": true,
-          "premium": "Advanced memory experience",
+          "premium": "100 GB",
           "premiumAvailable": true
         },
         "media": {
-          "label": "Photo, video and audio",
-          "free": "Supported",
+          "label": "Photo, video and voice memories",
+          "free": "Included",
           "freeAvailable": true,
-          "premium": "Expanded capacity",
+          "premium": "Included",
           "premiumAvailable": true
         },
         "timeline": {
@@ -1124,17 +1127,38 @@
           "premium": "Included",
           "premiumAvailable": true
         },
-        "ai": {
-          "label": "AI usage",
-          "free": "Monthly limit",
+        "reminders": {
+          "label": "Reminders",
+          "free": "Included",
           "freeAvailable": true,
-          "premium": "Unlimited, configurable",
+          "premium": "Included",
           "premiumAvailable": true
         },
-        "reports": {
-          "label": "Development reports",
+        "ai": {
+          "label": "AI support",
+          "free": "Essential AI support",
+          "freeAvailable": true,
+          "premium": "Advanced AI insights",
+          "premiumAvailable": true
+        },
+        "annualAiSummaries": {
+          "label": "Annual AI development summaries",
           "free": "Not included",
           "freeAvailable": false,
+          "premium": "Included",
+          "premiumAvailable": true
+        },
+        "pdfMemoryBook": {
+          "label": "PDF Memory Book",
+          "free": "Not included",
+          "freeAvailable": false,
+          "premium": "Included",
+          "premiumAvailable": true
+        },
+        "prioritySupport": {
+          "label": "Priority support",
+          "free": "Standard support",
+          "freeAvailable": true,
           "premium": "Included",
           "premiumAvailable": true
         }
@@ -1142,10 +1166,10 @@
     },
     "results": {
       "success": {
-        "title": "Payment return received",
-        "description": "You reached the payment provider return page securely.",
-        "note": "Payment verification is not enabled yet; this page does not change your subscription.",
-        "action": "Return to Plans"
+        "title": "Your payment was received",
+        "description": "Your Premium subscription is being processed securely by Lemon.",
+        "note": "Your subscription status updates automatically when the webhook completes. You do not need to sign in again.",
+        "action": "View My Subscription"
       },
       "cancel": {
         "title": "Payment not completed",
@@ -1155,9 +1179,9 @@
       },
       "welcome": {
         "title": "Welcome to the Premium experience",
-        "description": "The foundation is ready for activating your Premium benefits after subscription verification.",
-        "note": "This page alone does not grant Premium access; webhook verification will be enabled during integration.",
-        "action": "View Plans"
+        "description": "KidMemoir Premium benefits are active for your account.",
+        "note": "You can now grow your family's story with more storage and advanced features.",
+        "action": "Go to Dashboard"
       }
     }
   },
@@ -1610,6 +1634,7 @@
         "trial": "Trial",
         "expired": "Expired",
         "cancelled": "Cancelled",
+        "past_due": "Payment Retrying",
         "active": "Active",
         "trialing": "Trial",
         "past_due": "Past Due",
@@ -1622,6 +1647,27 @@
         "photos": "Photos",
         "videos": "Videos",
         "audio": "Audio recordings"
+      },
+      "details": {
+        "title": "Subscription Details",
+        "renewal": "Renewal date",
+        "lastPayment": "Last payment",
+        "nextPayment": "Next payment",
+        "premiumStarted": "Premium started",
+        "unavailable": "Not available yet"
+      },
+      "actions": {
+        "updateCard": "Update My Card",
+        "manage": "Manage Subscription",
+        "upgrade": "Upgrade to Premium"
+      },
+      "billingError": {
+        "title": "Payment could not be started",
+        "description": "The secure checkout link could not be created right now. Please try again shortly."
+      },
+      "billingStatus": {
+        "title": "Your request was received",
+        "description": "Your status will update automatically after Lemon processes the subscription change."
       },
       "upsell": {
         "childLimit": {
@@ -1637,7 +1683,7 @@
           "media": "Premium media experience",
           "reports": "Development reports"
         },
-        "viewPlans": "Compare Plans"
+        "upgrade": "Upgrade to Premium"
       }
     },
     "settings": {

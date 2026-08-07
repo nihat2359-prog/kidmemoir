@@ -102,6 +102,6 @@ export async function getAppShellData(
       : null,
     theme: isTheme(settingsResult.data?.theme)
       ? settingsResult.data.theme
-      : "system",
+      : "dark",
   };
 }

@@ -20,7 +20,7 @@ export function FinalCTA() {
     <section className="relative py-12 md:py-20 lg:py-28">
       <Container>
         <Reveal>
-          <div className="bg-foreground text-background relative isolate flex min-h-[36rem] items-center overflow-hidden rounded-xl px-6 py-20 text-center shadow-xl md:px-12 lg:min-h-[42rem]">
+          <div className="relative isolate flex min-h-[36rem] items-center overflow-hidden rounded-xl bg-[oklch(0.16_0.02_265)] px-6 py-20 text-center text-white shadow-xl md:px-12 lg:min-h-[42rem]">
             <div className="bg-primary/35 absolute -top-48 left-1/2 -z-10 size-[34rem] -translate-x-1/2 rounded-full blur-3xl" />
             <div className="bg-ai/20 absolute -bottom-56 -left-32 -z-10 size-[32rem] rounded-full blur-3xl" />
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_15%,rgba(255,255,255,0.18),transparent_42%)]" />

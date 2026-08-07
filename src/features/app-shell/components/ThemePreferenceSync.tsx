@@ -6,6 +6,9 @@ import type { AppTheme } from "@/features/app-shell/types/appShell.types";
 
 export function ThemePreferenceSync({ theme }: { theme: AppTheme }) {
   const { setTheme } = useTheme();
-  useEffect(() => setTheme(theme), [setTheme, theme]);
+  useEffect(
+    () => setTheme(theme === "system" ? "dark" : theme),
+    [setTheme, theme],
+  );
   return null;
 }

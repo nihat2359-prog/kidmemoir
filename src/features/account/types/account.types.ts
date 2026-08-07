@@ -44,7 +44,16 @@ export type SubscriptionUsage = Readonly<{
 }>;
 
 export type AccountSubscription = Readonly<{
+  billingCycle: string;
+  cancelledAt: string | null;
+  currentPeriodEnd: string | null;
+  currentPeriodStart: string | null;
+  lastPaymentAt: string | null;
+  nextPaymentAt: string | null;
   plan: "free" | "premium";
+  premiumStartedAt: string | null;
+  providerSubscriptionId: string | null;
+  renewsAt: string | null;
   status: SubscriptionState;
   usage: SubscriptionUsage;
 }>;
