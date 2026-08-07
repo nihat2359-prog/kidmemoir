@@ -398,6 +398,14 @@ export type Database = {
         };
         Returns: { event_id: string; similarity: number }[];
       };
+      request_ai_story: {
+        Args: {
+          reference_time?: string;
+          target_child_id: string;
+          target_kind: string;
+        };
+        Returns: Json;
+      };
       save_memory_ai_insight: {
         Args: {
           target_child_id: string;

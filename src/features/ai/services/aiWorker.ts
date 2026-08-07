@@ -10,7 +10,9 @@ import {
 } from "@/features/ai/prompts/prompts";
 import {
   canRunAiJob,
-  claimAiJobs,
+  claimAiJobById,
+  claimMemoryInsightJob,
+  claimPendingMemoryInsight,
   completeJob,
   failJob,
   findCachedArtifact,
@@ -242,33 +244,43 @@ async function processJob(job: AiJob) {
   await completeJob(supabase, job.id, "completed");
 }
 
-export async function runAiWorker(batchSize = 5) {
+async function executeClaimedJob(job: AiJob) {
   getAiEnvironment();
-  const jobs = await claimAiJobs(createAdminClient(), batchSize);
-  const results = [];
-  for (const job of jobs) {
-    try {
-      await processJob(job);
-      results.push({ id: job.id, success: true });
-    } catch (error) {
-      const code = error instanceof Error ? error.message : "AI_JOB_UNKNOWN";
-      reportException(error, { jobId: job.id, kind: job.kind });
-      await saveUsage(createAdminClient(), job, {
-        durationMs: 0,
-        errorCode: code,
-        model: getAiEnvironment().OPENAI_MODEL,
-        operation: job.kind,
-        success: false,
-        usage: { inputTokens: 0, outputTokens: 0, totalTokens: 0 },
-      }).catch((usageError: unknown) =>
-        reportException(usageError, {
-          jobId: job.id,
-          operation: "ai_usage_failure",
-        }),
-      );
-      await failJob(createAdminClient(), job, code);
-      results.push({ id: job.id, success: false });
-    }
+  try {
+    await processJob(job);
+    return { id: job.id, success: true } as const;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "AI_JOB_UNKNOWN";
+    reportException(error, { jobId: job.id, kind: job.kind });
+    await saveUsage(createAdminClient(), job, {
+      durationMs: 0,
+      errorCode: code,
+      model: getAiEnvironment().OPENAI_MODEL,
+      operation: job.kind,
+      success: false,
+      usage: { inputTokens: 0, outputTokens: 0, totalTokens: 0 },
+    }).catch((usageError: unknown) =>
+      reportException(usageError, {
+        jobId: job.id,
+        operation: "ai_usage_failure",
+      }),
+    );
+    await failJob(createAdminClient(), job, code);
+    return { id: job.id, success: false } as const;
   }
-  return results;
+}
+
+export async function runMemoryInsightForEvent(eventId: string) {
+  const job = await claimMemoryInsightJob(createAdminClient(), eventId);
+  return job ? executeClaimedJob(job) : null;
+}
+
+export async function runAiJobById(jobId: string) {
+  const job = await claimAiJobById(createAdminClient(), jobId);
+  return job ? executeClaimedJob(job) : null;
+}
+
+export async function runPendingMemoryInsightForChild(childId: string) {
+  const job = await claimPendingMemoryInsight(createAdminClient(), childId);
+  return job ? executeClaimedJob(job) : null;
 }

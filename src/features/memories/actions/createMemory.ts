@@ -1,6 +1,9 @@
 "use server";
 
 import { getTranslations } from "next-intl/server";
+import { after } from "next/server";
+import { runMemoryInsightForEvent } from "@/features/ai/services/aiWorker";
+import { reportException } from "@/lib/monitoring";
 import {
   createMemorySchema,
   type CreateMemoryInput,
@@ -137,6 +140,17 @@ export async function createMemoryAction(
     });
     return { error: "database", success: false };
   }
+
+  after(async () => {
+    try {
+      await runMemoryInsightForEvent(eventResult.data.id);
+    } catch (error) {
+      reportException(error, {
+        eventId: eventResult.data.id,
+        operation: "memory_insight_on_create",
+      });
+    }
+  });
 
   return { eventId: eventResult.data.id, success: true };
 }

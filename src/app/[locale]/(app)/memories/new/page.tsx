@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+export const maxDuration = 60;
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";

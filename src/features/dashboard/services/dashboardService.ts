@@ -6,6 +6,10 @@ import type { DashboardData } from "@/features/dashboard/types/dashboard.types";
 import { getMonthBounds } from "@/features/dashboard/utils/date";
 import { getOnThisDayMemories } from "@/features/on-this-day";
 import { getMemoryOfTheDay } from "@/features/dashboard/services/memoryOfTheDayService";
+import {
+  recoverPendingMemoryInsight,
+  requestStoryOnDemand,
+} from "@/features/ai/services/onDemandStoryService";
 import { createClient } from "@/lib/supabase/server";
 
 function assertQuery(error: { message: string } | null, operation: string) {
@@ -72,6 +76,10 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       summary: { audio: 0, memories: 0, photos: 0, videos: 0 },
     };
   }
+
+  if (aiAvailable)
+    await requestStoryOnDemand(supabase, child.id, "weekly_story");
+  recoverPendingMemoryInsight(child.id);
 
   const now = new Date();
   const month = getMonthBounds(now);

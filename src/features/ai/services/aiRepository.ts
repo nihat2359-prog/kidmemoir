@@ -5,15 +5,84 @@ import { calculateAiCost } from "@/features/ai/config/aiConfig";
 import type { AiJob, OpenAiUsage } from "@/features/ai/types/ai.types";
 import type { Database, Json } from "@/types/database.types";
 
-export async function claimAiJobs(
+async function claimSelectedJob(
   supabase: SupabaseClient<Database>,
-  batchSize: number,
-): Promise<AiJob[]> {
-  await supabase.rpc("enqueue_due_ai_stories", {});
-  const result = await supabase.rpc("claim_ai_jobs", { batch_size: batchSize });
-  if (result.error)
-    throw new Error("AI_JOB_CLAIM_FAILED", { cause: result.error });
-  return (result.data ?? []) as AiJob[];
+  filter: { childId?: string; eventId?: string; jobId?: string },
+): Promise<AiJob | null> {
+  const staleBefore = new Date(Date.now() - 10 * 60_000).toISOString();
+  let recovery = supabase
+    .from("ai_jobs")
+    .update({ locked_at: null, status: "pending" })
+    .eq("status", "processing")
+    .lt("locked_at", staleBefore);
+  if (filter.eventId)
+    recovery = recovery
+      .eq("event_id", filter.eventId)
+      .eq("kind", "memory_insight");
+  if (filter.jobId) recovery = recovery.eq("id", filter.jobId);
+  if (filter.childId)
+    recovery = recovery
+      .eq("child_id", filter.childId)
+      .eq("kind", "memory_insight");
+  const recovered = await recovery;
+  if (recovered.error)
+    throw new Error("AI_STALE_JOB_RECOVERY_FAILED", {
+      cause: recovered.error,
+    });
+
+  let query = supabase
+    .from("ai_jobs")
+    .select(
+      "id,user_id,child_id,event_id,kind,input_hash,prompt_version,attempts,max_attempts,period_start,period_end",
+    )
+    .eq("status", "pending")
+    .lte("available_at", new Date().toISOString());
+  if (filter.eventId)
+    query = query.eq("event_id", filter.eventId).eq("kind", "memory_insight");
+  if (filter.jobId) query = query.eq("id", filter.jobId);
+  if (filter.childId)
+    query = query.eq("child_id", filter.childId).eq("kind", "memory_insight");
+  const candidate = await query.order("created_at").limit(1).maybeSingle();
+  if (candidate.error)
+    throw new Error("AI_JOB_LOOKUP_FAILED", { cause: candidate.error });
+  if (!candidate.data) return null;
+  const claimed = await supabase
+    .from("ai_jobs")
+    .update({
+      attempts: candidate.data.attempts + 1,
+      locked_at: new Date().toISOString(),
+      status: "processing",
+    })
+    .eq("id", candidate.data.id)
+    .eq("status", "pending")
+    .select(
+      "id,user_id,child_id,event_id,kind,input_hash,prompt_version,attempts,max_attempts,period_start,period_end",
+    )
+    .maybeSingle();
+  if (claimed.error)
+    throw new Error("AI_JOB_CLAIM_FAILED", { cause: claimed.error });
+  return claimed.data as AiJob | null;
+}
+
+export function claimMemoryInsightJob(
+  supabase: SupabaseClient<Database>,
+  eventId: string,
+) {
+  return claimSelectedJob(supabase, { eventId });
+}
+
+export function claimAiJobById(
+  supabase: SupabaseClient<Database>,
+  jobId: string,
+) {
+  return claimSelectedJob(supabase, { jobId });
+}
+
+export function claimPendingMemoryInsight(
+  supabase: SupabaseClient<Database>,
+  childId: string,
+) {
+  return claimSelectedJob(supabase, { childId });
 }
 
 export async function hasAiEntitlement(
