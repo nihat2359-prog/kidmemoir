@@ -7,6 +7,8 @@ import { DashboardError } from "@/features/dashboard/components/DashboardError";
 import { routing } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
 
+export const maxDuration = 60;
+
 type DashboardPageProps = Readonly<{ params: Promise<{ locale: string }> }>;
 
 export async function generateMetadata({

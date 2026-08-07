@@ -30,9 +30,11 @@ export async function requestStoryOnDemand(
     throw new Error("AI_STORY_REQUEST_FAILED", { cause: result.error });
   const response = record(result.data);
   if (response.status !== "queued" || typeof response.jobId !== "string")
-    return;
-  const jobId = response.jobId;
+    return null;
+  return response.jobId;
+}
 
+export function scheduleStoryJob(jobId: string, kind: OnDemandStoryKind) {
   after(async () => {
     try {
       await runAiJobById(jobId);
@@ -42,14 +44,22 @@ export async function requestStoryOnDemand(
   });
 }
 
-export function recoverPendingMemoryInsight(childId: string) {
+export async function scheduleDashboardAi(
+  supabase: SupabaseClient<Database>,
+  childId: string,
+  premium: boolean,
+) {
+  const storyJobId = premium
+    ? await requestStoryOnDemand(supabase, childId, "weekly_story")
+    : null;
   after(async () => {
     try {
-      await runPendingMemoryInsightForChild(childId);
+      const memoryResult = await runPendingMemoryInsightForChild(childId);
+      if (!memoryResult && storyJobId) await runAiJobById(storyJobId);
     } catch (error) {
       reportException(error, {
         childId,
-        operation: "memory_insight_recovery",
+        operation: "dashboard_ai_on_demand",
       });
     }
   });
