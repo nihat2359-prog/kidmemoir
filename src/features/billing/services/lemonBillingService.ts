@@ -261,6 +261,8 @@ export const lemonBillingService = {
     const configuration = requireLemonConfiguration();
     const admin = createAdminClient();
     const now = new Date();
+    const returnUrl = `${configuration.NEXT_PUBLIC_APP_URL}/${input.locale}/subscription/success`;
+    const cancelUrl = `${configuration.NEXT_PUBLIC_APP_URL}/${input.locale}/subscription/cancel`;
     const cached = await admin
       .from("billing_checkout_sessions")
       .select("checkout_url,expires_at,provider_checkout_id,state")
@@ -281,6 +283,15 @@ export const lemonBillingService = {
           const checkoutOptions = z
             .record(z.unknown())
             .safeParse(existingCheckout.data.attributes.checkout_options);
+          const productOptions = z
+            .record(z.unknown())
+            .safeParse(existingCheckout.data.attributes.product_options);
+          const checkoutData = z
+            .record(z.unknown())
+            .safeParse(existingCheckout.data.attributes.checkout_data);
+          const customData = checkoutData.success
+            ? z.record(z.unknown()).safeParse(checkoutData.data.custom)
+            : null;
           const cachedUrl = new URL(cached.data.checkout_url);
           const hasLegacyMutatedParameters =
             cachedUrl.searchParams.has("media") ||
@@ -296,7 +307,12 @@ export const lemonBillingService = {
             checkoutOptions.data.embed === true &&
             checkoutOptions.data.media === false &&
             checkoutOptions.data.logo === false &&
-            checkoutOptions.data.desc === false;
+            checkoutOptions.data.desc === false &&
+            productOptions.success &&
+            productOptions.data.redirect_url === returnUrl &&
+            customData?.success === true &&
+            customData.data.return_url === returnUrl &&
+            customData.data.cancel_url === cancelUrl;
         } catch {
           matchesCurrentEnvironment = false;
         }
@@ -315,8 +331,6 @@ export const lemonBillingService = {
       throw new Error("Billing checkout creation is already in progress");
     }
 
-    const returnUrl = `${configuration.NEXT_PUBLIC_APP_URL}/${input.locale}/subscription/success`;
-    const cancelUrl = `${configuration.NEXT_PUBLIC_APP_URL}/${input.locale}/subscription/cancel`;
     const expiresAt = new Date(now.getTime() + CHECKOUT_TTL_MS).toISOString();
     const expired = await admin
       .from("billing_checkout_sessions")

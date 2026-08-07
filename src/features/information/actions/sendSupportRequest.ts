@@ -9,6 +9,7 @@ import {
   supportRequestSchema,
   type SupportSubject,
 } from "@/features/information/schemas/supportSchema";
+import { reportException } from "@/lib/monitoring";
 
 export type SupportFormState = Readonly<{
   fieldErrors?: Partial<
@@ -158,7 +159,9 @@ export async function sendSupportRequest(
 
   const environment = emailEnvironmentSchema.safeParse(process.env);
   if (!environment.success) {
-    console.error("Support email configuration is incomplete");
+    reportException(new Error("Support email configuration is incomplete"), {
+      operation: "support_email",
+    });
     return { status: "error", type: "configuration" };
   }
 
@@ -217,8 +220,13 @@ export async function sendSupportRequest(
       method: "POST",
     });
     if (!response.ok) {
-      const errorBody = await response.text();
-      console.error("Resend support email failed", response.status, errorBody);
+      reportException(
+        new Error("Support email provider rejected the request"),
+        {
+          operation: "support_email",
+          status: response.status,
+        },
+      );
       return {
         status: "error",
         type: response.status === 429 ? "rateLimited" : "network",
@@ -226,7 +234,7 @@ export async function sendSupportRequest(
     }
     return { status: "success" };
   } catch (error) {
-    console.error("Support email request failed", error);
+    reportException(error, { operation: "support_email" });
     return { status: "error", type: "network" };
   }
 }

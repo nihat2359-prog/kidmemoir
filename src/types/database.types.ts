@@ -108,11 +108,13 @@ type EventRow = {
   importance: string | null;
   is_favorite: boolean;
   location: string | null;
+  metadata: Json;
   mood: string | null;
   occurred_at: string;
   sub_category_id: string | null;
   title: string;
   updated_at: string;
+  source: string;
 };
 
 type EventTagRow = {
@@ -174,11 +176,101 @@ type AiAnalysisRow = {
   child_id: string;
   confidence_score: number | null;
   created_at: string;
+  development_categories: string[];
+  emotion: string | null;
+  event_id: string;
+  id: string;
+  input_hash: string | null;
+  keywords: string[];
+  model: string;
+  prompt_version: string;
+  recommendations: string | null;
+  short_title: string | null;
+  summary: string;
+  updated_at: string;
+};
+
+type AiArtifactRow = {
+  child_id: string;
+  content: Json;
+  created_at: string;
+  event_id: string | null;
+  id: string;
+  input_hash: string;
+  kind: string;
+  model: string;
+  period_end: string | null;
+  period_start: string | null;
+  prompt_version: string;
+  source_event_ids: string[];
+  updated_at: string;
+  user_id: string;
+};
+
+type AiEventEmbeddingRow = {
+  child_id: string;
+  content_hash: string;
+  created_at: string;
+  embedding: number[];
   event_id: string;
   id: string;
   model: string;
-  recommendations: string | null;
-  summary: string;
+  updated_at: string;
+  user_id: string;
+};
+
+type AiQueryEmbeddingRow = {
+  child_id: string;
+  created_at: string;
+  embedding: number[];
+  expires_at: string;
+  id: string;
+  model: string;
+  query_hash: string;
+  user_id: string;
+};
+
+type AiJobRow = {
+  attempts: number;
+  available_at: string;
+  child_id: string;
+  completed_at: string | null;
+  created_at: string;
+  error_code: string | null;
+  event_id: string | null;
+  id: string;
+  input_hash: string;
+  kind: string;
+  locked_at: string | null;
+  max_attempts: number;
+  period_end: string | null;
+  period_start: string | null;
+  prompt_version: string;
+  status: string;
+  updated_at: string;
+  user_id: string;
+};
+
+type AiUsageRow = {
+  artifact_id: string | null;
+  cache_hit: boolean;
+  child_id: string | null;
+  completion_tokens: number;
+  conversation_id: string | null;
+  created_at: string;
+  duration_ms: number | null;
+  error_code: string | null;
+  estimated_cost: number;
+  event_id: string | null;
+  id: string;
+  input_hash: string | null;
+  model: string;
+  operation: string;
+  prompt_tokens: number;
+  prompt_version: string | null;
+  success: boolean;
+  total_tokens: number;
+  user_id: string;
 };
 
 type ReportRow = {
@@ -266,11 +358,71 @@ export type Database = {
   public: {
     CompositeTypes: Record<string, never>;
     Enums: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      claim_ai_jobs: {
+        Args: { batch_size?: number };
+        Returns: AiJobRow[];
+      };
+      can_run_ai_job: {
+        Args: {
+          target_job_id?: string | null;
+          target_kind: string;
+          target_user_id: string;
+        };
+        Returns: boolean;
+      };
+      enqueue_ai_history: {
+        Args: { target_child_id?: string | null };
+        Returns: number;
+      };
+      enqueue_due_ai_stories: {
+        Args: { reference_time?: string };
+        Returns: number;
+      };
+      get_smart_dashboard_intelligence: {
+        Args: { target_child_id: string };
+        Returns: Json;
+      };
+      match_memory_embeddings: {
+        Args: {
+          excluded_event_id?: string | null;
+          match_count?: number;
+          query_embedding: number[];
+          target_child_id: string;
+        };
+        Returns: { event_id: string; similarity: number }[];
+      };
+      save_memory_ai_insight: {
+        Args: {
+          target_child_id: string;
+          target_content: Json;
+          target_event_id: string;
+          target_input_hash: string;
+          target_model: string;
+          target_prompt_version: string;
+          target_user_id: string;
+        };
+        Returns: string;
+      };
+      user_has_ai_entitlement: {
+        Args: { target_user_id: string };
+        Returns: boolean;
+      };
+    };
     Tables: {
       ai_analysis: TableDefinition<
         AiAnalysisRow,
         "analysis" | "child_id" | "event_id" | "model" | "summary"
+      >;
+      ai_artifacts: TableDefinition<
+        AiArtifactRow,
+        | "child_id"
+        | "content"
+        | "input_hash"
+        | "kind"
+        | "model"
+        | "prompt_version"
+        | "user_id"
       >;
       ai_conversations: TableDefinition<
         AiConversationRow,
@@ -280,6 +432,24 @@ export type Database = {
         AiMessageRow,
         "content" | "conversation_id" | "model" | "role"
       >;
+      ai_event_embeddings: TableDefinition<
+        AiEventEmbeddingRow,
+        | "child_id"
+        | "content_hash"
+        | "embedding"
+        | "event_id"
+        | "model"
+        | "user_id"
+      >;
+      ai_jobs: TableDefinition<
+        AiJobRow,
+        "child_id" | "input_hash" | "kind" | "prompt_version" | "user_id"
+      >;
+      ai_query_embeddings: TableDefinition<
+        AiQueryEmbeddingRow,
+        "child_id" | "embedding" | "model" | "query_hash" | "user_id"
+      >;
+      ai_usage: TableDefinition<AiUsageRow, "model" | "operation" | "user_id">;
       audit_logs: TableDefinition<AuditLogRow, "action" | "entity">;
       billing_checkout_sessions: TableDefinition<
         BillingCheckoutSessionRow,

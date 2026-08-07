@@ -1,4 +1,5 @@
 import type { OnThisDayMemory } from "@/features/on-this-day/types/onThisDay.types";
+import type { SmartDashboardInsight } from "@/features/ai/types/ai.types";
 
 export type DashboardChild = Readonly<{
   avatarUrl: string | null;
@@ -39,8 +40,10 @@ export type DashboardSummary = Readonly<{
 }>;
 
 export type DashboardData = Readonly<{
+  aiAvailable: boolean;
   child: DashboardChild | null;
   insight: DashboardInsight | null;
+  intelligence: SmartDashboardInsight | null;
   onThisDay: readonly OnThisDayMemory[];
   profileFirstName: string;
   recentMemories: DashboardMemory[];

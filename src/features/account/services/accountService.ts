@@ -246,36 +246,69 @@ export async function getAccountSubscription(
   const monthStart = new Date();
   monthStart.setUTCDate(1);
   monthStart.setUTCHours(0, 0, 0, 0);
-  const [profile, subscription, ai, media] = await Promise.all([
-    supabase
-      .from("profiles")
-      .select("subscription_plan,subscription_status")
-      .eq("id", user.id)
-      .single(),
-    supabase
-      .from("subscriptions")
-      .select(
-        "plan,status,billing_cycle,cancelled_at,current_period_start,current_period_end,renews_at,last_payment_at,next_payment_at,premium_started_at,provider_subscription_id",
-      )
-      .eq("user_id", user.id)
-      .maybeSingle(),
-    supabase
-      .from("ai_usage")
-      .select("total_tokens")
-      .eq("user_id", user.id)
-      .gte("created_at", monthStart.toISOString()),
-    supabase
-      .from("event_media")
-      .select("media_type,file_size")
-      .is("archived_at", null),
-  ]);
-  if (profile.error || subscription.error || ai.error || media.error)
+  const [profile, subscription, ai, media, insightTotal, insightMonth] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("subscription_plan,subscription_status")
+        .eq("id", user.id)
+        .single(),
+      supabase
+        .from("subscriptions")
+        .select(
+          "plan,status,billing_cycle,cancelled_at,current_period_start,current_period_end,renews_at,last_payment_at,next_payment_at,premium_started_at,provider_subscription_id",
+        )
+        .eq("user_id", user.id)
+        .maybeSingle(),
+      supabase
+        .from("ai_usage")
+        .select("total_tokens,estimated_cost,cache_hit")
+        .eq("user_id", user.id)
+        .gte("created_at", monthStart.toISOString()),
+      supabase
+        .from("event_media")
+        .select("media_type,file_size")
+        .is("archived_at", null),
+      supabase.from("ai_analysis").select("id", { count: "exact", head: true }),
+      supabase
+        .from("ai_analysis")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", monthStart.toISOString()),
+    ]);
+  if (
+    profile.error ||
+    subscription.error ||
+    ai.error ||
+    media.error ||
+    insightTotal.error ||
+    insightMonth.error
+  )
     throw new Error("Subscription data could not be loaded", {
-      cause: profile.error ?? subscription.error ?? ai.error ?? media.error,
+      cause:
+        profile.error ??
+        subscription.error ??
+        ai.error ??
+        media.error ??
+        insightTotal.error ??
+        insightMonth.error,
     });
-  const usage = { aiTokens: 0, audio: 0, mediaBytes: 0, photos: 0, videos: 0 };
-  (ai.data ?? []).forEach(({ total_tokens }) => {
+  const usage = {
+    aiApiCalls: 0,
+    aiCacheHits: 0,
+    aiEstimatedCost: 0,
+    aiInsightsThisMonth: insightMonth.count ?? 0,
+    aiInsightsTotal: insightTotal.count ?? 0,
+    aiTokens: 0,
+    audio: 0,
+    mediaBytes: 0,
+    photos: 0,
+    videos: 0,
+  };
+  (ai.data ?? []).forEach(({ cache_hit, estimated_cost, total_tokens }) => {
     usage.aiTokens += total_tokens;
+    usage.aiEstimatedCost += estimated_cost;
+    if (cache_hit) usage.aiCacheHits += 1;
+    else usage.aiApiCalls += 1;
   });
   (media.data ?? []).forEach(({ file_size, media_type }) => {
     usage.mediaBytes += file_size;

@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     icon: [
       {
         type: "image/svg+xml",
-        url: "https://kidmemoir.com/kidmemoir.svg",
+        url: "https://www.kidmemoir.com/kidmemoir.svg",
       },
     ],
-    shortcut: "https://kidmemoir.com/kidmemoir.svg",
+    shortcut: "https://www.kidmemoir.com/kidmemoir.svg",
   },
-  metadataBase: new URL("https://kidmemoir.com"),
+  metadataBase: new URL("https://www.kidmemoir.com"),
   title: {
     default: "KidMemoir",
     template: "%s | KidMemoir",

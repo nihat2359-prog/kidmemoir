@@ -36,6 +36,11 @@ export type AccountChild = Readonly<{
 }>;
 
 export type SubscriptionUsage = Readonly<{
+  aiApiCalls: number;
+  aiCacheHits: number;
+  aiEstimatedCost: number;
+  aiInsightsThisMonth: number;
+  aiInsightsTotal: number;
   aiTokens: number;
   audio: number;
   mediaBytes: number;

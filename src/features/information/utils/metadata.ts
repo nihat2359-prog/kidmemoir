@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { AppLocale } from "@/i18n/routing";
 
-const siteUrl = "https://kidmemoir.com";
+const siteUrl = "https://www.kidmemoir.com";
 
 export function informationMetadata({
   description,

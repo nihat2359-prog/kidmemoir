@@ -16,25 +16,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     locale,
     namespace: "billing.pricing.metadata",
   });
-  const canonical = `https://kidmemoir.com/${locale}/pricing`;
+  const canonical = `https://www.kidmemoir.com/${locale}/pricing`;
   return {
     alternates: {
       canonical,
       languages: {
-        en: "https://kidmemoir.com/en/pricing",
-        tr: "https://kidmemoir.com/tr/pricing",
-        "x-default": "https://kidmemoir.com/en/pricing",
+        en: "https://www.kidmemoir.com/en/pricing",
+        tr: "https://www.kidmemoir.com/tr/pricing",
+        "x-default": "https://www.kidmemoir.com/en/pricing",
       },
     },
     description: t("description"),
-    metadataBase: new URL("https://kidmemoir.com"),
+    metadataBase: new URL("https://www.kidmemoir.com"),
     openGraph: {
       description: t("description"),
       images: [
         {
           alt: t("imageAlt"),
           height: 630,
-          url: `https://kidmemoir.com/${locale}/opengraph-image`,
+          url: `https://www.kidmemoir.com/${locale}/opengraph-image`,
           width: 1200,
         },
       ],
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       description: t("description"),
-      images: [`https://kidmemoir.com/${locale}/opengraph-image`],
+      images: [`https://www.kidmemoir.com/${locale}/opengraph-image`],
       title: t("title"),
     },
   };

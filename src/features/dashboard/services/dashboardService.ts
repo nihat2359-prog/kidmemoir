@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { User } from "@supabase/supabase-js";
+import { getSmartDashboardIntelligence } from "@/features/ai";
 import type { DashboardData } from "@/features/dashboard/types/dashboard.types";
 import { getMonthBounds } from "@/features/dashboard/utils/date";
 import { getOnThisDayMemories } from "@/features/on-this-day";
@@ -12,7 +13,7 @@ function assertQuery(error: { message: string } | null, operation: string) {
 
 export async function getDashboardData(user: User): Promise<DashboardData> {
   const supabase = await createClient();
-  const [profileResult, childResult] = await Promise.all([
+  const [profileResult, childResult, subscriptionResult] = await Promise.all([
     supabase
       .from("profiles")
       .select("first_name")
@@ -27,10 +28,27 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       .order("created_at", { ascending: true })
       .limit(1)
       .maybeSingle(),
+    supabase
+      .from("subscriptions")
+      .select("plan,status,current_period_end")
+      .eq("user_id", user.id)
+      .maybeSingle(),
   ]);
 
   assertQuery(profileResult.error, "profile lookup");
   assertQuery(childResult.error, "child lookup");
+  assertQuery(subscriptionResult.error, "subscription lookup");
+
+  const subscription = subscriptionResult.data;
+  const aiAvailable = Boolean(
+    subscription?.plan === "premium" &&
+    (subscription.status === "active" ||
+      subscription.status === "trialing" ||
+      subscription.status === "past_due" ||
+      (subscription.status === "canceled" &&
+        subscription.current_period_end &&
+        new Date(subscription.current_period_end).getTime() > Date.now())),
+  );
 
   const profileFirstName =
     profileResult.data?.first_name ||
@@ -41,8 +59,10 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
 
   if (!child) {
     return {
+      aiAvailable,
       child: null,
       insight: null,
+      intelligence: null,
       onThisDay: [],
       profileFirstName,
       recentMemories: [],
@@ -56,10 +76,10 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
   const [
     eventsResult,
     remindersResult,
-    insightResult,
     monthlyEventsResult,
     avatarResult,
     onThisDay,
+    intelligence,
   ] = await Promise.all([
     supabase
       .from("events")
@@ -77,13 +97,6 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       .order("reminder_at", { ascending: true })
       .limit(3),
     supabase
-      .from("ai_analysis")
-      .select("summary,created_at")
-      .eq("child_id", child.id)
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle(),
-    supabase
       .from("events")
       .select("id", { count: "exact" })
       .eq("child_id", child.id)
@@ -95,11 +108,11 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       ? supabase.storage.from("avatars").createSignedUrl(child.avatar, 3600)
       : Promise.resolve({ data: null, error: null }),
     getOnThisDayMemories(supabase, child.id, child.birth_date),
+    getSmartDashboardIntelligence(child.id),
   ]);
 
   assertQuery(eventsResult.error, "recent memories");
   assertQuery(remindersResult.error, "upcoming reminders");
-  assertQuery(insightResult.error, "AI insight");
   assertQuery(monthlyEventsResult.error, "monthly event count");
 
   const monthlyEventIds = (monthlyEventsResult.data ?? []).map(({ id }) => id);
@@ -143,6 +156,7 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
   );
 
   return {
+    aiAvailable,
     child: {
       avatarUrl: avatarResult.data?.signedUrl ?? null,
       birthDate: child.birth_date,
@@ -150,12 +164,19 @@ export async function getDashboardData(user: User): Promise<DashboardData> {
       id: child.id,
       lastName: child.last_name,
     },
-    insight: insightResult.data
-      ? {
-          createdAt: insightResult.data.created_at,
-          summary: insightResult.data.summary,
-        }
-      : null,
+    insight:
+      aiAvailable && intelligence.latestStory
+        ? {
+            createdAt: intelligence.latestStory.createdAt,
+            summary: intelligence.latestStory.story,
+          }
+        : intelligence.notable
+          ? {
+              createdAt: intelligence.notable.occurredAt,
+              summary: intelligence.notable.summary,
+            }
+          : null,
+    intelligence,
     profileFirstName,
     onThisDay,
     recentMemories: (eventsResult.data ?? []).map((event) => ({

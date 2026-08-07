@@ -9,11 +9,14 @@ import {
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import type { AccountSubscription } from "@/features/account/types/account.types";
 import { CheckoutButton } from "@/features/billing/components/CheckoutButton";
+import { PortalButton } from "@/features/billing/components/PortalButton";
 import type { AppLocale } from "@/i18n/routing";
+import { FREE_AI_INSIGHT_LIMIT } from "@/features/ai/licensing/aiEntitlements";
+import { enqueueAiHistory } from "@/features/ai/actions/enqueueAiHistory";
+import { Button } from "@/components/ui/Button";
 
 export async function SubscriptionOverview({
   billingError,
@@ -44,6 +47,35 @@ export async function SubscriptionOverview({
     { icon: Image, key: "photos", value: number.format(data.usage.photos) },
     { icon: Video, key: "videos", value: number.format(data.usage.videos) },
     { icon: Mic, key: "audio", value: number.format(data.usage.audio) },
+  ];
+  const aiUsage = [
+    { key: "insightsTotal", value: number.format(data.usage.aiInsightsTotal) },
+    {
+      key: "insightsMonth",
+      value: number.format(data.usage.aiInsightsThisMonth),
+    },
+    {
+      key: "allowance",
+      value:
+        data.plan === "premium"
+          ? t("aiUsage.unlimited")
+          : t("aiUsage.freeAllowance", {
+              count: Math.max(
+                0,
+                FREE_AI_INSIGHT_LIMIT - data.usage.aiInsightsTotal,
+              ),
+              limit: FREE_AI_INSIGHT_LIMIT,
+            }),
+    },
+    { key: "apiCalls", value: number.format(data.usage.aiApiCalls) },
+    { key: "cacheHits", value: number.format(data.usage.aiCacheHits) },
+    {
+      key: "estimatedCost",
+      value: new Intl.NumberFormat(locale, {
+        currency: "USD",
+        style: "currency",
+      }).format(data.usage.aiEstimatedCost),
+    },
   ];
   const date = new Intl.DateTimeFormat(locale, { dateStyle: "medium" });
   const formatDate = (value: string | null) =>
@@ -105,16 +137,17 @@ export async function SubscriptionOverview({
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           {data.providerSubscriptionId ? (
             <>
-              <Button asChild>
-                <a href={`/api/billing/portal?locale=${locale}&target=payment`}>
-                  {t("actions.updateCard")}
-                </a>
-              </Button>
-              <Button asChild variant="outline">
-                <a href={`/api/billing/portal?locale=${locale}&target=portal`}>
-                  {t("actions.manage")}
-                </a>
-              </Button>
+              <PortalButton
+                label={t("actions.updateCard")}
+                locale={locale}
+                target="payment"
+              />
+              <PortalButton
+                label={t("actions.manage")}
+                locale={locale}
+                target="portal"
+                variant="outline"
+              />
             </>
           ) : (
             <CheckoutButton label={t("actions.upgrade")} locale={locale} />
@@ -134,6 +167,42 @@ export async function SubscriptionOverview({
             </p>
           </article>
         ))}
+      </section>
+      <section
+        className="bg-card/75 rounded-[2rem] border p-6 shadow-sm sm:p-8"
+        aria-labelledby="ai-usage-title"
+      >
+        <div className="flex items-center gap-3">
+          <Bot aria-hidden className="text-ai size-6" />
+          <div>
+            <h2 id="ai-usage-title" className="text-xl font-semibold">
+              {t("aiUsage.title")}
+            </h2>
+            <p className="text-muted-foreground mt-1 text-sm">
+              {t("aiUsage.description")}
+            </p>
+          </div>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {aiUsage.map((item) => (
+            <div className="bg-muted/45 rounded-2xl p-4" key={item.key}>
+              <p className="text-muted-foreground text-sm">
+                {t(`aiUsage.${item.key}`)}
+              </p>
+              <p className="mt-1 text-lg font-semibold">{item.value}</p>
+            </div>
+          ))}
+        </div>
+        {data.plan === "premium" ? (
+          <form action={enqueueAiHistory} className="mt-6">
+            <Button type="submit" variant="outline">
+              {t("aiUsage.enrichHistory")}
+            </Button>
+            <p className="text-muted-foreground mt-2 text-xs leading-5">
+              {t("aiUsage.enrichDescription")}
+            </p>
+          </form>
+        ) : null}
       </section>
       <section className="bg-card/75 rounded-[2rem] border p-6 shadow-sm sm:p-8">
         <div className="flex items-center gap-3">

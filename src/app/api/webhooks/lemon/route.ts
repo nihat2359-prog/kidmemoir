@@ -1,9 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { lemonBillingService } from "@/features/billing/services/lemonBillingService";
+import { enforceRateLimit, requestFingerprint } from "@/lib/security/rateLimit";
 
 const MAX_WEBHOOK_BYTES = 1_000_000;
 
 export async function POST(request: NextRequest) {
+  const rateLimit = enforceRateLimit(requestFingerprint(request), {
+    limit: 180,
+    namespace: "lemon-webhook",
+    windowMs: 60 * 1000,
+  });
+  if (!rateLimit.allowed)
+    return NextResponse.json(
+      { accepted: false },
+      {
+        headers: { "Retry-After": String(rateLimit.retryAfter) },
+        status: 429,
+      },
+    );
   let claimedEventKey: string | null = null;
   const declaredLength = Number(request.headers.get("content-length") ?? 0);
   if (declaredLength > MAX_WEBHOOK_BYTES)

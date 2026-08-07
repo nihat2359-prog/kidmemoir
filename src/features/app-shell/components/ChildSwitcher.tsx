@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Baby, LoaderCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { setDefaultChild } from "@/features/app-shell/actions/preferences";
@@ -20,7 +20,9 @@ export function ChildSwitcher({ items }: { items: readonly ShellChild[] }) {
   const router = useRouter();
   const active = items.find((child) => child.isDefault) ?? items[0];
   const [selectedId, setSelectedId] = useState(active?.id ?? "");
-  const [isPending, setIsPending] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isRefreshing, startRefreshTransition] = useTransition();
+  const isPending = isSaving || isRefreshing;
 
   if (!active) return null;
 
@@ -28,14 +30,14 @@ export function ChildSwitcher({ items }: { items: readonly ShellChild[] }) {
     if (childId === selectedId) return;
     const previousId = selectedId;
     setSelectedId(childId);
-    setIsPending(true);
+    setIsSaving(true);
     try {
       await setDefaultChild(childId);
-      router.refresh();
+      startRefreshTransition(() => router.refresh());
     } catch {
       setSelectedId(previousId);
     } finally {
-      setIsPending(false);
+      setIsSaving(false);
     }
   }
 
@@ -57,25 +59,41 @@ export function ChildSwitcher({ items }: { items: readonly ShellChild[] }) {
   }
 
   return (
-    <Select disabled={isPending} onValueChange={changeChild} value={selectedId}>
-      <SelectTrigger
-        aria-label={t("label")}
-        className="bg-surface/70 hidden min-h-9 w-44 rounded-full sm:flex"
+    <>
+      {isPending && (
+        <div
+          aria-hidden
+          className="bg-primary fixed inset-x-0 top-0 z-50 h-0.5 animate-pulse"
+        />
+      )}
+      <span aria-live="polite" className="sr-only">
+        {isPending ? t("changing") : ""}
+      </span>
+      <Select
+        disabled={isPending}
+        onValueChange={changeChild}
+        value={selectedId}
       >
-        {isPending ? (
-          <LoaderCircle aria-hidden className="size-4 animate-spin" />
-        ) : (
-          <Baby aria-hidden className="size-4" />
-        )}
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {items.map((child) => (
-          <SelectItem key={child.id} value={child.id}>
-            {[child.firstName, child.lastName].filter(Boolean).join(" ")}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+        <SelectTrigger
+          aria-label={t("label")}
+          aria-busy={isPending}
+          className="bg-surface/70 hidden min-h-9 w-44 rounded-full sm:flex"
+        >
+          {isPending ? (
+            <LoaderCircle aria-hidden className="size-4 animate-spin" />
+          ) : (
+            <Baby aria-hidden className="size-4" />
+          )}
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {items.map((child) => (
+            <SelectItem key={child.id} value={child.id}>
+              {[child.firstName, child.lastName].filter(Boolean).join(" ")}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </>
   );
 }

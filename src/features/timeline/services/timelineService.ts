@@ -3,6 +3,8 @@ import "server-only";
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 import type { Database } from "@/types/database.types";
 import { getOnThisDayMemories } from "@/features/on-this-day";
+import { getAccountPlan } from "@/features/account/services/accountService";
+import { getMemoryHighlights } from "@/features/ai/services/intelligenceService";
 import type {
   TimelineCursor,
   TimelineFiltersValue,
@@ -163,7 +165,8 @@ export async function getTimelineScreenData(
       cause: child.error ?? categories.error,
     });
   if (!child.data) return null;
-  const [page, avatar, onThisDay] = await Promise.all([
+  const isPremium = (await getAccountPlan(user)) === "premium";
+  const [page, avatar, onThisDay, highlights] = await Promise.all([
     getTimelinePage(supabase, child.data.id, filters, null),
     child.data.avatar
       ? supabase.storage
@@ -171,8 +174,17 @@ export async function getTimelineScreenData(
           .createSignedUrl(child.data.avatar, 3600)
       : Promise.resolve({ data: null, error: null }),
     getOnThisDayMemories(supabase, child.data.id, child.data.birth_date),
+    isPremium ? getMemoryHighlights(user, child.data.id) : Promise.resolve([]),
   ]);
   return {
+    ai: {
+      highlights: highlights.slice(0, 3).map((item) => ({
+        id: item.id,
+        occurredAt: item.occurred_at,
+        title: item.title,
+      })),
+      isPremium,
+    },
     categories: categories.data ?? [],
     child: {
       avatarUrl: avatar.data?.signedUrl ?? null,

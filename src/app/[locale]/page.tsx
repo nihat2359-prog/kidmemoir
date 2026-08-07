@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { LandingPage } from "@/features/landing";
 import { routing } from "@/i18n/routing";
 
-const siteUrl = "https://kidmemoir.com";
+const siteUrl = "https://www.kidmemoir.com";
 
 type HomePageProps = Readonly<{
   params: Promise<{ locale: string }>;

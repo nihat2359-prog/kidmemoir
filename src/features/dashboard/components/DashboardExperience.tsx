@@ -67,7 +67,12 @@ export async function DashboardExperience({
             />
           </div>
           <div className="lg:col-span-7">
-            <AIInsight insight={data.insight} locale={locale} />
+            <AIInsight
+              available={data.aiAvailable}
+              insight={data.insight}
+              intelligence={data.intelligence}
+              locale={locale}
+            />
           </div>
           <div className="lg:col-span-5">
             <MonthlySummary locale={locale} summary={data.summary} />

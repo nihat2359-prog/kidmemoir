@@ -583,7 +583,12 @@
       "description": "KidMemoir uygulama alanınız güvenli şekilde hazırlanıyor."
     },
     "loading": {
-      "message": "KidMemoir hesabınız hazırlanıyor…"
+      "message": "KidMemoir hesabınız hazırlanıyor…",
+      "eyebrow": "Güvenli başlangıç",
+      "title": "Hikâyeniz için her şeyi hazırlıyoruz.",
+      "description": "Tercihleriniz, güvenli alanınız ve aile deneyiminiz birkaç saniye içinde hazır olacak.",
+      "preferences": "Kişisel tercihler hazırlanıyor",
+      "security": "Güvenli oturum doğrulanıyor"
     },
     "error": {
       "title": "Hesabınız hazırlanamadı",
@@ -760,13 +765,18 @@
     },
     "childSwitcher": {
       "label": "Aktif çocuğu değiştir",
-      "avatarLabel": "{name} profil fotoğrafı"
+      "avatarLabel": "{name} profil fotoğrafı",
+      "changing": "Aktif çocuk değiştiriliyor"
+    },
+    "loading": {
+      "message": "Sayfa hazırlanıyor"
     },
     "notifications": {
       "openLabel": "Bildirimleri aç",
       "title": "Bildirimler",
       "emptyTitle": "Henüz bildirim yok",
-      "emptyDescription": "Ailenizle ilgili önemli gelişmeler burada görünecek."
+      "emptyDescription": "Ailenizle ilgili önemli gelişmeler burada görünecek.",
+      "emptyAction": "Anı oluştur"
     },
     "language": {
       "openLabel": "Dili değiştir",
@@ -790,6 +800,10 @@
     }
   },
   "memories": {
+    "connections": {
+      "title": "Bağlantılı anılar",
+      "description": "Bu anının yanında doğal olarak yer alan diğer anlar."
+    },
     "edit": {
       "metadata": {
         "title": "Anıyı Düzenle",
@@ -1041,6 +1055,54 @@
     }
   },
   "billing": {
+    "aiUpgrade": {
+      "badge": "KidMemoir Premium",
+      "open": "Premium ile Keşfet",
+      "price": "$49.99 / yıl",
+      "billing": "Aylık yaklaşık $4.17, yıllık tahsil edilir",
+      "upgrade": "Premium'a Geç",
+      "later": "Şimdi Değil",
+      "benefits": {
+        "stories": "Haftalık, aylık ve yıllık hikâyeler",
+        "search": "Anlama dayalı anı araması",
+        "connections": "Bağlantılı anı önerileri",
+        "development": "Gelişim eğilimleri ve içgörüler"
+      },
+      "features": {
+        "weekly": {
+          "title": "Haftalık AI hikâyen Premium ile hazır",
+          "description": "Bu haftanın küçük anlarını sıcak bir hikâyede bir araya getir."
+        },
+        "monthly": {
+          "title": "Ayı anlamlı bir hikâye olarak görün",
+          "description": "Premium, gelişim örüntülerini ve unutulmaz anları bir araya getirir."
+        },
+        "yearly": {
+          "title": "Yılı yaşayan bir hikâye olarak saklayın",
+          "description": "Gelecekteki anı kitabınıza hazır yıllık bir anlatı oluşturun."
+        },
+        "trends": {
+          "title": "Son zamanlarda nelerin geliştiğini görün",
+          "description": "Premium, mevcut içgörülerden tekrar eden ilgi ve aktiviteleri ortaya çıkarır."
+        },
+        "development": {
+          "title": "Gelişimi anılar üzerinden anlayın",
+          "description": "Etiketleme veya teşhis olmadan, kayıtlara dayalı nazik örüntüler görün."
+        },
+        "connections": {
+          "title": "Birbiriyle ilişkili anları yeniden keşfedin",
+          "description": "Premium, doğal olarak birbirine ait anıları bulur."
+        },
+        "search": {
+          "title": "Anıları anlamlarıyla bulun",
+          "description": "Başlıklarını hatırlamasanız bile anları doğal ifadelerle arayın."
+        },
+        "history": {
+          "title": "Tüm anı geçmişinizi zenginleştirin",
+          "description": "Eski anıları istediğiniz zaman arka planda işleyin."
+        }
+      }
+    },
     "upgradeBanner": {
       "general": {
         "title": "KidMemoir Premium ile daha fazlasını saklayın",
@@ -1564,6 +1626,9 @@
       "eyebrow": "Aileniz",
       "title": "Çocuklarım",
       "description": "Çocuk profillerini düzenleyin ve aktif çocuğu seçin.",
+      "emptyTitle": "Henüz çocuk profili yok",
+      "emptyDescription": "Hikâyesini saklamaya başlamak için ilk çocuk profilinizi ekleyin.",
+      "emptyAction": "İlk Çocuğu Ekle",
       "add": "Yeni Çocuk Ekle",
       "addPremium": "Premium ile İkinci Çocuğu Ekle",
       "card": {
@@ -1646,6 +1711,20 @@
         "photos": "Fotoğraf",
         "videos": "Video",
         "audio": "Ses kaydı"
+      },
+      "aiUsage": {
+        "title": "AI Kullanımı",
+        "description": "İçgörüler bir kez oluşturulur ve AI kullanımını verimli tutmak için önbellekten yeniden kullanılır.",
+        "insightsTotal": "Toplam AI içgörüsü",
+        "insightsMonth": "Bu ay oluşturulan içgörü",
+        "allowance": "AI içgörü erişimi",
+        "freeAllowance": "{limit} keşif içgörüsünden {count} tanesi hazır",
+        "unlimited": "Sınırsız",
+        "apiCalls": "Bu ay AI çağrısı",
+        "cacheHits": "Bu ay önbellek kullanımı",
+        "estimatedCost": "Bu ay tahmini maliyet",
+        "enrichHistory": "Geçmiş Anıları AI ile Zenginleştir",
+        "enrichDescription": "Yalnızca henüz içgörüsü olmayan anılar sıraya alınır. Mevcut sonuçlar yeniden oluşturulmaz."
       },
       "details": {
         "title": "Abonelik Detayları",
@@ -1767,6 +1846,12 @@
       "backDashboard": "Ana Sayfaya Dön",
       "avatarLabel": "{name} profil fotoğrafı"
     },
+    "ai": {
+      "premiumBadge": "Premium",
+      "previewTitle": "Hikâyedeki bağlantıları keşfedin",
+      "previewDescription": "Premium; ilişkili anıları, anlamlı öne çıkanları ve doğal olarak birbirine bağlanan anları ortaya çıkarır.",
+      "title": "AI ile Öne Çıkanlar"
+    },
     "filters": {
       "ariaLabel": "Zaman tüneli filtreleri",
       "searchLabel": "Anılarda ara",
@@ -1850,7 +1935,8 @@
       "title": "Son Anılar",
       "viewAll": "Tümünü gör",
       "emptyTitle": "Henüz anı eklenmedi",
-      "emptyDescription": "İlk anınızı eklediğinizde burada güvenle saklanacak."
+      "emptyDescription": "İlk anınızı eklediğinizde burada güvenle saklanacak.",
+      "emptyAction": "Anı Oluştur"
     },
     "upcoming": {
       "ariaLabel": "Yaklaşan günler ve hatırlatmalar",
@@ -1866,7 +1952,25 @@
       "eyebrow": "KidMemoir AI",
       "title": "Gelişim İçgörüsü",
       "emptyTitle": "İçgörüler anılarla büyür",
-      "emptyDescription": "İlk anılar eklendiğinde AI burada gelişim analizleri sunacak."
+      "emptyDescription": "İlk anılar eklendiğinde AI burada gelişim analizleri sunacak.",
+      "emptyAction": "Anı Oluştur",
+      "premiumTitle": "Anı zekâsı Premium ile hazır",
+      "premiumDescription": "AI kartlarını burada görebilir, Premium ile anılarınızdan içgörüler oluşturabilirsiniz.",
+      "premiumAction": "Premium'u İncele",
+      "notable": "Bugün dikkat çeken",
+      "emotional": "Duygusal anı",
+      "favorites": "Favoriler",
+      "favoriteCount": "{count, plural, =0 {Henüz favori yok} one {# favori} other {# favori}}",
+      "activities": "Son aktiviteler",
+      "activityCount": "{count, plural, =0 {Yeni anılar bekleniyor} one {# gelişen alan} other {# gelişen alan}}",
+      "waiting": "Yeni anılarla büyüyecek",
+      "premiumBadge": "Premium",
+      "previewStory": "Bu haftanın hikâyesi",
+      "previewTrends": "Anı eğilimleri",
+      "previewLines": "Ailenizin anılarından nazik bir önizleme.",
+      "weeklyPreview": "Haftalık AI hikâyeni Premium ile gör.",
+      "trendsPreview": "Gelişen ilgi alanlarını Premium ile keşfet.",
+      "previewAction": "Keşfet"
     },
     "summary": {
       "ariaLabel": "Bu ayın anı özeti",
@@ -1883,12 +1987,40 @@
       "title": "Zaman Tünelinden",
       "viewTimeline": "Tümünü Gör",
       "emptyTitle": "Hikâye başlamaya hazır",
-      "emptyDescription": "Eklediğiniz anılar zaman içinde burada anlamlı bir akış oluşturacak."
+      "emptyDescription": "Eklediğiniz anılar zaman içinde burada anlamlı bir akış oluşturacak.",
+      "emptyAction": "Anı Oluştur"
     },
     "error": {
       "title": "Dashboard yüklenemedi",
       "description": "Verileriniz şu anda alınamadı. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
       "retry": "Tekrar dene"
+    }
+  },
+  "statusPages": {
+    "notFound": {
+      "eyebrow": "404 · Sayfa bulunamadı",
+      "title": "Bu sayfa hikâyenin bir parçası değil.",
+      "description": "Adres değişmiş veya sayfa artık kullanılamıyor olabilir.",
+      "action": "Ana sayfaya dön"
+    },
+    "unexpected": {
+      "eyebrow": "Bir sorun oluştu",
+      "title": "Bu sayfayı açamadık.",
+      "description": "Verileriniz güvende. Sayfayı tekrar yükleyin veya ana sayfaya dönün.",
+      "retry": "Tekrar dene",
+      "home": "Ana sayfaya dön"
+    },
+    "forbidden": {
+      "eyebrow": "403 · Erişim kısıtlandı",
+      "title": "Bu alan size özel değil.",
+      "description": "Hesabınızın bu sayfayı görüntüleme yetkisi bulunmuyor.",
+      "action": "Ana sayfaya dön"
+    },
+    "offline": {
+      "eyebrow": "Çevrimdışısınız",
+      "title": "Anılarınız sizi bekliyor.",
+      "description": "İnternet bağlantınızı kontrol edin ve kaldığınız yerden devam etmek için KidMemoir'a dönün.",
+      "action": "Tekrar dene"
     }
   }
 }

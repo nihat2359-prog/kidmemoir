@@ -2,6 +2,7 @@ import { PencilLine } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { CreateMemoryForm } from "@/features/memories/components/CreateMemoryForm";
 import { DeleteMemoryButton } from "@/features/memories/components/DeleteMemoryButton";
+import { MemoryConnections } from "@/features/memories/components/MemoryConnections";
 import type { CreateMemoryInput } from "@/features/memories/schemas/createMemorySchema";
 import type {
   CreateMemoryContext,
@@ -11,12 +12,19 @@ import type { AppLocale } from "@/i18n/routing";
 
 export async function EditMemoryExperience({
   context,
+  connections,
   eventId,
   existingMedia,
   initialValues,
   locale,
 }: {
   context: CreateMemoryContext;
+  connections: ReadonlyArray<{
+    id: string;
+    occurred_at: string;
+    similarity: number;
+    title: string;
+  }>;
   eventId: string;
   existingMedia: ExistingMemoryMedia | null;
   initialValues: CreateMemoryInput;
@@ -51,6 +59,7 @@ export async function EditMemoryExperience({
             today={today}
             tomorrow={now.toISOString().slice(0, 10)}
           />
+          <MemoryConnections connections={connections} locale={locale} />
           <section className="border-danger/20 bg-danger/5 mt-12 flex flex-col gap-4 rounded-[2rem] border p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>
               <h2 className="font-semibold">{t("delete.sectionTitle")}</h2>

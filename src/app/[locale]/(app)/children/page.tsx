@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { AccountPage } from "@/features/account/components/AccountPage";
 import { ChildCard } from "@/features/account/components/ChildCard";
 import {
@@ -70,11 +71,24 @@ export default async function ChildrenPage({ params }: Props) {
           </Link>
         </Button>
       </div>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {children.map((child) => (
-          <ChildCard child={child} key={child.id} locale={locale} />
-        ))}
-      </div>
+      {children.length ? (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {children.map((child) => (
+            <ChildCard child={child} key={child.id} locale={locale} />
+          ))}
+        </div>
+      ) : (
+        <EmptyState
+          action={
+            <Button asChild>
+              <Link href="/children/new">{t("emptyAction")}</Link>
+            </Button>
+          }
+          description={t("emptyDescription")}
+          icon={<Baby aria-hidden />}
+          title={t("emptyTitle")}
+        />
+      )}
     </AccountPage>
   );
 }

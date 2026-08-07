@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { BookHeart, CalendarDays, Mic, Video } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { Button } from "@/components/ui/Button";
 import { DashboardCard } from "@/features/dashboard/components/DashboardCard";
 import { DashboardEmptyState } from "@/features/dashboard/components/DashboardEmptyState";
 import { DashboardSectionHeader } from "@/features/dashboard/components/DashboardSectionHeader";
@@ -25,6 +26,11 @@ export async function RecentMemories({
       />
       {memories.length === 0 ? (
         <DashboardEmptyState
+          action={
+            <Button asChild>
+              <Link href="/memories/new">{t("emptyAction")}</Link>
+            </Button>
+          }
           description={t("emptyDescription")}
           icon={BookHeart}
           title={t("emptyTitle")}
@@ -47,7 +53,6 @@ export async function RecentMemories({
                   className="absolute top-5 right-5 z-10 h-20 w-24 rounded-2xl border border-white/40 object-cover shadow-sm transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transform-none"
                   height={160}
                   src={memory.photoUrl}
-                  unoptimized
                   width={192}
                 />
               ) : null}

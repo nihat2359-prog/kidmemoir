@@ -4,6 +4,7 @@ import { normalizeAuthError } from "@/features/auth/errors/normalizeAuthError";
 import { getClientEnvironment } from "@/lib/env/client";
 import type { CookieToSet } from "@/lib/supabase/cookies";
 import type { Database } from "@/types/database.types";
+import { enforceRateLimit, requestFingerprint } from "@/lib/security/rateLimit";
 
 type LoginRequest = Readonly<{
   email?: unknown;
@@ -16,6 +17,19 @@ export async function POST(request: NextRequest) {
   if (typeof body?.email !== "string" || typeof body.password !== "string") {
     return NextResponse.json({ code: "UNKNOWN" }, { status: 400 });
   }
+
+  const rateLimit = enforceRateLimit(
+    requestFingerprint(request, body.email.trim().toLowerCase()),
+    { limit: 10, namespace: "auth-login", windowMs: 10 * 60 * 1000 },
+  );
+  if (!rateLimit.allowed)
+    return NextResponse.json(
+      { code: "RATE_LIMITED" },
+      {
+        headers: { "Retry-After": String(rateLimit.retryAfter) },
+        status: 429,
+      },
+    );
 
   const environment = getClientEnvironment();
   const authCookies: CookieToSet[] = [];

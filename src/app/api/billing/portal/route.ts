@@ -12,11 +12,17 @@ function localeFrom(value: string | null): AppLocale {
 }
 
 export async function GET(request: NextRequest) {
+  const expectsJson = request.headers
+    .get("accept")
+    ?.includes("application/json");
   const locale = localeFrom(request.nextUrl.searchParams.get("locale"));
   const target = request.nextUrl.searchParams.get("target");
   const user = await getCurrentUser();
-  if (!user)
+  if (!user) {
+    const redirectTo = `/${locale}/login`;
+    if (expectsJson) return NextResponse.json({ redirectTo }, { status: 401 });
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url), 303);
+  }
   try {
     const supabase = await createClient();
     const subscription = await supabase
@@ -33,12 +39,12 @@ export async function GET(request: NextRequest) {
     const destination =
       target === "payment" ? urls.updatePaymentMethod : urls.customerPortal;
     if (!destination) throw new Error("Lemon portal URL is unavailable");
+    if (expectsJson) return NextResponse.json({ portalUrl: destination });
     return NextResponse.redirect(destination, 303);
   } catch (error) {
     console.error("Lemon customer portal redirect failed", error);
-    return NextResponse.redirect(
-      new URL(`/${locale}/subscription?billing_error=portal`, request.url),
-      303,
-    );
+    const redirectTo = `/${locale}/subscription?billing_error=portal`;
+    if (expectsJson) return NextResponse.json({ redirectTo }, { status: 502 });
+    return NextResponse.redirect(new URL(redirectTo, request.url), 303);
   }
 }

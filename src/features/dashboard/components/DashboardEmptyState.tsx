@@ -1,10 +1,13 @@
 import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 export function DashboardEmptyState({
+  action,
   description,
   icon: Icon,
   title,
 }: {
+  action?: ReactNode;
   description: string;
   icon: LucideIcon;
   title: string;
@@ -18,6 +21,7 @@ export function DashboardEmptyState({
       <p className="text-muted-foreground mt-2 max-w-sm text-sm leading-6 text-pretty">
         {description}
       </p>
+      {action ? <div className="relative z-10 mt-6">{action}</div> : null}
       <div
         aria-hidden
         className="bg-primary/8 absolute -right-12 -bottom-16 size-40 rounded-full blur-3xl"

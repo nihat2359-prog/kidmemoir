@@ -3,6 +3,7 @@ import { OnThisDaySection } from "@/features/on-this-day";
 import { TimelineFeed } from "@/features/timeline/components/TimelineFeed";
 import { TimelineFilters } from "@/features/timeline/components/TimelineFilters";
 import { TimelineHero } from "@/features/timeline/components/TimelineHero";
+import { TimelineAiHighlights } from "@/features/timeline/components/TimelineAiHighlights";
 import type {
   TimelineFiltersValue,
   TimelineScreenData,
@@ -46,6 +47,7 @@ export async function TimelineExperience({
           title={t("hero.title")}
         />
         <OnThisDaySection locale={locale} memories={data.onThisDay} />
+        <TimelineAiHighlights ai={data.ai} locale={locale} />
         <TimelineFilters
           categories={categories}
           filters={filters}

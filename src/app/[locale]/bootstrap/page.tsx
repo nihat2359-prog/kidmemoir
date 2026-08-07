@@ -16,6 +16,8 @@ type BootstrapPageProps = Readonly<{
   params: Promise<{ locale: string }>;
 }>;
 
+const MINIMUM_BOOTSTRAP_DURATION_MS = 900;
+
 export async function generateMetadata({
   params,
 }: BootstrapPageProps): Promise<Metadata> {
@@ -42,17 +44,24 @@ export default async function BootstrapPage({ params }: BootstrapPageProps) {
 
   try {
     const requestHeaders = await headers();
-    destination = await ensureApplicationBootstrap({
-      acceptLanguage: requestHeaders.get("accept-language"),
-      locale,
-      user,
-      userAgent: requestHeaders.get("user-agent"),
-    });
+    [destination] = await Promise.all([
+      ensureApplicationBootstrap({
+        acceptLanguage: requestHeaders.get("accept-language"),
+        locale,
+        user,
+        userAgent: requestHeaders.get("user-agent"),
+      }),
+      new Promise((resolve) =>
+        setTimeout(resolve, MINIMUM_BOOTSTRAP_DURATION_MS),
+      ),
+    ]);
   } catch (error) {
     console.error("Application bootstrap failed", error);
   }
 
-  if (destination) redirect(`/${locale}${destination}`);
+  if (destination) {
+    redirect(`/${locale}${destination}`);
+  }
 
   const t = await getTranslations({ locale, namespace: "bootstrap.error" });
   return (

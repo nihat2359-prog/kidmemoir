@@ -19,6 +19,6 @@ export default function robots(): MetadataRoute.Robots {
         "/*/reset-password",
       ],
     },
-    sitemap: "https://kidmemoir.com/sitemap.xml",
+    sitemap: "https://www.kidmemoir.com/sitemap.xml",
   };
 }

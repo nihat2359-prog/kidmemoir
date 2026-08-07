@@ -4,6 +4,7 @@ import { getAccountPlan } from "@/features/account/services/accountService";
 import { lemonBillingService } from "@/features/billing/services/lemonBillingService";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
+import { enforceRateLimit, requestFingerprint } from "@/lib/security/rateLimit";
 
 function localeFrom(value: FormDataEntryValue | null): AppLocale {
   return typeof value === "string" && hasLocale(routing.locales, value)
@@ -21,6 +22,23 @@ export async function POST(request: NextRequest) {
   if (!user?.email) {
     const redirectTo = `/${locale}/login?next=/subscription`;
     if (expectsJson) return NextResponse.json({ redirectTo }, { status: 401 });
+    return NextResponse.redirect(new URL(redirectTo, request.url), 303);
+  }
+  const rateLimit = enforceRateLimit(requestFingerprint(request, user.id), {
+    limit: 8,
+    namespace: "billing-checkout",
+    windowMs: 5 * 60 * 1000,
+  });
+  if (!rateLimit.allowed) {
+    const redirectTo = `/${locale}/subscription?billing_error=checkout`;
+    if (expectsJson)
+      return NextResponse.json(
+        { redirectTo },
+        {
+          headers: { "Retry-After": String(rateLimit.retryAfter) },
+          status: 429,
+        },
+      );
     return NextResponse.redirect(new URL(redirectTo, request.url), 303);
   }
   try {

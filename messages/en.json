@@ -581,7 +581,12 @@
       "description": "Your KidMemoir application space is being prepared securely."
     },
     "loading": {
-      "message": "Preparing your KidMemoir account…"
+      "message": "Preparing your KidMemoir account…",
+      "eyebrow": "Secure start",
+      "title": "We are preparing everything for your story.",
+      "description": "Your preferences, secure space and family experience will be ready in just a moment.",
+      "preferences": "Preparing personal preferences",
+      "security": "Verifying your secure session"
     },
     "error": {
       "title": "We could not prepare your account",
@@ -758,13 +763,18 @@
     },
     "childSwitcher": {
       "label": "Switch active child",
-      "avatarLabel": "Profile photo for {name}"
+      "avatarLabel": "Profile photo for {name}",
+      "changing": "Changing active child"
+    },
+    "loading": {
+      "message": "Preparing page"
     },
     "notifications": {
       "openLabel": "Open notifications",
       "title": "Notifications",
       "emptyTitle": "No notifications yet",
-      "emptyDescription": "Important updates about your family will appear here."
+      "emptyDescription": "Important updates about your family will appear here.",
+      "emptyAction": "Create a memory"
     },
     "language": {
       "openLabel": "Change language",
@@ -788,6 +798,10 @@
     }
   },
   "memories": {
+    "connections": {
+      "title": "Connected memories",
+      "description": "Other moments that naturally belong beside this memory."
+    },
     "edit": {
       "metadata": {
         "title": "Edit Memory",
@@ -1042,6 +1056,54 @@
     }
   },
   "billing": {
+    "aiUpgrade": {
+      "badge": "KidMemoir Premium",
+      "open": "Discover with Premium",
+      "price": "$49.99 / year",
+      "billing": "Approximately $4.17/month, billed annually",
+      "upgrade": "Upgrade to Premium",
+      "later": "Not Now",
+      "benefits": {
+        "stories": "Weekly, monthly and annual stories",
+        "search": "Semantic memory search",
+        "connections": "Related memory connections",
+        "development": "Development trends and insights"
+      },
+      "features": {
+        "weekly": {
+          "title": "Your weekly AI story is ready with Premium",
+          "description": "Turn this week's little moments into one warm story."
+        },
+        "monthly": {
+          "title": "See the month as a meaningful story",
+          "description": "Premium brings together development patterns and memorable moments."
+        },
+        "yearly": {
+          "title": "Preserve the year as a living story",
+          "description": "Create an annual narrative ready for your future memory book."
+        },
+        "trends": {
+          "title": "See what has been growing lately",
+          "description": "Premium reveals recurring interests and activities from existing insights."
+        },
+        "development": {
+          "title": "Understand development through memories",
+          "description": "View gentle, evidence-based patterns without labels or diagnoses."
+        },
+        "connections": {
+          "title": "Reconnect related moments",
+          "description": "Premium finds memories that naturally belong together."
+        },
+        "search": {
+          "title": "Find memories by meaning",
+          "description": "Search for moments naturally, even when you do not remember their titles."
+        },
+        "history": {
+          "title": "Enrich your complete memory history",
+          "description": "Process older memories in the background whenever you choose."
+        }
+      }
+    },
     "upgradeBanner": {
       "general": {
         "title": "Preserve more with KidMemoir Premium",
@@ -1565,6 +1627,9 @@
       "eyebrow": "Your Family",
       "title": "My Children",
       "description": "Edit child profiles and choose the active child.",
+      "emptyTitle": "No child profiles yet",
+      "emptyDescription": "Add your first child profile to begin preserving their story.",
+      "emptyAction": "Add First Child",
       "add": "Add New Child",
       "addPremium": "Add a Second Child with Premium",
       "card": {
@@ -1647,6 +1712,20 @@
         "photos": "Photos",
         "videos": "Videos",
         "audio": "Audio recordings"
+      },
+      "aiUsage": {
+        "title": "AI Usage",
+        "description": "Insights are generated once and reused from cache to keep AI efficient.",
+        "insightsTotal": "Total AI insights",
+        "insightsMonth": "Insights this month",
+        "allowance": "AI insight access",
+        "freeAllowance": "{count} of {limit} discovery insights available",
+        "unlimited": "Unlimited",
+        "apiCalls": "AI calls this month",
+        "cacheHits": "Cache uses this month",
+        "estimatedCost": "Estimated cost this month",
+        "enrichHistory": "Enrich Past Memories with AI",
+        "enrichDescription": "Queues only memories without an existing insight. Existing results are never regenerated."
       },
       "details": {
         "title": "Subscription Details",
@@ -1768,6 +1847,12 @@
       "backDashboard": "Return Home",
       "avatarLabel": "Profile photo of {name}"
     },
+    "ai": {
+      "premiumBadge": "Premium",
+      "previewTitle": "Discover connections across the story",
+      "previewDescription": "Premium reveals related memories, meaningful highlights and moments that naturally belong together.",
+      "title": "AI Highlights"
+    },
     "filters": {
       "ariaLabel": "Timeline filters",
       "searchLabel": "Search memories",
@@ -1851,7 +1936,8 @@
       "title": "Recent Memories",
       "viewAll": "View all",
       "emptyTitle": "No memories yet",
-      "emptyDescription": "Your first memory will be preserved here when you add it."
+      "emptyDescription": "Your first memory will be preserved here when you add it.",
+      "emptyAction": "Create a Memory"
     },
     "upcoming": {
       "ariaLabel": "Upcoming dates and reminders",
@@ -1867,7 +1953,25 @@
       "eyebrow": "KidMemoir AI",
       "title": "Development Insight",
       "emptyTitle": "Insights grow with memories",
-      "emptyDescription": "When the first memories are added, AI will provide development insights here."
+      "emptyDescription": "When the first memories are added, AI will provide development insights here.",
+      "emptyAction": "Create a Memory",
+      "premiumTitle": "Memory intelligence is ready with Premium",
+      "premiumDescription": "Your AI cards are visible here, while generation is reserved for Premium families.",
+      "premiumAction": "Explore Premium",
+      "notable": "Notable today",
+      "emotional": "Emotional memory",
+      "favorites": "Favorites",
+      "favoriteCount": "{count, plural, =0 {No favorites yet} one {# favorite} other {# favorites}}",
+      "activities": "Recent activity",
+      "activityCount": "{count, plural, =0 {Waiting for new memories} one {# growing area} other {# growing areas}}",
+      "waiting": "Grows with new memories",
+      "premiumBadge": "Premium",
+      "previewStory": "This week's story",
+      "previewTrends": "Memory trends",
+      "previewLines": "A gentle preview from your family's memories.",
+      "weeklyPreview": "See your weekly AI story with Premium.",
+      "trendsPreview": "Discover growing interests with Premium.",
+      "previewAction": "Discover"
     },
     "summary": {
       "ariaLabel": "This month's memory summary",
@@ -1884,12 +1988,40 @@
       "title": "From the Timeline",
       "viewTimeline": "View All",
       "emptyTitle": "The story is ready to begin",
-      "emptyDescription": "The memories you add will form a meaningful flow here over time."
+      "emptyDescription": "The memories you add will form a meaningful flow here over time.",
+      "emptyAction": "Create a Memory"
     },
     "error": {
       "title": "Unable to load dashboard",
       "description": "Your data could not be loaded right now. Check your connection and try again.",
       "retry": "Try again"
+    }
+  },
+  "statusPages": {
+    "notFound": {
+      "eyebrow": "404 · Page not found",
+      "title": "This page is not part of the story.",
+      "description": "The address may have changed or the page may no longer be available.",
+      "action": "Return home"
+    },
+    "unexpected": {
+      "eyebrow": "Something went wrong",
+      "title": "We could not open this page.",
+      "description": "Your data is safe. Try loading the page again or return home.",
+      "retry": "Try again",
+      "home": "Return home"
+    },
+    "forbidden": {
+      "eyebrow": "403 · Access restricted",
+      "title": "This area is private.",
+      "description": "Your account does not have permission to view this page.",
+      "action": "Return home"
+    },
+    "offline": {
+      "eyebrow": "You are offline",
+      "title": "Your memories are waiting for you.",
+      "description": "Check your internet connection, then return to KidMemoir and continue where you left off.",
+      "action": "Try again"
     }
   }
 }

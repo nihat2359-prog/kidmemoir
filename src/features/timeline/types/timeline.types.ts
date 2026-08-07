@@ -37,6 +37,14 @@ export type TimelinePageResult = Readonly<{
 export type TimelineCategory = Readonly<{ id: string; name: string }>;
 
 export type TimelineScreenData = Readonly<{
+  ai: Readonly<{
+    highlights: readonly Readonly<{
+      id: string;
+      occurredAt: string;
+      title: string;
+    }>[];
+    isPremium: boolean;
+  }>;
   categories: readonly TimelineCategory[];
   child: Readonly<{
     avatarUrl: string | null;

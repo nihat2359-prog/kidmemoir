@@ -2,6 +2,7 @@
 
 import { Bell, BellRing } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import {
   DropdownMenu,
@@ -34,6 +35,9 @@ export function NotificationMenu() {
           <p className="text-muted-foreground mt-1 max-w-56 text-xs leading-5">
             {t("emptyDescription")}
           </p>
+          <Button asChild className="mt-4" size="sm" variant="outline">
+            <Link href="/memories/new">{t("emptyAction")}</Link>
+          </Button>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

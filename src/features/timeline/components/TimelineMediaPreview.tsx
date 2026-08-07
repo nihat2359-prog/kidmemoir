@@ -21,7 +21,6 @@ export function TimelineMediaPreview({
           fill
           sizes="(min-width: 1024px) 48vw, 100vw"
           src={photo.url}
-          unoptimized
         />
       </div>
     );

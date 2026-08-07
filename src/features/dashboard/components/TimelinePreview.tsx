@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Clock3, Mic, Milestone, Video } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { Button } from "@/components/ui/Button";
 import { DashboardCard } from "@/features/dashboard/components/DashboardCard";
 import { DashboardEmptyState } from "@/features/dashboard/components/DashboardEmptyState";
 import { DashboardSectionHeader } from "@/features/dashboard/components/DashboardSectionHeader";
@@ -25,6 +26,11 @@ export async function TimelinePreview({
       />
       {memories.length === 0 ? (
         <DashboardEmptyState
+          action={
+            <Button asChild>
+              <Link href="/memories/new">{t("emptyAction")}</Link>
+            </Button>
+          }
           description={t("emptyDescription")}
           icon={Milestone}
           title={t("emptyTitle")}
@@ -55,7 +61,6 @@ export async function TimelinePreview({
                     className="mb-4 h-24 w-full rounded-xl object-cover"
                     height={192}
                     src={memory.photoUrl}
-                    unoptimized
                     width={448}
                   />
                 ) : null}

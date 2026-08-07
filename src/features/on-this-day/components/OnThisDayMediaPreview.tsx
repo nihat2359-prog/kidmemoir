@@ -18,7 +18,6 @@ export function OnThisDayMediaPreview({
           fill
           sizes="(min-width: 1024px) 44vw, 100vw"
           src={media.url}
-          unoptimized
         />
       </div>
     );
