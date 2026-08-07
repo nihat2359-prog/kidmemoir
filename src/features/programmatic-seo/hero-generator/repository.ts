@@ -514,6 +514,15 @@ export async function reviewHeroGuide(
     .eq("id", draftId)
     .single();
   if (current.error) throw new Error("SEO_DRAFT_NOT_FOUND");
+  if (action === "approve") {
+    const draft = await getHeroGuideDraft(draftId);
+    if (!draft) throw new Error("SEO_DRAFT_NOT_FOUND");
+    await ensureDraftReviewRelations(
+      draftId,
+      draft.generation.input.topicId,
+      draft.generation.input.locale,
+    );
+  }
   const now = new Date().toISOString();
   if (action === "reject") {
     const rejected = await db
@@ -549,6 +558,53 @@ export async function reviewHeroGuide(
     })
     .eq("id", draftId);
   if (approved.error) throw new Error("SEO_APPROVE_FAILED");
+}
+
+async function ensureDraftReviewRelations(
+  draftId: string,
+  topicId: string,
+  locale: string,
+) {
+  const db = createAdminClient();
+  const existing = await db
+    .from("seo_draft_related_topics")
+    .select("target_topic_id,position")
+    .eq("draft_id", draftId)
+    .order("position");
+  if (existing.error) throw new Error("SEO_RELATED_TOPICS_LOOKUP_FAILED");
+  if (existing.data.length >= 5) return;
+  const topic = await db
+    .from("seo_topics")
+    .select("cluster_id")
+    .eq("id", topicId)
+    .single();
+  if (topic.error) throw new Error("SEO_TOPIC_NOT_FOUND");
+  const candidates = await db
+    .from("seo_topics")
+    .select("id")
+    .eq("cluster_id", topic.data.cluster_id)
+    .eq("locale", locale)
+    .in("status", ["draft", "published"])
+    .neq("id", topicId)
+    .order("title")
+    .limit(10);
+  if (candidates.error) throw new Error("SEO_RELATED_TOPICS_LOOKUP_FAILED");
+  const existingIds = new Set(
+    existing.data.map((item) => item.target_topic_id),
+  );
+  const additions = candidates.data
+    .filter((candidate) => !existingIds.has(candidate.id))
+    .slice(0, Math.max(0, 5 - existing.data.length))
+    .map((candidate, index) => ({
+      content_type: "guide" as const,
+      draft_id: draftId,
+      position: existing.data.length + index + 1,
+      semantic_score: 0.7,
+      target_topic_id: candidate.id,
+    }));
+  if (!additions.length) return;
+  const inserted = await db.from("seo_draft_related_topics").insert(additions);
+  if (inserted.error) throw new Error("SEO_RELATED_TOPICS_CREATE_FAILED");
 }
 
 export async function publishHeroGuide(draftId: string) {
