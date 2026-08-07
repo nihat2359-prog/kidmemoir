@@ -40,6 +40,7 @@ export default async function SupportPage({ params }: Props) {
       description={t("description")}
       eyebrow={t("eyebrow")}
       icon={LifeBuoy}
+      seoPath="/support"
       title={t("title")}
     >
       <div className="grid gap-6 pb-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,.85fr)] lg:items-start">

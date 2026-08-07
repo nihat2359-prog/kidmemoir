@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { JsonLdScript } from "@/components/seo/JsonLd";
 import {
   HelpCenterExplorer,
   type HelpCategory,
@@ -13,6 +14,7 @@ import { InformationPage } from "@/features/information/components/InformationPa
 import { informationMetadata } from "@/features/information/utils/metadata";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { schemaBuilders } from "@/lib/seo";
 
 type Props = Readonly<{ params: Promise<{ locale: string }> }>;
 const categoryKeys: HelpCategory["key"][] = [
@@ -65,38 +67,42 @@ export default async function HelpPage({ params }: Props) {
     question: t(`faq.items.${key}.question`),
   }));
   return (
-    <InformationPage
-      backLabel={t("back")}
-      description={t("description")}
-      eyebrow={t("eyebrow")}
-      icon={CircleHelp}
-      title={t("title")}
-    >
-      <HelpCenterExplorer
-        categories={categories}
-        labels={{
-          categories: t("categories.title"),
-          empty: t("search.empty"),
-          faq: t("faq.title"),
-          search: t("search.placeholder"),
-          searchLabel: t("search.label"),
-          soon: t("categories.soon"),
-        }}
-        questions={questions}
-      />
-      <section className="from-primary/12 via-card to-ai/10 mb-10 flex flex-col items-start justify-between gap-6 rounded-[2rem] border bg-gradient-to-br p-7 shadow-sm sm:flex-row sm:items-center sm:p-9">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight">
-            {t("unresolved.title")}
-          </h2>
-          <p className="text-muted-foreground mt-2 max-w-xl leading-7">
-            {t("unresolved.description")}
-          </p>
-        </div>
-        <Button asChild icon={<LifeBuoy aria-hidden />} size="lg">
-          <Link href="/support">{t("unresolved.action")}</Link>
-        </Button>
-      </section>
-    </InformationPage>
+    <>
+      <JsonLdScript data={schemaBuilders.faqPage(questions)} />
+      <InformationPage
+        backLabel={t("back")}
+        description={t("description")}
+        eyebrow={t("eyebrow")}
+        icon={CircleHelp}
+        seoPath="/help"
+        title={t("title")}
+      >
+        <HelpCenterExplorer
+          categories={categories}
+          labels={{
+            categories: t("categories.title"),
+            empty: t("search.empty"),
+            faq: t("faq.title"),
+            search: t("search.placeholder"),
+            searchLabel: t("search.label"),
+            soon: t("categories.soon"),
+          }}
+          questions={questions}
+        />
+        <section className="from-primary/12 via-card to-ai/10 mb-10 flex flex-col items-start justify-between gap-6 rounded-[2rem] border bg-gradient-to-br p-7 shadow-sm sm:flex-row sm:items-center sm:p-9">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight">
+              {t("unresolved.title")}
+            </h2>
+            <p className="text-muted-foreground mt-2 max-w-xl leading-7">
+              {t("unresolved.description")}
+            </p>
+          </div>
+          <Button asChild icon={<LifeBuoy aria-hidden />} size="lg">
+            <Link href="/support">{t("unresolved.action")}</Link>
+          </Button>
+        </section>
+      </InformationPage>
+    </>
   );
 }

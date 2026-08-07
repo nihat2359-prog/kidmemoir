@@ -13,10 +13,17 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/kidmemoir.svg",
         type: "image/svg+xml",
       },
+      {
+        purpose: "maskable",
+        sizes: "any",
+        src: "/kidmemoir.svg",
+        type: "image/svg+xml",
+      },
     ],
     name: "KidMemoir",
     short_name: "KidMemoir",
-    start_url: "/",
-    theme_color: "#315fa8",
+    scope: "/",
+    start_url: "/en",
+    theme_color: "#101622",
   };
 }

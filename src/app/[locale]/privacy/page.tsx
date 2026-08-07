@@ -61,6 +61,7 @@ export default async function PrivacyPage({ params }: Props) {
       description={t("description")}
       eyebrow={t("eyebrow")}
       icon={ShieldCheck}
+      seoPath="/privacy"
       title={t("title")}
     >
       <LegalDocument

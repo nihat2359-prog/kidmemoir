@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { AppLocale } from "@/i18n/routing";
-
-const siteUrl = "https://www.kidmemoir.com";
+import { buildMetadata } from "@/lib/seo";
 
 export function informationMetadata({
   description,
@@ -14,24 +13,10 @@ export function informationMetadata({
   path: string;
   title: string;
 }): Metadata {
-  const canonical = `${siteUrl}/${locale}/${path}`;
-  return {
-    alternates: {
-      canonical,
-      languages: {
-        en: `${siteUrl}/en/${path}`,
-        tr: `${siteUrl}/tr/${path}`,
-        "x-default": `${siteUrl}/en/${path}`,
-      },
-    },
+  return buildMetadata({
     description,
-    openGraph: {
-      description,
-      locale: locale === "tr" ? "tr_TR" : "en_US",
-      title,
-      type: "website",
-      url: canonical,
-    },
+    locale,
+    path,
     title,
-  };
+  });
 }

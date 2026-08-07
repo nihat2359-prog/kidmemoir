@@ -64,6 +64,7 @@ export default async function TermsPage({ params }: Props) {
       description={t("description")}
       eyebrow={t("eyebrow")}
       icon={FileText}
+      seoPath="/terms"
       title={t("title")}
     >
       <LegalDocument

@@ -2047,6 +2047,13 @@
       "retry": "Tekrar dene"
     }
   },
+  "programmaticSeo": {
+    "readingTime": "{minutes} dakika okuma",
+    "sections": {
+      "faq": "Sık sorulan sorular",
+      "related": "İlgili içerikler"
+    }
+  },
   "statusPages": {
     "notFound": {
       "eyebrow": "404 · Sayfa bulunamadı",

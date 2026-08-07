@@ -2048,6 +2048,13 @@
       "retry": "Try again"
     }
   },
+  "programmaticSeo": {
+    "readingTime": "{minutes} min read",
+    "sections": {
+      "faq": "Frequently asked questions",
+      "related": "Related content"
+    }
+  },
   "statusPages": {
     "notFound": {
       "eyebrow": "404 · Page not found",

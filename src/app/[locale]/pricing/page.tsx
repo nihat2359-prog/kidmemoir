@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { PricingExperience } from "@/features/billing/components/PricingExperience";
 import { InformationPage } from "@/features/information/components/InformationPage";
 import { routing } from "@/i18n/routing";
+import type { AppLocale } from "@/i18n/routing";
+import { buildMetadata } from "@/lib/seo";
 
 type Props = Readonly<{ params: Promise<{ locale: string }> }>;
 
@@ -16,41 +18,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     locale,
     namespace: "billing.pricing.metadata",
   });
-  const canonical = `https://www.kidmemoir.com/${locale}/pricing`;
-  return {
-    alternates: {
-      canonical,
-      languages: {
-        en: "https://www.kidmemoir.com/en/pricing",
-        tr: "https://www.kidmemoir.com/tr/pricing",
-        "x-default": "https://www.kidmemoir.com/en/pricing",
-      },
-    },
+  return buildMetadata({
     description: t("description"),
-    metadataBase: new URL("https://www.kidmemoir.com"),
-    openGraph: {
-      description: t("description"),
-      images: [
-        {
-          alt: t("imageAlt"),
-          height: 630,
-          url: `https://www.kidmemoir.com/${locale}/opengraph-image`,
-          width: 1200,
-        },
-      ],
-      locale: locale === "tr" ? "tr_TR" : "en_US",
-      title: t("title"),
-      type: "website",
-      url: canonical,
-    },
+    imageAlt: t("imageAlt"),
+    locale: locale as AppLocale,
+    path: "/pricing",
     title: t("title"),
-    twitter: {
-      card: "summary_large_image",
-      description: t("description"),
-      images: [`https://www.kidmemoir.com/${locale}/opengraph-image`],
-      title: t("title"),
-    },
-  };
+  });
 }
 
 export default async function PricingPage({ params }: Props) {
@@ -65,6 +39,7 @@ export default async function PricingPage({ params }: Props) {
       description={t("description")}
       eyebrow={t("eyebrow")}
       icon={CreditCard}
+      seoPath="/pricing"
       title={t("title")}
     >
       <PricingExperience />
