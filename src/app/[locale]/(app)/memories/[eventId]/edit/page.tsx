@@ -3,6 +3,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 import { getMemoryConnections, getMemoryInsight } from "@/features/ai";
+import { runMemoryInsightForEvent } from "@/features/ai/services/aiWorker";
 import { EditMemoryExperience } from "@/features/memories/components/EditMemoryExperience";
 import { getCreateMemoryContext } from "@/features/memories/services/createMemoryService";
 import { getEditableMemory } from "@/features/memories/services/editMemoryService";
@@ -10,6 +11,8 @@ import { routing, type AppLocale } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
 
 type Props = { params: Promise<{ eventId: string; locale: string }> };
+export const maxDuration = 60;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
@@ -31,12 +34,18 @@ export default async function EditMemoryPage({ params }: Props) {
   if (!user) redirect(`/${locale}/login?next=/memories/${eventId}/edit`);
   const context = await getCreateMemoryContext(user);
   if (!context) redirect(`/${locale}/onboarding`);
-  const [memory, connections, insight] = await Promise.all([
-    getEditableMemory(user, eventId, context.child.id),
+  const memory = await getEditableMemory(user, eventId, context.child.id);
+  if (!memory) notFound();
+
+  // Creating a memory starts this work after the response. If a serverless
+  // invocation is frozen before it finishes, opening the memory safely
+  // resumes the same idempotent job instead of leaving the insight empty.
+  await runMemoryInsightForEvent(eventId);
+
+  const [connections, insight] = await Promise.all([
     getMemoryConnections(user, context.child.id, eventId),
     getMemoryInsight(user, context.child.id, eventId),
   ]);
-  if (!memory) notFound();
   return (
     <EditMemoryExperience
       context={context}
