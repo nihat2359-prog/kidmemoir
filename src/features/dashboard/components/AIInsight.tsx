@@ -24,12 +24,12 @@ export async function AIInsight({
   const t = await getTranslations({ locale, namespace: "dashboard.ai" });
   return (
     <DashboardCard
-      className="from-ai/14 via-card/75 to-primary/8 relative h-full overflow-hidden bg-gradient-to-br shadow-md hover:shadow-lg"
+      className="from-ai/14 via-card/75 to-primary/8 relative self-start overflow-hidden bg-gradient-to-br p-5 shadow-md hover:shadow-lg sm:p-8"
       label={t("ariaLabel")}
     >
-      <div className="relative z-10 mb-7 flex items-center gap-4">
-        <span className="from-ai/20 to-primary/15 text-ai grid size-14 place-items-center rounded-2xl bg-gradient-to-br shadow-sm">
-          <Sparkles aria-hidden className="size-6" />
+      <div className="relative z-10 mb-5 flex items-center gap-3 sm:mb-7 sm:gap-4">
+        <span className="from-ai/20 to-primary/15 text-ai grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br shadow-sm sm:size-14 sm:rounded-2xl">
+          <Sparkles aria-hidden className="size-5 sm:size-6" />
         </span>
         <div>
           <p className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
@@ -42,7 +42,7 @@ export async function AIInsight({
       </div>
       {insight ? (
         <div className="relative z-10 space-y-4">
-          <div className="bg-background/50 rounded-[1.75rem] border p-6 text-base leading-8 shadow-sm backdrop-blur-md sm:p-8">
+          <div className="bg-background/50 rounded-[1.4rem] border p-4 text-sm leading-7 shadow-sm backdrop-blur-md sm:rounded-[1.75rem] sm:p-8 sm:text-base sm:leading-8">
             <p className="text-pretty">{insight.summary}</p>
             {insight.quote ? (
               <blockquote className="border-primary/35 text-foreground/80 mt-4 border-l-2 pl-4 text-sm italic">

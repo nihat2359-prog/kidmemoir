@@ -737,7 +737,9 @@
       "reports": "Raporlar",
       "settings": "Ayarlar",
       "profile": "Profil",
-      "children": "Çocuklarım"
+      "children": "Çocuklarım",
+      "reminders": "Hatırlatmalar",
+      "subscription": "Abonelik"
     },
     "account": {
       "openLabel": "Hesap menüsünü aç",
@@ -826,6 +828,15 @@
         "emotion": "Bu anlar benzer bir duygusal tona sahip.",
         "context": "Kaydedilen anlamları ve bağlamları onları doğal olarak birleştiriyor."
       }
+    },
+    "detail": {
+      "back": "Tüm Anılar",
+      "edit": "Anıyı Düzenle",
+      "mediaLabel": "Anı medyaları",
+      "videoFallback": "Tarayıcınız bu videoyu oynatamıyor.",
+      "audioFallback": "Tarayıcınız bu ses kaydını oynatamıyor.",
+      "deleteTitle": "Anıyı sil",
+      "deleteDescription": "Artık saklamak istemiyorsanız bu anıyı aktif görünümlerden kaldırın."
     },
     "edit": {
       "metadata": {
@@ -1601,8 +1612,20 @@
       "description": "Hesap silme işlemi profilinizi, çocuklarınızı ve anılarınızı etkiler.",
       "trigger": "Hesabı Sil",
       "confirmTitle": "Hesabınızı silmek mi istiyorsunuz?",
-      "unavailable": "Güvenli hesap silme işlemi için Supabase üzerinde yetkili silme fonksiyonu henüz yapılandırılmamış. Verilerinizin eksik veya yanlış silinmesini önlemek için işlem şu anda tamamlanamaz.",
-      "close": "Kapat"
+      "confirmDescription": "Bu kalıcı işlem geri alınamaz. Devam etmeden önce silinecek verileri gözden geçirin.",
+      "confirmationLabel": "Onaylamak için DELETE yazın",
+      "items": {
+        "profile": "Profil ve hesap bilgileri",
+        "children": "Çocuk profilleri",
+        "memories": "Anılar, hatırlatmalar ve AI içgörüleri",
+        "media": "Saklanan fotoğraf, video, ses ve dosyalar",
+        "subscription": "Abonelik ilişkisi",
+        "preferences": "Ayarlar ve bildirim tercihleri"
+      },
+      "error": "Hesabınız güvenli şekilde silinemedi. Lütfen tekrar deneyin veya destek ekibiyle iletişime geçin.",
+      "deleting": "Hesap siliniyor...",
+      "confirm": "Kalıcı Olarak Sil",
+      "close": "Vazgeç"
     },
     "profile": {
       "metadata": {
@@ -1961,7 +1984,14 @@
       "night": "İyi geceler",
       "title": "Hoş geldin, {name}.",
       "description": "Bugünün küçük anları, yarının en değerli hikâyesine dönüşüyor.",
-      "prompt": "Bugün {name} ile yeni bir anı oluşturmaya ne dersiniz?"
+      "prompt": "Bugün {name} ile yeni bir anı oluşturmaya ne dersiniz?",
+      "prompts": {
+        "1": "Bugün {name} ile yeni bir anı oluşturmak için harika bir gün.",
+        "2": "Bazı anılar yıllar sonra en değerli hazinelere dönüşür.",
+        "3": "Bugün gelecekte birlikte gülümseyeceğiniz bir hikâye yazabilirsiniz."
+      },
+      "primaryAction": "Yeni Anı Oluştur",
+      "secondaryAction": "Fotoğraf Ekle"
     },
     "child": {
       "ariaLabel": "Varsayılan çocuk özeti",
@@ -1971,7 +2001,14 @@
       "ageMonths": "{count, plural, one {# aylık} other {# aylık}}",
       "ageDays": "{count, plural, one {# günlük} other {# günlük}}",
       "birthdayToday": "Doğum günü bugün",
-      "birthdayCountdown": "Doğum gününe {count} gün"
+      "birthdayCountdown": "Doğum gününe {count} gün",
+      "thisMonth": "Bu ayın hikâyesi",
+      "memories": "Anı",
+      "photos": "Fotoğraf",
+      "videos": "Video",
+      "audio": "Ses Kaydı",
+      "latestMemory": "Son oluşturulan anı",
+      "noMemory": "İlk anısını bekliyor"
     },
     "quickActions": {
       "ariaLabel": "Yeni anı oluşturma",
@@ -2036,7 +2073,16 @@
       "open": "{title} anısını aç ve düzenle",
       "ariaLabel": "Zaman tüneli önizlemesi",
       "title": "Zaman Tünelinden",
+      "subtitle": "{name}'in hayatındaki özel anlara birlikte göz atalım.",
       "viewTimeline": "Tümünü Gör",
+      "previous": "Önceki anı",
+      "next": "Sonraki anı",
+      "types": {
+        "photo": "Fotoğraf",
+        "video": "Video",
+        "audio": "Ses Kaydı",
+        "memory": "Anı"
+      },
       "emptyTitle": "Hikâye başlamaya hazır",
       "emptyDescription": "Eklediğiniz anılar zaman içinde burada anlamlı bir akış oluşturacak.",
       "emptyAction": "Anı Oluştur"
@@ -2046,6 +2092,171 @@
       "description": "Verileriniz şu anda alınamadı. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
       "retry": "Tekrar dene"
     }
+  },
+  "events": {
+    "metadata": {
+      "title": "Tüm Anılar",
+      "description": "Bütün anılarınızı tek yerde arayın, filtreleyin ve yönetin."
+    },
+    "eyebrow": "Aile arşiviniz",
+    "title": "Tüm Anılar",
+    "description": "Çocuğunuzun hikâyesindeki akışı kaybetmeden bütün not, fotoğraf, video ve sesli anıları bulun.",
+    "count": "{count} anı",
+    "listLabel": "Anı sonuçları",
+    "paginationLabel": "Anı sayfaları",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "empty": {
+      "title": "Bu filtrelerle eşleşen anı yok",
+      "description": "Filtreleri değiştirin veya hikâyeyi sürdürmek için yeni bir anı oluşturun.",
+      "action": "Anı Oluştur"
+    },
+    "filters": {
+      "ariaLabel": "Anı filtreleri",
+      "searchLabel": "Anılarda ara",
+      "searchPlaceholder": "Başlık veya açıklamada ara",
+      "search": "Ara",
+      "child": "Çocuk",
+      "allChildren": "Tüm çocuklar",
+      "type": "Anı türü",
+      "importance": "Önem derecesi",
+      "from": "Başlangıç tarihi",
+      "to": "Bitiş tarihi",
+      "favorites": "Favoriler",
+      "calendar": "Takvim",
+      "nextMonth": "Sonraki ay",
+      "previousMonth": "Önceki ay",
+      "openCalendar": "Takvimi aç",
+      "types": {
+        "all": "Tüm türler",
+        "photo": "Fotoğraf",
+        "video": "Video",
+        "audio": "Ses",
+        "written": "Yazılı anı"
+      },
+      "importanceOptions": {
+        "all": "Tüm önem dereceleri",
+        "low": "Düşük",
+        "normal": "Normal",
+        "high": "Yüksek",
+        "critical": "Dönüm noktası"
+      }
+    },
+    "card": {
+      "open": "{title} anısını aç",
+      "media": "{title} anısının medyası",
+      "favorite": "Favorilere ekle",
+      "unfavorite": "Favorilerden çıkar",
+      "edit": "Düzenle",
+      "share": "Paylaş",
+      "delete": "Sil",
+      "deleteConfirm": "Bu anı silinsin mi? Anı aktif görünümlerden kaldırılacak."
+    }
+  },
+  "reminders": {
+    "metadata": {
+      "title": "Hatırlatmalar",
+      "description": "Önemli aile hatırlatmalarını oluşturun ve yönetin."
+    },
+    "eyebrow": "Anlamlı günleri kaçırmayın",
+    "title": "Hatırlatmalar",
+    "description": "Yaklaşan anları, önemli tarihleri ve anı fikirlerini elinizin altında tutun.",
+    "create": "Yeni Hatırlatma",
+    "active": "Hatırlatma aktif",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "deleteConfirm": "Bu hatırlatma kalıcı olarak silinsin mi?",
+    "filters": {
+      "ariaLabel": "Hatırlatma filtreleri",
+      "search": "Hatırlatmalarda ara",
+      "searchPlaceholder": "Başlığa göre ara",
+      "child": "Çocuk",
+      "allChildren": "Tüm çocuklar",
+      "period": "Dönem",
+      "upcoming": "Yaklaşanlar",
+      "past": "Geçmiş",
+      "all": "Tümü"
+    },
+    "empty": {
+      "title": "Henüz burada hatırlatma yok",
+      "description": "Önemli bir gün veya yeniden görmek istediğiniz bir anı için hatırlatma oluşturun.",
+      "action": "Hatırlatma Oluştur"
+    },
+    "form": {
+      "createTitle": "Hatırlatma oluştur",
+      "editTitle": "Hatırlatmayı düzenle",
+      "description": "KidMemoir'ın bu anı ne zaman ve nasıl hatırlatacağını seçin.",
+      "title": "Başlık",
+      "child": "Çocuk",
+      "date": "Tarih",
+      "time": "Saat",
+      "repeat": "Tekrar",
+      "note": "Not (opsiyonel)",
+      "save": "Hatırlatmayı Kaydet",
+      "cancel": "Vazgeç",
+      "calendar": "Takvim",
+      "nextMonth": "Sonraki ay",
+      "previousMonth": "Önceki ay",
+      "openCalendar": "Takvimi aç",
+      "repeats": {
+        "none": "Tekrarlanmaz",
+        "daily": "Her gün",
+        "weekly": "Her hafta",
+        "monthly": "Her ay",
+        "yearly": "Her yıl"
+      }
+    }
+  },
+  "aiPage": {
+    "metadata": {
+      "title": "KidMemoir AI",
+      "description": "Mevcut AI içgörülerini keşfedin ve anılar arasındaki anlamlı bağlantıları bulun."
+    },
+    "eyebrow": "Aile anıları için sessiz zekâ",
+    "title": "KidMemoir AI",
+    "description": "{name} için kaydedilen anılarda daha önce bulunan anlamı, örüntüleri ve bağlantıları yeniden keşfedin.",
+    "comingSoon": "Yakında",
+    "connections": "Bağlantılı Anılar",
+    "search": {
+      "title": "Anıları anlamına göre arayın",
+      "description": "Hatırladığınız anı tarif edin. Semantik arama mevcut anı zekâsını kullanarak onu bulsun.",
+      "label": "AI anı araması",
+      "placeholder": "Örneğin: ilk kez bisiklete bindiği gün",
+      "action": "Ara",
+      "errors": {
+        "premium": "Semantik arama KidMemoir Premium ile kullanılabilir.",
+        "failed": "Arama tamamlanamadı. Lütfen tekrar deneyin."
+      }
+    },
+    "insights": {
+      "title": "Anı İçgörüsü Geçmişi",
+      "description": "Anılar kaydedilirken bir kez oluşturulan en güncel içgörüler.",
+      "label": "Anı içgörüsü",
+      "emptyTitle": "İçgörüler anılarınızla büyüyecek",
+      "emptyDescription": "Yeni anılar bir kez analiz edildiğinde içgörüleri burada görünecek."
+    },
+    "monthly": {
+      "title": "Aylık Hikâye",
+      "description": "Mevcut anı içgörülerinden oluşturulan sıcak bir aylık bölüm."
+    },
+    "annual": {
+      "title": "Yıllık Hikâye",
+      "description": "Yıl boyunca kaydedilen içgörülerden hazırlanan özenli bir anı kitabı bölümü."
+    }
+  },
+  "consent": {
+    "title": "Gizliliğiniz, seçiminiz",
+    "description": "KidMemoir anonim ürün kullanımını anlamak için isteğe bağlı analiz kullanır. İsim, e-posta, çocuk bilgisi veya anı içeriği gönderilmez.",
+    "accept": "Kabul Et",
+    "reject": "Reddet",
+    "manage": "Tercihleri Yönet",
+    "preferencesTitle": "Çerez tercihleri",
+    "preferencesDescription": "Anonim analiz kullanımına izin verip vermeyeceğinizi seçin.",
+    "necessaryTitle": "Zorunlu çerezler · Her zaman aktif",
+    "necessaryDescription": "Oturum, güvenlik, dil ve temel uygulama davranışı için gereklidir.",
+    "analyticsTitle": "Anonim analiz · İsteğe bağlı",
+    "analyticsDescription": "Kişisel veri veya anı içeriği göndermeden ürünü geliştirmemize yardımcı olur.",
+    "close": "Kapat"
   },
   "programmaticSeo": {
     "readingTime": "{minutes} dakika okuma",

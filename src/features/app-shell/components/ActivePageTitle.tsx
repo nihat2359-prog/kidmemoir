@@ -10,8 +10,10 @@ const titleKeys = {
   events: "memories",
   memories: "memories",
   profile: "profile",
+  reminders: "reminders",
   reports: "reports",
   settings: "settings",
+  subscription: "subscription",
   timeline: "timeline",
 } as const;
 

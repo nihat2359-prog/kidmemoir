@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/Toast";
 import { AuthProvider, SessionProvider } from "@/features/auth/client";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { AnalyticsRouteTracker, GoogleAnalytics } from "@/lib/analytics";
+import { ConsentBanner } from "@/lib/analytics/ConsentBanner";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "@/styles/globals.css";
 
@@ -110,6 +111,7 @@ export default async function LocaleLayout({
                 <Suspense fallback={null}>
                   <AnalyticsRouteTracker />
                 </Suspense>
+                <ConsentBanner />
                 <Toaster />
               </AuthProvider>
             </SessionProvider>

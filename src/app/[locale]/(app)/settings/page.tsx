@@ -15,6 +15,7 @@ import { SettingsForm } from "@/features/account/components/SettingsForm";
 import { getAccountSettings } from "@/features/account/services/accountService";
 import { routing } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/supabase/auth";
+import { ConsentPreferencesButton } from "@/lib/analytics/ConsentPreferencesButton";
 type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -59,6 +60,7 @@ export default async function SettingsPage({ params }: Props) {
             <LockKeyhole aria-hidden className="text-primary size-5" />
             <p className="text-sm">{t("privacy.message")}</p>
           </div>
+          <ConsentPreferencesButton />
         </AccountSection>
         <AccountSection
           description={t("export.description")}

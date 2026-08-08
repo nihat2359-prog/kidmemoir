@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { analytics, type AnalyticsEventName } from "@/lib/analytics/analytics";
+import {
+  getConsentServerSnapshot,
+  getConsentSnapshot,
+  subscribeConsent,
+} from "@/lib/analytics/consent";
 
 const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
 const active = process.env.NODE_ENV === "production" && Boolean(measurementId);
@@ -11,6 +16,9 @@ const active = process.env.NODE_ENV === "production" && Boolean(measurementId);
 function eventForPath(pathname: string): AnalyticsEventName | null {
   if (/\/(?:tr|en)\/dashboard$/.test(pathname)) return "dashboard_viewed";
   if (/\/(?:tr|en)\/timeline$/.test(pathname)) return "timeline_viewed";
+  if (/\/(?:tr|en)\/events$/.test(pathname)) return "events_viewed";
+  if (/\/(?:tr|en)\/reminders$/.test(pathname)) return "reminders_viewed";
+  if (/\/(?:tr|en)\/ai$/.test(pathname)) return "ai_page_viewed";
   if (/\/(?:tr|en)\/(?:pricing|subscription)$/.test(pathname))
     return "premium_page_viewed";
   if (/\/(?:tr|en)\/guides\/[^/]+$/.test(pathname)) return "guide_viewed";
@@ -59,7 +67,12 @@ export function AnalyticsRouteTracker() {
 }
 
 export function GoogleAnalytics() {
-  if (!active || !measurementId) return null;
+  const consent = useSyncExternalStore(
+    subscribeConsent,
+    getConsentSnapshot,
+    getConsentServerSnapshot,
+  );
+  if (!active || !measurementId || consent !== "granted") return null;
   return (
     <>
       <Script
@@ -67,7 +80,7 @@ export function GoogleAnalytics() {
         strategy="lazyOnload"
       />
       <Script id="kidmemoir-ga4" strategy="lazyOnload">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config','${measurementId.replaceAll("'", "")}',{send_page_view:false,anonymize_ip:true});window.dispatchEvent(new Event('kidmemoir:analytics-ready'));`}
+        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});gtag('js',new Date());gtag('config','${measurementId.replaceAll("'", "")}',{send_page_view:false,anonymize_ip:true,allow_google_signals:false});window.dispatchEvent(new Event('kidmemoir:analytics-ready'));`}
       </Script>
     </>
   );

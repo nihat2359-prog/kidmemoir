@@ -735,7 +735,9 @@
       "reports": "Reports",
       "settings": "Settings",
       "profile": "Profile",
-      "children": "My Children"
+      "children": "My Children",
+      "reminders": "Reminders",
+      "subscription": "Subscription"
     },
     "account": {
       "openLabel": "Open account menu",
@@ -824,6 +826,15 @@
         "emotion": "These moments carry a similar emotional tone.",
         "context": "Their recorded meaning and context naturally connect them."
       }
+    },
+    "detail": {
+      "back": "All Memories",
+      "edit": "Edit Memory",
+      "mediaLabel": "Memory media",
+      "videoFallback": "Your browser cannot play this video.",
+      "audioFallback": "Your browser cannot play this audio recording.",
+      "deleteTitle": "Delete memory",
+      "deleteDescription": "Remove this memory from active views if you no longer want to keep it."
     },
     "edit": {
       "metadata": {
@@ -1602,8 +1613,20 @@
       "description": "Account deletion affects your profile, children and memories.",
       "trigger": "Delete Account",
       "confirmTitle": "Do you want to delete your account?",
-      "unavailable": "An authorized deletion function has not yet been configured in Supabase. The operation cannot be completed yet to prevent incomplete or incorrect data deletion.",
-      "close": "Close"
+      "confirmDescription": "This permanent action cannot be undone. Review the data that will be deleted before continuing.",
+      "confirmationLabel": "Type DELETE to confirm",
+      "items": {
+        "profile": "Profile and account information",
+        "children": "Child profiles",
+        "memories": "Memories, reminders and AI insights",
+        "media": "Stored photos, videos, audio and files",
+        "subscription": "Subscription relationship",
+        "preferences": "Settings and notification preferences"
+      },
+      "error": "Your account could not be deleted safely. Please try again or contact support.",
+      "deleting": "Deleting account...",
+      "confirm": "Delete Permanently",
+      "close": "Cancel"
     },
     "profile": {
       "metadata": {
@@ -1962,7 +1985,14 @@
       "night": "Good night",
       "title": "Welcome, {name}.",
       "description": "Today's little moments are becoming tomorrow's most precious story.",
-      "prompt": "How about creating a new memory with {name} today?"
+      "prompt": "How about creating a new memory with {name} today?",
+      "prompts": {
+        "1": "Today is a wonderful day to create a new memory with {name}.",
+        "2": "Some moments become our most treasured memories years later.",
+        "3": "Today, you can write a story that you will smile about together someday."
+      },
+      "primaryAction": "Create New Memory",
+      "secondaryAction": "Add a Photo"
     },
     "child": {
       "ariaLabel": "Default child summary",
@@ -1972,7 +2002,14 @@
       "ageMonths": "{count, plural, one {# month old} other {# months old}}",
       "ageDays": "{count, plural, one {# day old} other {# days old}}",
       "birthdayToday": "Birthday is today",
-      "birthdayCountdown": "{count} days until the birthday"
+      "birthdayCountdown": "{count} days until the birthday",
+      "thisMonth": "This month's story",
+      "memories": "Memories",
+      "photos": "Photos",
+      "videos": "Videos",
+      "audio": "Audio",
+      "latestMemory": "Latest memory",
+      "noMemory": "Waiting for the first memory"
     },
     "quickActions": {
       "ariaLabel": "Create a new memory",
@@ -2037,7 +2074,16 @@
       "open": "Open and edit the memory {title}",
       "ariaLabel": "Timeline preview",
       "title": "From the Timeline",
+      "subtitle": "Let's revisit the special moments in {name}'s life.",
       "viewTimeline": "View All",
+      "previous": "Previous memory",
+      "next": "Next memory",
+      "types": {
+        "photo": "Photo",
+        "video": "Video",
+        "audio": "Audio",
+        "memory": "Memory"
+      },
       "emptyTitle": "The story is ready to begin",
       "emptyDescription": "The memories you add will form a meaningful flow here over time.",
       "emptyAction": "Create a Memory"
@@ -2047,6 +2093,171 @@
       "description": "Your data could not be loaded right now. Check your connection and try again.",
       "retry": "Try again"
     }
+  },
+  "events": {
+    "metadata": {
+      "title": "All Memories",
+      "description": "Search, filter and manage every memory in one place."
+    },
+    "eyebrow": "Your family archive",
+    "title": "All Memories",
+    "description": "Find every note, photo, video and voice memory without losing the flow of your child's story.",
+    "count": "{count} memories",
+    "listLabel": "Memory results",
+    "paginationLabel": "Memory pages",
+    "previous": "Previous",
+    "next": "Next",
+    "empty": {
+      "title": "No memories match these filters",
+      "description": "Adjust your filters or create a new memory to continue the story.",
+      "action": "Create a Memory"
+    },
+    "filters": {
+      "ariaLabel": "Memory filters",
+      "searchLabel": "Search memories",
+      "searchPlaceholder": "Search by title or description",
+      "search": "Search",
+      "child": "Child",
+      "allChildren": "All children",
+      "type": "Memory type",
+      "importance": "Importance",
+      "from": "Start date",
+      "to": "End date",
+      "favorites": "Favorites",
+      "calendar": "Calendar",
+      "nextMonth": "Next month",
+      "previousMonth": "Previous month",
+      "openCalendar": "Open calendar",
+      "types": {
+        "all": "All types",
+        "photo": "Photo",
+        "video": "Video",
+        "audio": "Audio",
+        "written": "Written"
+      },
+      "importanceOptions": {
+        "all": "All importance levels",
+        "low": "Low",
+        "normal": "Normal",
+        "high": "High",
+        "critical": "Milestone"
+      }
+    },
+    "card": {
+      "open": "Open {title}",
+      "media": "Media for {title}",
+      "favorite": "Add to favorites",
+      "unfavorite": "Remove from favorites",
+      "edit": "Edit",
+      "share": "Share",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this memory? This action will remove it from active views."
+    }
+  },
+  "reminders": {
+    "metadata": {
+      "title": "Reminders",
+      "description": "Create and manage important family reminders."
+    },
+    "eyebrow": "Never miss a meaningful day",
+    "title": "Reminders",
+    "description": "Keep upcoming moments, important dates and memory prompts close at hand.",
+    "create": "New Reminder",
+    "active": "Reminder active",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Permanently delete this reminder?",
+    "filters": {
+      "ariaLabel": "Reminder filters",
+      "search": "Search reminders",
+      "searchPlaceholder": "Search by title",
+      "child": "Child",
+      "allChildren": "All children",
+      "period": "Period",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "all": "All"
+    },
+    "empty": {
+      "title": "No reminders here yet",
+      "description": "Create a reminder for an important day or a memory you want to revisit.",
+      "action": "Create Reminder"
+    },
+    "form": {
+      "createTitle": "Create reminder",
+      "editTitle": "Edit reminder",
+      "description": "Choose when and how KidMemoir should keep this moment on your radar.",
+      "title": "Title",
+      "child": "Child",
+      "date": "Date",
+      "time": "Time",
+      "repeat": "Repeat",
+      "note": "Note (optional)",
+      "save": "Save Reminder",
+      "cancel": "Cancel",
+      "calendar": "Calendar",
+      "nextMonth": "Next month",
+      "previousMonth": "Previous month",
+      "openCalendar": "Open calendar",
+      "repeats": {
+        "none": "Does not repeat",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "yearly": "Yearly"
+      }
+    }
+  },
+  "aiPage": {
+    "metadata": {
+      "title": "KidMemoir AI",
+      "description": "Explore existing AI insights and find meaningful connections in your memories."
+    },
+    "eyebrow": "Quiet intelligence for family memories",
+    "title": "KidMemoir AI",
+    "description": "Rediscover the meaning, patterns and connections already found in {name}'s memories.",
+    "comingSoon": "Coming soon",
+    "connections": "Memory Connections",
+    "search": {
+      "title": "Search memories by meaning",
+      "description": "Describe the moment you remember. Semantic search uses existing memory intelligence to find it.",
+      "label": "AI memory search",
+      "placeholder": "For example: the first day they rode a bicycle",
+      "action": "Search",
+      "errors": {
+        "premium": "Semantic search is available with KidMemoir Premium.",
+        "failed": "Search could not be completed. Please try again."
+      }
+    },
+    "insights": {
+      "title": "Memory Insight History",
+      "description": "The latest insights created when your memories were saved.",
+      "label": "Memory insight",
+      "emptyTitle": "Insights will grow with your memories",
+      "emptyDescription": "New memories will be analyzed once and their insights will appear here."
+    },
+    "monthly": {
+      "title": "Monthly Story",
+      "description": "A warm monthly chapter composed from existing memory insights."
+    },
+    "annual": {
+      "title": "Annual Story",
+      "description": "A carefully shaped yearbook chapter built from the year's saved insights."
+    }
+  },
+  "consent": {
+    "title": "Your privacy, your choice",
+    "description": "KidMemoir uses optional analytics to understand anonymous product usage. No names, emails, child information or memory content are sent.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "manage": "Manage Preferences",
+    "preferencesTitle": "Cookie preferences",
+    "preferencesDescription": "Choose whether anonymous analytics may be used.",
+    "necessaryTitle": "Necessary cookies · Always active",
+    "necessaryDescription": "Required for session, security, language and core application behavior.",
+    "analyticsTitle": "Anonymous analytics · Optional",
+    "analyticsDescription": "Helps improve the product without sending personal or memory data.",
+    "close": "Close"
   },
   "programmaticSeo": {
     "readingTime": "{minutes} min read",

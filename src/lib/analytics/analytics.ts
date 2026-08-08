@@ -23,6 +23,14 @@ export const ANALYTICS_EVENTS = [
   "search_used",
   "guide_viewed",
   "guide_internal_link_clicked",
+  "events_viewed",
+  "reminder_created",
+  "reminder_updated",
+  "reminder_deleted",
+  "reminders_viewed",
+  "ai_page_viewed",
+  "ai_insight_opened",
+  "account_deleted",
 ] as const;
 
 export type AnalyticsEventName = (typeof ANALYTICS_EVENTS)[number];
