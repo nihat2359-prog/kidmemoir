@@ -17,6 +17,7 @@ import {
 import { updateChild } from "@/features/account/actions/children";
 import type { AppLocale } from "@/i18n/routing";
 import { useRouter } from "@/i18n/navigation";
+import { analytics } from "@/lib/analytics";
 
 type Values = {
   birthDate: string;
@@ -46,6 +47,7 @@ export function EditChildForm({
       setError(true);
       return;
     }
+    analytics.track("child_updated");
     router.replace("/children");
     router.refresh();
   }

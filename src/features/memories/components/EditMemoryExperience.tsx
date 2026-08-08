@@ -70,7 +70,11 @@ export async function EditMemoryExperience({
             today={today}
             tomorrow={now.toISOString().slice(0, 10)}
           />
-          <MemoryInsightCard insight={insight} locale={locale} />
+          <MemoryInsightCard
+            eventId={eventId}
+            insight={insight}
+            locale={locale}
+          />
           <MemoryConnections connections={connections} locale={locale} />
           <section className="border-danger/20 bg-danger/5 mt-12 flex flex-col gap-4 rounded-[2rem] border p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>

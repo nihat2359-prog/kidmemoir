@@ -17,6 +17,7 @@ import type {
   SignUpCredentials,
 } from "@/features/auth/types/auth.types";
 import { createClient } from "@/lib/supabase/client";
+import { analytics } from "@/lib/analytics";
 
 export type SessionContextValue = Readonly<{
   error: Error | null;
@@ -187,6 +188,10 @@ export function SessionProvider({ children }: SessionProviderProps) {
       subscription.unsubscribe();
     };
   }, [authService, supabase]);
+
+  useEffect(() => {
+    analytics.identify(session?.user.id ?? null);
+  }, [session?.user.id]);
 
   const value = useMemo<SessionContextValue>(
     () => ({

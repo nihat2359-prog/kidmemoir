@@ -6,11 +6,11 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const isDevelopment = process.env.NODE_ENV === "development";
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://app.lemonsqueezy.com https://assets.lemonsqueezy.com`,
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://app.lemonsqueezy.com https://assets.lemonsqueezy.com https://www.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.supabase.co https://*.lemonsqueezy.com",
+  "img-src 'self' data: blob: https://*.supabase.co https://*.lemonsqueezy.com https://www.google-analytics.com https://region1.google-analytics.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.lemonsqueezy.com https://*.lemonsqueezy.com",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.lemonsqueezy.com https://*.lemonsqueezy.com https://www.google-analytics.com https://region1.google-analytics.com",
   "frame-src 'self' https://*.lemonsqueezy.com https://app.lemonsqueezy.com",
   "media-src 'self' blob: https://*.supabase.co",
   "object-src 'none'",

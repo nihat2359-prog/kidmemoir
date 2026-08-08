@@ -22,6 +22,8 @@ export function RelatedSeoContent({
         {pages.map((page) => (
           <Link
             className="group bg-card/65 focus-visible:ring-ring rounded-[1.5rem] border p-6 transition hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
+            data-analytics-destination="related_guide"
+            data-analytics-event="guide_internal_link_clicked"
             href={`/${page.category}/${page.slugPath.join("/")}`}
             key={page.id}
           >

@@ -74,7 +74,13 @@ export function SeoPageTemplate({
               icon={<ArrowRight aria-hidden />}
               size="lg"
             >
-              <Link href={page.cta.href}>{page.cta.label}</Link>
+              <Link
+                data-analytics-destination="guide_cta"
+                data-analytics-event="guide_internal_link_clicked"
+                href={page.cta.href}
+              >
+                {page.cta.label}
+              </Link>
             </Button>
           </section>
         </article>

@@ -2,7 +2,6 @@
 
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { redirect } from "next/navigation";
 import {
   createChildSchema,
   type CreateChildInput,
@@ -12,16 +11,21 @@ import { getCurrentUser } from "@/lib/supabase/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAccountPlan } from "@/features/account/services/accountService";
 
-type CreateChildFailure = Readonly<{
-  error: "database" | "premiumRequired" | "unauthorized" | "validation";
-  fieldErrors?: Partial<Record<keyof CreateChildInput, string>>;
-  success: false;
-}>;
+type CreateChildResult =
+  | Readonly<{
+      destination: string;
+      success: true;
+    }>
+  | Readonly<{
+      error: "database" | "premiumRequired" | "unauthorized" | "validation";
+      fieldErrors?: Partial<Record<keyof CreateChildInput, string>>;
+      success: false;
+    }>;
 
 export async function createChildAction(
   input: unknown,
   locale: AppLocale,
-): Promise<CreateChildFailure> {
+): Promise<CreateChildResult> {
   if (!hasLocale(routing.locales, locale)) {
     return { error: "validation", success: false };
   }
@@ -50,7 +54,7 @@ export async function createChildAction(
       Object.entries(flattened)
         .filter((entry): entry is [string, string[]] => Boolean(entry[1]?.[0]))
         .map(([field, messages]) => [field, messages[0]]),
-    ) as CreateChildFailure["fieldErrors"];
+    ) as Extract<CreateChildResult, { success: false }>["fieldErrors"];
     return { error: "validation", fieldErrors, success: false };
   }
 
@@ -92,9 +96,11 @@ export async function createChildAction(
     return { error: "database", success: false };
   }
 
-  redirect(
-    existingChild.data.length === 0
-      ? `/${locale}/dashboard`
-      : `/${locale}/children`,
-  );
+  return {
+    destination:
+      existingChild.data.length === 0
+        ? `/${locale}/dashboard`
+        : `/${locale}/children`,
+    success: true,
+  };
 }

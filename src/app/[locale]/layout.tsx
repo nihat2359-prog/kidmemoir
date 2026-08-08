@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { GeistSans } from "geist/font/sans";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/Toast";
 import { AuthProvider, SessionProvider } from "@/features/auth/client";
 import { routing, type AppLocale } from "@/i18n/routing";
+import { AnalyticsRouteTracker, GoogleAnalytics } from "@/lib/analytics";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import "@/styles/globals.css";
 
@@ -93,6 +94,7 @@ export default async function LocaleLayout({
         <link href="https://app.lemonsqueezy.com" rel="dns-prefetch" />
       </head>
       <body className={GeistSans.variable}>
+        <GoogleAnalytics />
         <JsonLdScript
           data={[organizationSchema(), websiteSchema(locale as AppLocale)]}
         />
@@ -105,6 +107,9 @@ export default async function LocaleLayout({
             <SessionProvider>
               <AuthProvider>
                 {children}
+                <Suspense fallback={null}>
+                  <AnalyticsRouteTracker />
+                </Suspense>
                 <Toaster />
               </AuthProvider>
             </SessionProvider>

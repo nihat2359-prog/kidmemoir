@@ -20,6 +20,7 @@ import type {
 } from "@/features/timeline/types/timeline.types";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { analytics } from "@/lib/analytics";
 
 export function TimelineFilters({
   categories,
@@ -68,6 +69,8 @@ export function TimelineFilters({
         className="flex flex-col gap-3 sm:flex-row"
         onSubmit={(event) => {
           event.preventDefault();
+          if (query.trim())
+            analytics.track("search_used", { search_scope: "timeline" });
           update({ q: query.trim() || null });
         }}
         role="search"

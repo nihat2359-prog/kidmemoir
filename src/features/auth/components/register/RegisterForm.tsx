@@ -28,6 +28,7 @@ import {
 } from "@/features/auth/schemas/registerSchema";
 import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { analytics } from "@/lib/analytics";
 
 const inputClassName =
   "bg-background/65 group-hover:border-primary/25 focus-visible:bg-background/85 h-12 rounded-lg pr-4 pl-11 backdrop-blur-xl transition-[border-color,box-shadow,background-color]";
@@ -106,6 +107,7 @@ export function RegisterForm({ isLoading = false }: RegisterFormProps) {
         throw new Error("Missing authentication user");
       }
 
+      analytics.track("sign_up", { method: "email" });
       router.replace(AUTH_ROUTES.verifyEmail);
       router.refresh();
     } catch (error) {

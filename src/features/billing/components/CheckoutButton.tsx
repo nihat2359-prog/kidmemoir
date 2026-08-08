@@ -8,6 +8,7 @@ import {
   initializeLemonOverlay,
   openLemonOverlay,
 } from "@/features/billing/client/lemonOverlay";
+import { analytics } from "@/lib/analytics";
 
 type CheckoutResponse = {
   checkoutUrl?: unknown;
@@ -53,6 +54,10 @@ export function CheckoutButton({
       }
       if (typeof result.checkoutUrl !== "string") throw new Error();
 
+      analytics.track("premium_checkout_started", {
+        locale,
+        plan: "premium_yearly",
+      });
       await openLemonOverlay(result.checkoutUrl);
     } catch {
       router.push(`/${locale}/subscription?billing_error=checkout`);

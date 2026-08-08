@@ -1,11 +1,14 @@
 import { Sparkles } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { AppLocale } from "@/i18n/routing";
+import { AnalyticsMarker } from "@/lib/analytics/AnalyticsMarker";
 
 export async function MemoryInsightCard({
   insight,
   locale,
+  eventId,
 }: {
+  eventId: string;
   insight: Readonly<{
     emotion: string | null;
     importance_score: number | null;
@@ -25,6 +28,7 @@ export async function MemoryInsightCard({
       aria-labelledby="memory-insight-title"
       className="from-ai/10 via-card/75 to-primary/8 mt-12 rounded-[2rem] border bg-gradient-to-br p-6 shadow-sm sm:p-8"
     >
+      <AnalyticsMarker dedupeKey={eventId} event="ai_insight_generated" />
       <div className="flex items-center gap-3">
         <span className="bg-ai/12 text-ai grid size-10 place-items-center rounded-xl">
           <Sparkles aria-hidden className="size-5" />

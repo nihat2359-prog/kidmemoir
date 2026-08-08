@@ -17,6 +17,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/Dialog";
 import { useRouter } from "@/i18n/navigation";
+import { analytics } from "@/lib/analytics";
 
 export function DeleteMemoryButton({
   childId,
@@ -41,6 +42,7 @@ export function DeleteMemoryButton({
       setError(true);
       return;
     }
+    analytics.track("memory_deleted");
     setOpen(false);
     router.replace("/dashboard");
     router.refresh();

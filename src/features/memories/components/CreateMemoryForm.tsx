@@ -55,6 +55,7 @@ import {
 import { uploadToSignedUrl } from "@/features/memories/utils/upload";
 import { useRouter } from "@/i18n/navigation";
 import type { AppLocale } from "@/i18n/routing";
+import { analytics } from "@/lib/analytics";
 
 export function CreateMemoryForm({
   context,
@@ -250,6 +251,7 @@ export function CreateMemoryForm({
         context.child.id,
       );
       if (result.success) {
+        analytics.track("memory_updated", { entry_type: values.entryType });
         setResultState("success");
         router.replace("/dashboard");
         router.refresh();
@@ -267,6 +269,7 @@ export function CreateMemoryForm({
     const result = await createMemoryAction(values, locale, context.child.id);
     if (result.success) {
       if (values.entryType === "memory" || !media) {
+        analytics.track("memory_created", { entry_type: values.entryType });
         setResultState("success");
         router.replace("/dashboard");
         router.refresh();
@@ -275,6 +278,8 @@ export function CreateMemoryForm({
       pendingEventRef.current = result.eventId;
       try {
         await uploadMedia(result.eventId, media);
+        analytics.track("media_uploaded", { media_type: values.entryType });
+        analytics.track("memory_created", { entry_type: values.entryType });
         setResultState("success");
         router.replace("/dashboard");
         router.refresh();

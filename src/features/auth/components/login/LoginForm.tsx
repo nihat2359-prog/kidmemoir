@@ -27,6 +27,7 @@ import {
 } from "@/features/auth/schemas/loginSchema";
 import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { analytics } from "@/lib/analytics";
 
 type LoginFormProps = Readonly<{
   emailVerified?: boolean;
@@ -80,6 +81,8 @@ export function LoginForm({
         throw new Error("Missing authentication session");
       }
 
+      analytics.identify(session.user.id);
+      analytics.track("login", { method: "email" });
       router.replace(AUTH_REDIRECTS.authenticated);
     } catch (error) {
       const normalizedError = normalizeAuthError(error);

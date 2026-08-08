@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/DropdownMenu";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Link, useRouter } from "@/i18n/navigation";
+import { analytics } from "@/lib/analytics";
 
 const menuItems = [
   { href: "/profile", icon: UserRound, key: "profile" },
@@ -63,6 +64,8 @@ export function UserMenu({ data }: { data: AppShellData }) {
     setIsSigningOut(true);
     try {
       await signOut();
+      analytics.track("logout");
+      analytics.identify(null);
       router.replace("/");
       router.refresh();
     } finally {
