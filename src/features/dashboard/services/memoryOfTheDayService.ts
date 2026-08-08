@@ -45,15 +45,29 @@ export async function getMemoryOfTheDay(
   )
     return null;
 
-  const media = await supabase
-    .from("event_media")
-    .select("storage_path,thumbnail_path")
-    .eq("event_id", value.eventId)
-    .eq("media_type", "photo")
-    .is("archived_at", null)
-    .order("created_at")
-    .limit(1)
-    .maybeSingle();
+  const [event, media] = await Promise.all([
+    supabase
+      .from("events")
+      .select("id")
+      .eq("id", value.eventId)
+      .eq("child_id", childId)
+      .is("archived_at", null)
+      .maybeSingle(),
+    supabase
+      .from("event_media")
+      .select("storage_path,thumbnail_path")
+      .eq("event_id", value.eventId)
+      .eq("media_type", "photo")
+      .is("archived_at", null)
+      .order("created_at")
+      .limit(1)
+      .maybeSingle(),
+  ]);
+  if (event.error)
+    throw new Error("Dashboard memory validation failed", {
+      cause: event.error,
+    });
+  if (!event.data) return null;
   if (media.error)
     throw new Error("Dashboard memory media failed", { cause: media.error });
   const path = media.data?.thumbnail_path ?? media.data?.storage_path ?? null;

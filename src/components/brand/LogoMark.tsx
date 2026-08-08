@@ -13,10 +13,10 @@ export function LogoMark({ className, label, ...props }: LogoMarkProps) {
     <Image
       alt={label ?? ""}
       className={cn("shrink-0 object-contain", className)}
-      height={392}
+      height={1024}
       priority
       src="/kidmemoir.svg"
-      width={346}
+      width={1024}
       {...props}
     />
   );

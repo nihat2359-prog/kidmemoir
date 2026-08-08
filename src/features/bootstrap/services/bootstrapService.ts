@@ -8,13 +8,34 @@ import type {
 import { createDeviceIdentity } from "@/features/bootstrap/utils/device";
 import { createClient } from "@/lib/supabase/server";
 
-const PROFILE_DEFAULT_NAME = "KidMemoir";
-const PROFILE_DEFAULT_SURNAME = "User";
+const LEGACY_PROFILE_DEFAULT_NAME = "KidMemoir";
+const LEGACY_PROFILE_DEFAULT_SURNAME = "User";
 
-function getMetadataName(value: unknown, fallback: string): string {
-  if (typeof value !== "string") return fallback;
+function normalizeName(value: unknown): string | null {
+  if (typeof value !== "string") return null;
   const normalized = value.trim().slice(0, 100);
-  return normalized || fallback;
+  return normalized || null;
+}
+
+function resolveProfileName(
+  metadata: Record<string, unknown>,
+  locale: BootstrapContext["locale"],
+) {
+  const fullName =
+    normalizeName(metadata.full_name) ?? normalizeName(metadata.name);
+  const fullNameParts = fullName?.split(/\s+/) ?? [];
+  const firstName =
+    normalizeName(metadata.first_name) ??
+    normalizeName(metadata.given_name) ??
+    fullNameParts.shift() ??
+    (locale === "tr" ? "Yeni" : "New");
+  const lastName =
+    normalizeName(metadata.last_name) ??
+    normalizeName(metadata.family_name) ??
+    normalizeName(fullNameParts.join(" ")) ??
+    (locale === "tr" ? "Üye" : "Member");
+
+  return { firstName, lastName };
 }
 
 function assertSuccessful(
@@ -33,17 +54,19 @@ export async function ensureApplicationBootstrap({
   userAgent,
 }: BootstrapContext): Promise<BootstrapDestination> {
   const supabase = await createClient();
-  const firstName = getMetadataName(
-    user.user_metadata.first_name,
-    PROFILE_DEFAULT_NAME,
+  const { firstName, lastName } = resolveProfileName(
+    user.user_metadata,
+    locale,
   );
-  const lastName = getMetadataName(
-    user.user_metadata.last_name,
-    PROFILE_DEFAULT_SURNAME,
-  );
+  const existingProfile = await supabase
+    .from("profiles")
+    .select("first_name,last_name")
+    .eq("id", user.id)
+    .maybeSingle();
+  assertSuccessful(existingProfile, "profile lookup");
 
-  const profileResult = await supabase.from("profiles").upsert(
-    {
+  if (!existingProfile.data) {
+    const profileResult = await supabase.from("profiles").insert({
       first_name: firstName,
       id: user.id,
       language: locale,
@@ -52,10 +75,18 @@ export async function ensureApplicationBootstrap({
       subscription_status: "active",
       theme: "dark",
       timezone: "Europe/Istanbul",
-    },
-    { ignoreDuplicates: true, onConflict: "id" },
-  );
-  assertSuccessful(profileResult, "profile ensure");
+    });
+    assertSuccessful(profileResult, "profile ensure");
+  } else if (
+    existingProfile.data.first_name === LEGACY_PROFILE_DEFAULT_NAME &&
+    existingProfile.data.last_name === LEGACY_PROFILE_DEFAULT_SURNAME
+  ) {
+    const profileResult = await supabase
+      .from("profiles")
+      .update({ first_name: firstName, last_name: lastName })
+      .eq("id", user.id);
+    assertSuccessful(profileResult, "legacy profile repair");
+  }
 
   const device = createDeviceIdentity({
     acceptLanguage,

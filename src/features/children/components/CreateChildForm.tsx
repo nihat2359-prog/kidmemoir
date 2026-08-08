@@ -78,7 +78,6 @@ export function CreateChildForm({ locale }: CreateChildFormProps) {
     if (result.success) {
       analytics.track("child_created");
       router.replace(result.destination);
-      router.refresh();
       return;
     }
 

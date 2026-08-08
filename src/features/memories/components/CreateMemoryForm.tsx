@@ -13,7 +13,12 @@ import {
   Tags,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import {
+  Controller,
+  useForm,
+  useWatch,
+  type FieldErrors,
+} from "react-hook-form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
@@ -87,6 +92,8 @@ export function CreateMemoryForm({
   const pendingEventRef = useRef<string | null>(null);
   const pendingPathRef = useRef<string | null>(null);
   const cancelUploadRef = useRef<(() => void) | null>(null);
+  const feedbackRef = useRef<HTMLFormElement | null>(null);
+  const mediaEditorRef = useRef<HTMLDivElement | null>(null);
   const schema = createMemorySchema({
     categoryRequired: t("validation.categoryRequired"),
     descriptionMax: t("validation.descriptionMax"),
@@ -241,6 +248,12 @@ export function CreateMemoryForm({
     setResultState("idle");
     if (values.entryType !== "memory" && !media && !existingMedia) {
       setMediaError(t("media.errors.mediaRequired"));
+      window.requestAnimationFrame(() => {
+        mediaEditorRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      });
       return;
     }
     if (eventId) {
@@ -261,8 +274,16 @@ export function CreateMemoryForm({
         Object.entries(result.fieldErrors).forEach(([field, message]) => {
           if (message) setError(field as keyof CreateMemoryInput, { message });
         });
+        scrollToFirstError(result.fieldErrors);
       }
       setResultState("error");
+      if (!result.fieldErrors)
+        window.requestAnimationFrame(() =>
+          feedbackRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          }),
+        );
       return;
     }
     await discardPendingEvent();
@@ -302,20 +323,60 @@ export function CreateMemoryForm({
       Object.entries(result.fieldErrors).forEach(([field, message]) => {
         if (message) setError(field as keyof CreateMemoryInput, { message });
       });
+      scrollToFirstError(result.fieldErrors);
     }
     setResultState("error");
+    if (!result.fieldErrors)
+      window.requestAnimationFrame(() =>
+        feedbackRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        }),
+      );
+  }
+
+  function scrollToFirstError(
+    fieldErrors:
+      | FieldErrors<CreateMemoryInput>
+      | Partial<Record<keyof CreateMemoryInput, unknown>>,
+  ) {
+    const errorTargets: Partial<Record<keyof CreateMemoryInput, string>> = {
+      categoryId: "memory-category-error",
+      description: "memory-description-error",
+      location: "memory-location-error",
+      occurredAt: "memory-date-error",
+      reminderAt: "reminder-date-error",
+      reminderNote: "reminder-note-error",
+      tags: "memory-tags-error",
+      title: "memory-title-error",
+    };
+    const firstField = Object.keys(fieldErrors).find(
+      (field): field is keyof CreateMemoryInput =>
+        Boolean(errorTargets[field as keyof CreateMemoryInput]),
+    );
+    const errorId = firstField ? errorTargets[firstField] : undefined;
+    window.setTimeout(() => {
+      const errorElement = errorId ? document.getElementById(errorId) : null;
+      const target = errorElement?.closest("label") ?? errorElement;
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const control = target?.querySelector<HTMLElement>(
+        "input, textarea, button, [tabindex]:not([tabindex='-1'])",
+      );
+      control?.focus({ preventScroll: true });
+    }, 0);
   }
 
   const inputClass = "h-12 rounded-xl bg-background/70 backdrop-blur-sm";
   // Upload-controller refs are read only when the resulting native submit
   // handler runs, never while React renders the form.
   // eslint-disable-next-line react-hooks/refs
-  const submitHandler = handleSubmit(onSubmit);
+  const submitHandler = handleSubmit(onSubmit, scrollToFirstError);
   return (
     <form
       className="space-y-12 sm:space-y-16"
       noValidate
       onSubmit={submitHandler}
+      ref={feedbackRef}
     >
       <div className="flex justify-start">
         <Button
@@ -414,21 +475,23 @@ export function CreateMemoryForm({
             )}
           </section>
         ) : entryType !== "memory" ? (
-          <MediaEditor
-            error={mediaError}
-            media={media}
-            onCancel={() => void cancelUpload()}
-            onChange={(value) => {
-              if (value !== media) void discardPendingEvent();
-              setMedia(value);
-              setUploadStatus(value ? "ready" : "idle");
-              setMediaError(null);
-            }}
-            onRetry={() => void retryUpload()}
-            progress={uploadProgress}
-            status={uploadStatus}
-            type={entryType}
-          />
+          <div ref={mediaEditorRef}>
+            <MediaEditor
+              error={mediaError}
+              media={media}
+              onCancel={() => void cancelUpload()}
+              onChange={(value) => {
+                if (value !== media) void discardPendingEvent();
+                setMedia(value);
+                setUploadStatus(value ? "ready" : "idle");
+                setMediaError(null);
+              }}
+              onRetry={() => void retryUpload()}
+              progress={uploadProgress}
+              status={uploadStatus}
+              type={entryType}
+            />
+          </div>
         ) : null}
 
         <section

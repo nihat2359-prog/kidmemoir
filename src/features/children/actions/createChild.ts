@@ -13,7 +13,7 @@ import { getAccountPlan } from "@/features/account/services/accountService";
 
 type CreateChildResult =
   | Readonly<{
-      destination: string;
+      destination: "/children" | "/dashboard";
       success: true;
     }>
   | Readonly<{
@@ -97,10 +97,7 @@ export async function createChildAction(
   }
 
   return {
-    destination:
-      existingChild.data.length === 0
-        ? `/${locale}/dashboard`
-        : `/${locale}/children`,
+    destination: existingChild.data.length === 0 ? "/dashboard" : "/children",
     success: true,
   };
 }
