@@ -30,6 +30,11 @@ function storeConsent(value: Exclude<AnalyticsConsent, null>) {
   });
   window.dispatchEvent(new CustomEvent("kidmemoir:consent", { detail: value }));
 }
+
+function subscribeHydration() {
+  return () => undefined;
+}
+
 export function ConsentBanner() {
   const t = useTranslations("consent");
   const consent = useSyncExternalStore(
@@ -38,11 +43,17 @@ export function ConsentBanner() {
     getConsentServerSnapshot,
   );
   const [manage, setManage] = useState(false);
+  const consentLoaded = useSyncExternalStore(
+    subscribeHydration,
+    () => true,
+    () => false,
+  );
+
   function choose(value: Exclude<AnalyticsConsent, null>) {
     storeConsent(value);
     setManage(false);
   }
-  if (consent !== null) return null;
+  if (!consentLoaded || consent !== null) return null;
   return (
     <>
       <aside
