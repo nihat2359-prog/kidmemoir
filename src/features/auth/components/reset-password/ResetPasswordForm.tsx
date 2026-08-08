@@ -20,6 +20,7 @@ import {
 } from "@/features/auth/schemas/resetPasswordSchema";
 import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { analytics } from "@/lib/analytics";
 
 const inputClassName =
   "bg-background/65 group-hover:border-primary/25 focus-visible:bg-background/85 h-12 rounded-lg pr-12 pl-11 backdrop-blur-xl transition-[border-color,box-shadow,background-color]";
@@ -68,6 +69,7 @@ export function ResetPasswordForm({
 
     try {
       await updatePassword(values.password);
+      analytics.track("password_reset");
       await signOut();
       router.replace(`${AUTH_ROUTES.login}?reset=success`);
       router.refresh();

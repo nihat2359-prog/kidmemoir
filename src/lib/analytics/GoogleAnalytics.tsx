@@ -31,6 +31,21 @@ export function AnalyticsRouteTracker() {
   const lastPath = useRef<string | null>(null);
 
   useEffect(() => {
+    function reportAuthEvent() {
+      if (!window.gtag) return;
+      const match = document.cookie.match(/(?:^|; )km_auth_event=([^;]+)/);
+      const eventName = match?.[1] as AnalyticsEventName | undefined;
+      if (!eventName) return;
+      analytics.track(eventName);
+      document.cookie = "km_auth_event=; Max-Age=0; Path=/; SameSite=Lax";
+    }
+    reportAuthEvent();
+    window.addEventListener("kidmemoir:analytics-ready", reportAuthEvent);
+    return () =>
+      window.removeEventListener("kidmemoir:analytics-ready", reportAuthEvent);
+  }, []);
+
+  useEffect(() => {
     const query = searchParams.toString();
     const path = query ? `${pathname}?${query}` : pathname;
     function report() {

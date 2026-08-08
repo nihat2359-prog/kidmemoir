@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import {
-  LoginDivider,
-  LoginFooter,
-  LoginForm,
-  SocialLoginPlaceholders,
-} from "@/features/auth/components/login";
+import { LoginFooter, LoginForm } from "@/features/auth/components/login";
 import { AuthLayout } from "@/features/auth/components/layout";
+import {
+  EmailAuthDisclosure,
+  OAuthButtons,
+} from "@/features/auth/components/OAuthButtons";
 import { routing } from "@/i18n/routing";
 
 type LoginPageProps = Readonly<{
@@ -16,6 +15,7 @@ type LoginPageProps = Readonly<{
   searchParams: Promise<{
     reset?: string | string[];
     verified?: string | string[];
+    oauth_error?: string | string[];
   }>;
 }>;
 
@@ -42,7 +42,11 @@ export default async function LoginPage({
 
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "auth.login" });
-  const { reset, verified } = await searchParams;
+  const { oauth_error: oauthError, reset, verified } = await searchParams;
+  const safeOAuthError =
+    oauthError === "cancelled" || oauthError === "sessionExpired"
+      ? oauthError
+      : undefined;
 
   return (
     <AuthLayout
@@ -51,12 +55,17 @@ export default async function LoginPage({
       footer={<LoginFooter />}
       title={t("title")}
     >
-      <LoginForm
-        emailVerified={verified === "true"}
-        passwordReset={reset === "success"}
-      />
-      <LoginDivider />
-      <SocialLoginPlaceholders />
+      <div className="space-y-5">
+        <OAuthButtons initialError={safeOAuthError} />
+        <EmailAuthDisclosure
+          initialOpen={verified === "true" || reset === "success"}
+        >
+          <LoginForm
+            emailVerified={verified === "true"}
+            passwordReset={reset === "success"}
+          />
+        </EmailAuthDisclosure>
+      </div>
     </AuthLayout>
   );
 }

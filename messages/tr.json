@@ -349,6 +349,20 @@
         "reminderMeta": "Yarın · 10.30"
       }
     },
+    "oauth": {
+      "continueGoogle": "Google ile devam et",
+      "continueApple": "Apple ile devam et",
+      "continueEmail": "E-posta ile devam et",
+      "or": "veya",
+      "tagline": "Bugünün anılarını yarınlar için saklayın.",
+      "errors": {
+        "title": "Devam edilemedi",
+        "unknown": "Bu giriş yöntemi geçici olarak kullanılamıyor. Lütfen tekrar deneyin.",
+        "cancelled": "Giriş işlemi iptal edildi. Hazır olduğunuzda tekrar deneyebilirsiniz.",
+        "network": "Bağlantı hatası oluştu. Lütfen bağlantınızı kontrol edin.",
+        "sessionExpired": "Güvenli oturumun süresi doldu. Lütfen yeniden başlayın."
+      }
+    },
     "login": {
       "eyebrow": "Güvenli giriş",
       "title": "Tekrar hoş geldiniz.",

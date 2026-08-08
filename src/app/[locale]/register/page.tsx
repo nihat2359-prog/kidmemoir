@@ -4,11 +4,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { AuthLayout } from "@/features/auth/components/layout";
 import {
-  RegisterDivider,
   RegisterFooter,
   RegisterForm,
-  SocialRegisterPlaceholders,
 } from "@/features/auth/components/register";
+import {
+  EmailAuthDisclosure,
+  OAuthButtons,
+} from "@/features/auth/components/OAuthButtons";
 import { routing } from "@/i18n/routing";
 
 type RegisterPageProps = Readonly<{
@@ -46,9 +48,12 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
       footer={<RegisterFooter />}
       title={t("title")}
     >
-      <RegisterForm />
-      <RegisterDivider />
-      <SocialRegisterPlaceholders />
+      <div className="space-y-5">
+        <OAuthButtons />
+        <EmailAuthDisclosure>
+          <RegisterForm />
+        </EmailAuthDisclosure>
+      </div>
     </AuthLayout>
   );
 }

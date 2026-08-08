@@ -17,16 +17,16 @@ export async function DashboardExperience({
   locale: AppLocale;
 }) {
   return (
-    <main className="relative isolate min-h-svh overflow-hidden">
+    <main className="relative isolate min-h-svh w-full max-w-full overflow-x-clip">
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
         <div className="landing-background-base absolute inset-0" />
         <div className="bg-primary/9 absolute -top-48 -left-40 size-[38rem] rounded-full blur-3xl" />
         <div className="bg-ai/6 absolute top-1/3 -right-48 size-[40rem] rounded-full blur-3xl" />
       </div>
-      <div className="mx-auto w-full max-w-[90rem] px-4 py-8 sm:px-6 sm:py-12 lg:px-10 lg:py-16 2xl:px-12">
-        <section className="from-primary/13 via-card/78 to-ai/11 relative overflow-hidden rounded-[2.5rem] border border-white/55 bg-gradient-to-br shadow-[0_28px_90px_-48px_rgba(67,56,202,0.5)] dark:border-white/10">
-          <div className="grid items-stretch lg:grid-cols-[1.08fr_0.92fr]">
-            <div className="relative z-10 flex flex-col justify-center p-7 sm:p-10 lg:p-12 xl:p-14">
+      <div className="mx-auto w-full max-w-[90rem] min-w-0 overflow-x-clip px-4 py-8 sm:px-6 sm:py-12 lg:px-10 lg:py-16 2xl:px-12">
+        <section className="from-primary/13 via-card/78 to-ai/11 relative w-full max-w-full min-w-0 overflow-hidden rounded-[2.5rem] border border-white/55 bg-gradient-to-br shadow-[0_28px_90px_-48px_rgba(67,56,202,0.5)] dark:border-white/10">
+          <div className="grid min-w-0 items-stretch lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
+            <div className="relative z-10 flex min-w-0 flex-col justify-center p-7 sm:p-10 lg:p-12 xl:p-14">
               <Greeting
                 childName={data.child.firstName}
                 firstName={data.profileFirstName}
@@ -40,7 +40,7 @@ export async function DashboardExperience({
                 />
               ) : null}
             </div>
-            <div className="mx-3 mb-3 self-start rounded-[2rem] border border-white/45 bg-white/30 shadow-xl backdrop-blur-xl sm:mx-5 sm:mb-5 lg:m-5 lg:ml-0 lg:self-center dark:border-white/10 dark:bg-white/5">
+            <div className="mx-3 mb-3 max-w-full min-w-0 self-start rounded-[2rem] border border-white/45 bg-white/30 shadow-xl backdrop-blur-xl sm:mx-5 sm:mb-5 lg:m-5 lg:ml-0 lg:self-center dark:border-white/10 dark:bg-white/5">
               <CurrentChildCard
                 child={data.child}
                 locale={locale}
@@ -67,18 +67,18 @@ export async function DashboardExperience({
             <OnThisDaySection locale={locale} memories={data.onThisDay} />
           </div>
         )}
-        <div className="mt-10 grid items-start gap-5 sm:mt-14 sm:gap-6 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-12">
+        <div className="mt-10 grid w-full max-w-full min-w-0 grid-cols-1 items-start gap-5 sm:mt-14 sm:gap-6 lg:grid-cols-12 lg:gap-8">
+          <div className="max-w-full min-w-0 lg:col-span-12">
             <RecentMemories locale={locale} memories={data.recentMemories} />
           </div>
-          <div className="lg:col-span-12">
+          <div className="max-w-full min-w-0 lg:col-span-12">
             <UpcomingEvents
               child={data.child}
               locale={locale}
               reminders={data.reminders}
             />
           </div>
-          <div className="lg:col-span-12">
+          <div className="max-w-full min-w-0 lg:col-span-12">
             <AIInsight
               available={data.aiAvailable}
               insight={data.insight}
@@ -86,7 +86,7 @@ export async function DashboardExperience({
               locale={locale}
             />
           </div>
-          <div className="lg:col-span-12">
+          <div className="max-w-full min-w-0 lg:col-span-12">
             <TimelinePreview
               childName={data.child.firstName}
               locale={locale}

@@ -30,8 +30,8 @@ export async function UpcomingEvents({
         href="/reminders"
         title={t("title")}
       />
-      <ul className="-mx-5 flex snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain px-5 pb-2 sm:-mx-8 sm:px-8 [&::-webkit-scrollbar]:hidden">
-        <li className="from-primary/12 via-background/65 to-ai/8 relative min-h-44 w-[17rem] shrink-0 snap-start overflow-hidden rounded-[1.75rem] border bg-gradient-to-br p-5 shadow-sm sm:w-[20rem] sm:p-6">
+      <ul className="-mx-5 grid w-auto max-w-[calc(100%+2.5rem)] min-w-0 snap-x snap-mandatory [scrollbar-width:none] auto-cols-[100%] grid-flow-col gap-4 overflow-x-auto overscroll-x-contain px-5 pb-2 sm:-mx-8 sm:max-w-[calc(100%+4rem)] sm:auto-cols-[20rem] sm:px-8 [&::-webkit-scrollbar]:hidden">
+        <li className="from-primary/12 via-background/65 to-ai/8 relative min-h-40 w-full min-w-0 snap-start overflow-hidden rounded-[1.5rem] border bg-gradient-to-br p-5 shadow-sm sm:min-h-44 sm:rounded-[1.75rem] sm:p-6">
           <div className="relative z-10 flex items-start gap-4">
             <span className="bg-background text-primary grid size-12 shrink-0 place-items-center rounded-2xl shadow-sm">
               <Cake aria-hidden className="size-5" />
@@ -61,7 +61,7 @@ export async function UpcomingEvents({
         </li>
         {reminders.map((reminder) => (
           <li
-            className="bg-background/55 hover:border-primary/20 flex min-h-44 w-[17rem] shrink-0 snap-start flex-col justify-between gap-5 rounded-[1.75rem] border p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none sm:w-[20rem]"
+            className="bg-background/55 hover:border-primary/20 flex min-h-40 w-full min-w-0 snap-start flex-col justify-between gap-5 rounded-[1.5rem] border p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none sm:min-h-44 sm:rounded-[1.75rem]"
             key={reminder.id}
           >
             <span className="bg-muted grid size-11 shrink-0 place-items-center rounded-2xl">
@@ -82,7 +82,7 @@ export async function UpcomingEvents({
           </li>
         ))}
         {reminders.length === 0 ? (
-          <li className="bg-muted/25 text-muted-foreground flex min-h-44 w-[17rem] shrink-0 snap-start flex-col items-center justify-center rounded-[1.75rem] border border-dashed p-5 text-center text-sm sm:w-[20rem]">
+          <li className="bg-muted/25 text-muted-foreground flex min-h-40 w-full min-w-0 snap-start flex-col items-center justify-center rounded-[1.5rem] border border-dashed p-5 text-center text-sm sm:min-h-44 sm:rounded-[1.75rem]">
             <Bell aria-hidden className="text-primary/70 size-6" />
             <p className="mt-3 max-w-56 leading-6">{t("noReminders")}</p>
           </li>

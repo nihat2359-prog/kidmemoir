@@ -19,6 +19,13 @@ export type SignInCredentials = Readonly<{
   rememberMe?: boolean;
 }>;
 
+export type OAuthProvider = "apple" | "google";
+
+export type OAuthSignInRequest = Readonly<{
+  provider: OAuthProvider;
+  redirectTo: string;
+}>;
+
 export type SignUpCredentials = Readonly<{
   email: string;
   emailRedirectTo: string;

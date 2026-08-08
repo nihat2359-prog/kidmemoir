@@ -7,6 +7,7 @@ import { normalizeAuthError } from "@/features/auth/errors/normalizeAuthError";
 import type {
   SignInCredentials,
   PasswordResetRequest,
+  OAuthSignInRequest,
   SignUpCredentials,
 } from "@/features/auth/types/auth.types";
 import { getClientEnvironment } from "@/lib/env/client";
@@ -62,6 +63,19 @@ export function createAuthService(supabase: SupabaseClient<Database>) {
       }
 
       return data.session;
+    },
+
+    async signInWithOAuth({ provider, redirectTo }: OAuthSignInRequest) {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo,
+          skipBrowserRedirect: false,
+        },
+      });
+
+      if (error) throw normalizeAuthError(error);
+      return data;
     },
 
     async signUp({

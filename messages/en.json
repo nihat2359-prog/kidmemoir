@@ -347,6 +347,20 @@
         "reminderMeta": "Tomorrow · 10:30 AM"
       }
     },
+    "oauth": {
+      "continueGoogle": "Continue with Google",
+      "continueApple": "Continue with Apple",
+      "continueEmail": "Continue with email",
+      "or": "or",
+      "tagline": "Capture today's memories for tomorrow.",
+      "errors": {
+        "title": "Unable to continue",
+        "unknown": "This sign-in method is temporarily unavailable. Please try again.",
+        "cancelled": "Sign-in was cancelled. You can try again whenever you are ready.",
+        "network": "A connection error occurred. Please check your connection.",
+        "sessionExpired": "Your secure session expired. Please start again."
+      }
+    },
     "login": {
       "eyebrow": "Secure sign in",
       "title": "Welcome back.",

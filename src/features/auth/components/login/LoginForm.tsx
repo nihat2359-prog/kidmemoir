@@ -83,6 +83,7 @@ export function LoginForm({
 
       analytics.identify(session.user.id);
       analytics.track("login", { method: "email" });
+      analytics.track("login_email");
       router.replace(AUTH_REDIRECTS.authenticated);
     } catch (error) {
       const normalizedError = normalizeAuthError(error);

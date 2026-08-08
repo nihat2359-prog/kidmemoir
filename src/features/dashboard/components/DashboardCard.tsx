@@ -14,7 +14,7 @@ export function DashboardCard({
     <section
       aria-label={label}
       className={cn(
-        "border-border/55 bg-card/72 rounded-[2rem] border p-6 shadow-sm backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 motion-reduce:transition-none sm:p-8",
+        "border-border/55 bg-card/72 w-full max-w-full min-w-0 rounded-[2rem] border p-6 shadow-sm backdrop-blur-sm transition-[border-color,box-shadow,transform] duration-300 motion-reduce:transition-none sm:p-8",
         className,
       )}
     >

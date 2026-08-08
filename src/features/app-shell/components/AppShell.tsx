@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { BottomNavigation } from "@/features/app-shell/components/BottomNavigation";
 import { ThemePreferenceSync } from "@/features/app-shell/components/ThemePreferenceSync";
 import { TopHeader } from "@/features/app-shell/components/TopHeader";
 import type { AppShellData } from "@/features/app-shell/types/appShell.types";
@@ -25,12 +24,11 @@ export function AppShell({
       </div>
       <TopHeader data={data} />
       <div
-        className="min-h-[calc(100svh-4rem)] pb-20 lg:pb-0 [&>main>div]:pt-6 [&>main>div>nav:first-child]:hidden"
+        className="min-h-[calc(100svh-4rem)] [&>main>div]:pt-6 [&>main>div>nav:first-child]:hidden"
         id="application-content"
       >
         {children}
       </div>
-      <BottomNavigation />
     </div>
   );
 }

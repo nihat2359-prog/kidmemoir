@@ -29,7 +29,7 @@ export async function getMemoryDetail(user: User, eventId: string) {
   if (child.error)
     throw new Error("MEMORY_DETAIL_OWNER_FAILED", { cause: child.error });
   if (!child.data) return null;
-  const [category, media, insight, connections] = await Promise.all([
+  const [category, media] = await Promise.all([
     supabase
       .from("event_categories")
       .select("name")
@@ -37,12 +37,10 @@ export async function getMemoryDetail(user: User, eventId: string) {
       .maybeSingle(),
     supabase
       .from("event_media")
-      .select("id,media_type,storage_path,file_name,mime_type,duration")
+      .select("id,media_type,storage_path,file_name,mime_type")
       .eq("event_id", eventId)
       .is("archived_at", null)
       .order("created_at"),
-    getMemoryInsight(user, event.data.child_id, eventId),
-    getMemoryConnections(user, event.data.child_id, eventId),
   ]);
   if (category.error || media.error)
     throw new Error("MEMORY_DETAIL_RELATIONS_FAILED", {
@@ -52,8 +50,19 @@ export async function getMemoryDetail(user: User, eventId: string) {
   const signed = paths.length
     ? await supabase.storage.from("event-media").createSignedUrls(paths, 3600)
     : { data: [], error: null };
-  if (signed.error)
-    throw new Error("MEMORY_DETAIL_MEDIA_URL_FAILED", { cause: signed.error });
+  if (signed.error) console.error("Memory detail media URL unavailable");
+  const [insightResult, connectionsResult] = await Promise.allSettled([
+    getMemoryInsight(user, event.data.child_id, eventId),
+    getMemoryConnections(user, event.data.child_id, eventId),
+  ]);
+  if (insightResult.status === "rejected")
+    console.error("Memory detail insight unavailable");
+  if (connectionsResult.status === "rejected")
+    console.error("Memory detail connections unavailable");
+  const insight =
+    insightResult.status === "fulfilled" ? insightResult.value : null;
+  const connections =
+    connectionsResult.status === "fulfilled" ? connectionsResult.value : [];
   const urls = new Map(
     (signed.data ?? []).map((item, index) => [paths[index], item.signedUrl]),
   );

@@ -41,9 +41,9 @@ export async function AIInsight({
         </div>
       </div>
       {insight ? (
-        <div className="relative z-10 space-y-4">
+        <div className="relative z-10 max-w-full min-w-0 space-y-4">
           <div className="bg-background/50 rounded-[1.4rem] border p-4 text-sm leading-7 shadow-sm backdrop-blur-md sm:rounded-[1.75rem] sm:p-8 sm:text-base sm:leading-8">
-            <p className="text-pretty">{insight.summary}</p>
+            <p className="text-pretty break-words">{insight.summary}</p>
             {insight.quote ? (
               <blockquote className="border-primary/35 text-foreground/80 mt-4 border-l-2 pl-4 text-sm italic">
                 “{insight.quote}”
@@ -56,7 +56,7 @@ export async function AIInsight({
             </footer>
           </div>
           {intelligence && (
-            <dl className="grid gap-3 sm:grid-cols-2">
+            <dl className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="bg-background/45 rounded-2xl border p-4">
                 <dt className="text-muted-foreground flex items-center gap-2 text-xs font-medium">
                   <Sprout aria-hidden className="size-4" /> {t("notable")}

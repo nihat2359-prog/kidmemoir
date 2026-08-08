@@ -36,7 +36,7 @@ export async function RecentMemories({
           title={t("emptyTitle")}
         />
       ) : (
-        <ul className="grid gap-3.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        <ul className="grid min-w-0 grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {memories.map((memory, index) => (
             <li
               className={`group from-journal/9 via-background/70 to-primary/5 hover:border-journal/25 relative overflow-hidden rounded-[1.5rem] border bg-gradient-to-br shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transform-none motion-reduce:transition-none ${index === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}

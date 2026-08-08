@@ -108,6 +108,7 @@ export function RegisterForm({ isLoading = false }: RegisterFormProps) {
       }
 
       analytics.track("sign_up", { method: "email" });
+      analytics.track("signup_email");
       router.replace(AUTH_ROUTES.verifyEmail);
       router.refresh();
     } catch (error) {

@@ -78,11 +78,11 @@ export function UserMenu({ data }: { data: AppShellData }) {
       <DropdownMenuTrigger asChild>
         <Button
           aria-label={t("account.openLabel")}
-          className="ml-1 size-10 rounded-full p-0"
+          className="from-primary/12 to-ai/12 ml-1 size-11 rounded-full border border-white/45 bg-gradient-to-br p-0 shadow-sm transition-[transform,box-shadow] duration-200 hover:scale-[1.03] hover:shadow-md focus-visible:ring-2 dark:border-white/10"
           variant="ghost"
         >
           <Avatar
-            className="size-9 text-xs"
+            className="ring-background size-9.5 text-xs ring-2"
             imageUrl={data.profileAvatarUrl}
             label={t("account.avatarLabel", { name })}
             name={name}
@@ -91,7 +91,8 @@ export function UserMenu({ data }: { data: AppShellData }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="max-h-[min(44rem,calc(100svh-5rem))] w-[min(23rem,calc(100vw-2rem))] overflow-y-auto p-2"
+        sideOffset={10}
+        className="bg-popover/95 w-[min(24rem,calc(100vw-1.25rem))] overflow-visible rounded-[1.5rem] border-white/55 p-2.5 shadow-[0_28px_90px_-32px_rgba(15,23,42,0.48)] backdrop-blur-2xl dark:border-white/10"
       >
         <KidMemoirAccountCard
           data={data}
@@ -105,52 +106,84 @@ export function UserMenu({ data }: { data: AppShellData }) {
           }}
           lastLogin={lastLogin}
         />
-        <div className="mt-2">
-          {menuItems.slice(0, 4).map(({ href, icon: Icon, key }) => (
-            <DropdownMenuItem asChild key={key}>
-              <Link href={href}>
-                <Icon aria-hidden />
-                {t(`menu.${key}`)}
-              </Link>
-            </DropdownMenuItem>
-          ))}
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="gap-2">
-              <Languages aria-hidden className="size-4" />
-              {t("menu.language")}
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="w-44">
-              <LanguageSwitcher />
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="gap-2">
-              <Palette aria-hidden className="size-4" />
-              {t("menu.theme")}
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="w-44">
-              <ThemeSwitcher />
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
-          <DropdownMenuSeparator />
-          {menuItems.slice(4).map(({ href, icon: Icon, key }) => (
-            <DropdownMenuItem asChild key={key}>
-              <Link href={href}>
-                <Icon aria-hidden />
-                {t(`menu.${key}`)}
-              </Link>
-            </DropdownMenuItem>
-          ))}
-          <DropdownMenuSeparator />
+        <div className="mt-2 space-y-1">
+          <div className="grid grid-cols-2 gap-1">
+            {menuItems.slice(0, 4).map(({ href, icon: Icon, key }) => (
+              <DropdownMenuItem
+                asChild
+                className="group min-h-10 min-w-0 rounded-xl px-2"
+                key={key}
+              >
+                <Link href={href}>
+                  <span className="bg-muted/65 text-muted-foreground group-focus:bg-primary/12 group-focus:text-primary grid size-7 shrink-0 place-items-center rounded-lg transition-colors">
+                    <Icon aria-hidden className="size-3.5" />
+                  </span>
+                  <span className="min-w-0 flex-1 truncate text-xs font-medium">
+                    {t(`menu.${key}`)}
+                  </span>
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-1">
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="group min-h-10 min-w-0 gap-2 rounded-xl px-2 text-xs">
+                <span className="bg-muted/65 text-muted-foreground group-focus:bg-primary/12 group-focus:text-primary grid size-7 shrink-0 place-items-center rounded-lg transition-colors">
+                  <Languages aria-hidden className="size-3.5" />
+                </span>
+                <span className="min-w-0 truncate font-medium">
+                  {t("menu.language")}
+                </span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className="w-48 rounded-xl p-2 shadow-xl">
+                <LanguageSwitcher />
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="group min-h-10 min-w-0 gap-2 rounded-xl px-2 text-xs">
+                <span className="bg-muted/65 text-muted-foreground group-focus:bg-primary/12 group-focus:text-primary grid size-7 shrink-0 place-items-center rounded-lg transition-colors">
+                  <Palette aria-hidden className="size-3.5" />
+                </span>
+                <span className="min-w-0 truncate font-medium">
+                  {t("menu.theme")}
+                </span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className="w-48 rounded-xl p-2 shadow-xl">
+                <ThemeSwitcher />
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </div>
+          <DropdownMenuSeparator className="my-1.5" />
+          <div className="grid grid-cols-2 gap-1">
+            {menuItems.slice(4).map(({ href, icon: Icon, key }) => (
+              <DropdownMenuItem
+                asChild
+                className="group min-h-10 min-w-0 rounded-xl px-2"
+                key={key}
+              >
+                <Link href={href}>
+                  <span className="bg-muted/65 text-muted-foreground group-focus:bg-primary/12 group-focus:text-primary grid size-7 shrink-0 place-items-center rounded-lg transition-colors">
+                    <Icon aria-hidden className="size-3.5" />
+                  </span>
+                  <span className="min-w-0 flex-1 truncate text-xs font-medium">
+                    {t(`menu.${key}`)}
+                  </span>
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </div>
+          <DropdownMenuSeparator className="my-1.5" />
           <DropdownMenuItem
-            className="text-danger focus:bg-danger/10 focus:text-danger"
+            className="text-danger focus:bg-danger/10 focus:text-danger min-h-10 gap-2 rounded-xl px-2 text-xs font-medium"
             disabled={isSigningOut}
             onSelect={logout}
           >
-            <LogOut
-              aria-hidden
-              className={isSigningOut ? "animate-pulse" : ""}
-            />
+            <span className="bg-danger/10 grid size-7 place-items-center rounded-lg">
+              <LogOut
+                aria-hidden
+                className={isSigningOut ? "size-3.5 animate-pulse" : "size-3.5"}
+              />
+            </span>
             {isSigningOut ? t("menu.signingOut") : t("menu.logout")}
           </DropdownMenuItem>
         </div>

@@ -7,6 +7,7 @@ import type {
   AuthRole,
   AuthState,
   PasswordResetRequest,
+  OAuthSignInRequest,
   SignInCredentials,
   SignUpCredentials,
 } from "@/features/auth/types/auth.types";
@@ -23,6 +24,7 @@ export type AuthContextValue = AuthState &
     refreshSession: () => Promise<Session | null>;
     requestPasswordReset: (request: PasswordResetRequest) => Promise<void>;
     signIn: (credentials: SignInCredentials) => Promise<Session | null>;
+    signInWithOAuth: (request: OAuthSignInRequest) => Promise<void>;
     signUp: (credentials: SignUpCredentials) => Promise<User | null>;
     signOut: () => Promise<void>;
     updatePassword: (password: string) => Promise<User>;
@@ -42,6 +44,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     requestPasswordReset,
     session,
     signIn,
+    signInWithOAuth,
     signOut,
     signUp,
     updatePassword,
@@ -67,6 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       requestPasswordReset,
       session,
       signIn,
+      signInWithOAuth,
       signUp,
       signOut,
       user,
@@ -81,6 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       requestPasswordReset,
       session,
       signIn,
+      signInWithOAuth,
       signUp,
       signOut,
       user,

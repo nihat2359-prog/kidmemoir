@@ -74,36 +74,47 @@ export function TimelinePreviewCarousel({
   const [activeIndex, setActiveIndex] = useState(0);
 
   function move(direction: -1 | 1) {
+    const scroller = scrollerRef.current;
     const track = trackRef.current;
-    if (!track) return;
+    if (!scroller || !track) return;
     const nextIndex = Math.min(
       Math.max(activeIndex + direction, 0),
       items.length - 1,
     );
     setActiveIndex(nextIndex);
     const target = track.children.item(nextIndex) as HTMLElement | null;
-    target?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
+    if (!target) return;
+    const left =
+      target.offsetLeft - (scroller.clientWidth - target.offsetWidth) / 2;
+    scroller.scrollTo({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      left: Math.max(0, left),
     });
   }
 
   return (
-    <div>
+    <div className="w-full max-w-full min-w-0 overflow-hidden">
       <div
-        className="relative -mx-5 snap-x snap-mandatory scroll-px-5 [scrollbar-width:none] overflow-x-auto overscroll-x-contain px-5 pb-4 sm:-mx-8 sm:scroll-px-8 sm:px-8 [&::-webkit-scrollbar]:hidden"
+        className="relative -mx-5 w-auto max-w-[calc(100%+2.5rem)] min-w-0 snap-x snap-mandatory scroll-px-5 [scrollbar-width:none] overflow-x-auto overscroll-x-contain px-5 pb-4 sm:-mx-8 sm:max-w-[calc(100%+4rem)] sm:scroll-px-8 sm:px-8 [&::-webkit-scrollbar]:hidden"
         onScroll={(event) => {
           const scroller = event.currentTarget;
-          const cardWidth =
-            (trackRef.current?.firstElementChild as HTMLElement | null)
-              ?.offsetWidth ?? 1;
-          setActiveIndex(
-            Math.min(
-              Math.round(scroller.scrollLeft / (cardWidth + 20)),
-              items.length - 1,
-            ),
-          );
+          const center = scroller.scrollLeft + scroller.clientWidth / 2;
+          const cards = Array.from(trackRef.current?.children ?? []);
+          let nearestIndex = 0;
+          let nearestDistance = Number.POSITIVE_INFINITY;
+          cards.forEach((card, index) => {
+            const element = card as HTMLElement;
+            const distance = Math.abs(
+              element.offsetLeft + element.offsetWidth / 2 - center,
+            );
+            if (distance < nearestDistance) {
+              nearestDistance = distance;
+              nearestIndex = index;
+            }
+          });
+          setActiveIndex(nearestIndex);
         }}
         onWheel={(event) => {
           const scroller = event.currentTarget;

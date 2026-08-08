@@ -14,6 +14,7 @@ import { createAuthService } from "@/features/auth/services/authService";
 import type {
   SignInCredentials,
   PasswordResetRequest,
+  OAuthSignInRequest,
   SignUpCredentials,
 } from "@/features/auth/types/auth.types";
 import { createClient } from "@/lib/supabase/client";
@@ -26,6 +27,7 @@ export type SessionContextValue = Readonly<{
   requestPasswordReset: (request: PasswordResetRequest) => Promise<void>;
   session: Session | null;
   signIn: (credentials: SignInCredentials) => Promise<Session | null>;
+  signInWithOAuth: (request: OAuthSignInRequest) => Promise<void>;
   signUp: (credentials: SignUpCredentials) => Promise<User | null>;
   signOut: () => Promise<void>;
   updatePassword: (password: string) => Promise<User>;
@@ -118,6 +120,23 @@ export function SessionProvider({ children }: SessionProviderProps) {
     [authService],
   );
 
+  const signInWithOAuth = useCallback(
+    async (request: OAuthSignInRequest) => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        await authService.signInWithOAuth(request);
+      } catch (oauthError) {
+        const normalizedError = normalizeAuthError(oauthError);
+        setError(normalizedError);
+        throw normalizedError;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [authService],
+  );
+
   const signOut = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -201,6 +220,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
       requestPasswordReset,
       session,
       signIn,
+      signInWithOAuth,
       signUp,
       signOut,
       updatePassword,
@@ -212,6 +232,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
       requestPasswordReset,
       session,
       signIn,
+      signInWithOAuth,
       signOut,
       signUp,
       updatePassword,

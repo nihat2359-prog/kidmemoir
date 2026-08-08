@@ -167,9 +167,11 @@ export function DropdownMenuSubContent({
   ...props
 }: ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
   return (
-    <DropdownMenuPrimitive.SubContent
-      className={cn(contentClassName, className)}
-      {...props}
-    />
+    <DropdownMenuPrimitive.Portal>
+      <DropdownMenuPrimitive.SubContent
+        className={cn(contentClassName, className)}
+        {...props}
+      />
+    </DropdownMenuPrimitive.Portal>
   );
 }

@@ -22,6 +22,7 @@ import {
 } from "@/features/auth/schemas/forgotPasswordSchema";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { analytics } from "@/lib/analytics";
 
 export function ForgotPasswordForm() {
   const t = useTranslations("auth.forgotPassword");
@@ -62,6 +63,7 @@ export function ForgotPasswordForm() {
         email: values.email,
         redirectTo: redirectTo.toString(),
       });
+      analytics.track("forgot_password");
       setIsSent(true);
     } catch (error) {
       const normalizedError = normalizeAuthError(error);

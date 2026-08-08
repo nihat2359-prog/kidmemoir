@@ -31,6 +31,15 @@ export const ANALYTICS_EVENTS = [
   "ai_page_viewed",
   "ai_insight_opened",
   "account_deleted",
+  "login_google",
+  "signup_google",
+  "login_apple",
+  "signup_apple",
+  "login_email",
+  "signup_email",
+  "forgot_password",
+  "password_reset",
+  "email_verified",
 ] as const;
 
 export type AnalyticsEventName = (typeof ANALYTICS_EVENTS)[number];
